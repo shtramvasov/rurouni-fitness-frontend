@@ -1,0 +1,6 @@
+export { default as Dashboard }       from './Dashboard'
+export { default as Login }           from './Login'
+export { default as ExerciseList }    from './Exercises/ExerciseList'
+export { default as ExerciseDetail }  from './Exercises/ExerciseDetail'
+export { default as Workouts }        from './Workouts'
+export { default as Programs }        from './Programs'
