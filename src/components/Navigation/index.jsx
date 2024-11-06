@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, matchPath, useLocation } from 'react-router-dom'
 import { Box, Button, Grid2, Typography, useTheme, useMediaQuery, IconButton, SwipeableDrawer, Divider } from '@mui/material';
-import { Menu, CloseRounded } from '@mui/icons-material';
+import { Menu, CloseRounded, Person } from '@mui/icons-material';
 import { ROUTES } from '@constants/routes.constants';
 
 
@@ -10,7 +10,7 @@ function Navigation() {
   const location = useLocation()
   const theme = useTheme()
 
-  const isDesktopScreen = useMediaQuery(`(min-width: 1000px)`);
+  const isDesktopScreen = useMediaQuery(`(min-width: 1030px)`);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(true)
 
   // Функция для проверки, активен ли маршрут
@@ -59,12 +59,13 @@ function Navigation() {
             </Box>
 
             <Box sx={{ alignItems: 'center', display: 'flex', gap: 1.5, flex: 1, justifyContent: 'flex-end'}}>
+              <IconButton size='small'><Person /></IconButton>
               <Button variant='contained' color='primary' size='small'>Записать тренировку</Button>
             </Box>
           </>
         ) : (
           <Box sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
-            <IconButton onClick={() => setIsMobileNavOpen(true)} size='small'> <Menu /></IconButton>
+            <IconButton onClick={() => setIsMobileNavOpen(true)} size='small'><Menu /></IconButton>
           </Box>
         )}
       </Grid2>  
