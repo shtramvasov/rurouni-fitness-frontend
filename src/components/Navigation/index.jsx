@@ -10,7 +10,7 @@ function Navigation() {
   const location = useLocation()
   const theme = useTheme()
 
-  const isDesktopScreen = useMediaQuery(`(min-width: 1030px)`);
+  const isDesktopScreen = useMediaQuery(`(min-width: 1060px)`);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(true)
 
   // Функция для проверки, активен ли маршрут
