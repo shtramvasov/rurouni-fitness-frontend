@@ -19,12 +19,14 @@ function ListSection() {
 
   const { exercisesList } = useSelector(state => state.exercises)
 
-  const searchQuery = searchParams.get("search");
-  const debouncedSearch = useDebounce(searchQuery, 500);
+  const debouncedSearch = useDebounce(searchParams, 500);
 
   useEffect(() => {
-    dispatch(getExercisesList({ params: { search: debouncedSearch } }))
-  } , [debouncedSearch])
+    dispatch(getExercisesList({ params: { 
+      search:  searchParams.get("search"),
+      order:   searchParams.get("order")
+    }})
+    )} , [debouncedSearch])
 
 
   // Обработка загрузки списка упражнений
@@ -58,7 +60,7 @@ function ListSection() {
     <Grid2 container spacing={2.5}>
       {exercisesList.data.map(exercise => (
         
-        <Grid2 key={exercise.exercise_id} size={{ xs: 12, md: 6, lg: 4, xl: 3, }}>
+        <Grid2 key={exercise.exercise_id} size={{ xs: 12, md: 6, lg: 4, xl: 3 }}>
           <Card 
             variant="outlined"  
             onClick={() => navigate(`${ROUTES.EXERCISES.PATH}/${exercise.exercise_id}`)}
