@@ -36,7 +36,7 @@ function Login() {
       const { display_name, username } = result.payload.user
 
       toast.success(`Добро пожаловать, ${display_name ?? username }`)
-      //navigate(ROUTES.DASHBOARD.PATH)
+      navigate(ROUTES.DASHBOARD.PATH)
     }
   }
   
