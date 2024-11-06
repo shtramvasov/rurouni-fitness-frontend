@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, Card, TextField, Button, FormControl, FormLabel, Link, CircularProgress, Stack, useTheme} from "@mui/material";
+import { Box, Typography, Card, TextField, Button, FormControl, FormLabel, Link, CircularProgress, Stack, useTheme } from "@mui/material";
 import { isLoading } from "@constants/redux.constants";
 import { isFulfilled } from "@reduxjs/toolkit";
 import { login, register } from "@store/slices/Auth/auth.thunks";
@@ -14,7 +14,7 @@ function Login() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const theme = useTheme();
-  const initialData = { username: '', password: '', email: '' }
+  const initialData = { username: '', password: '', email: '', display_name: '' }
 
   const { loginLS } = useSelector(store => store.auth)
 
@@ -24,19 +24,19 @@ function Login() {
   const submit = async () => {   
     if(isLoading(loginLS)) return;
 
-    const { username, password, email } = submitData;
+    const { username, password, email, display_name } = submitData;
 
     const action = isLogin 
       ? login({ username, password }) 
-      : register({ username, password, email });
+      : register({ username, password, email, display_name });
 
     const result = await dispatch(action);
 
     if(isFulfilled(result)) {
-      const { username } = result.payload.user
+      const { display_name, username } = result.payload.user
 
-      toast.success(`Добро пожаловать, ${username}`)
-      navigate(ROUTES.DASHBOARD.PATH)
+      toast.success(`Добро пожаловать, ${display_name ?? username }`)
+      //navigate(ROUTES.DASHBOARD.PATH)
     }
   }
   
@@ -77,19 +77,34 @@ function Login() {
         </Typography>
         <Box component="form" onSubmit={submit} sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 2 }}>
           <FormControl>
-            <FormLabel htmlFor="username">Имя пользователя</FormLabel>
+            <FormLabel htmlFor="username">Имя пользователя {!isLogin && <span style={{ color: theme.palette.red[300] }}>*</span>}</FormLabel>
             <TextField 
                 id="username"
                 required
                 fullWidth
-                placeholder="Имя пользователя"  
+                placeholder={`Имя пользователя ${isLogin ? 'или почта' : ''}` } 
                 value={submitData.username} 
                 onChange={(e) => setSubmitData(prev => ({ ...prev, username: e.target.value }))}
               />
           </FormControl>
 
+          {!isLogin && (
+            <FormControl>
+              <FormLabel htmlFor="email">Почта {!isLogin && <span style={{ color: theme.palette.red[300] }}>*</span>}</FormLabel>
+              <TextField 
+                id="email"
+                required
+                fullWidth
+                type="email"
+                placeholder="example@mail.com"
+                value={submitData.email} 
+                onChange={(e) => setSubmitData(prev => ({ ...prev, email: e.target.value }))}
+              />
+            </FormControl>
+          )}
+
           <FormControl>
-            <FormLabel htmlFor="password">Пароль</FormLabel>
+            <FormLabel htmlFor="password">Пароль {!isLogin && <span style={{ color: theme.palette.red[300] }}>*</span>}</FormLabel>
             <TextField 
                 id="password"
                 type="password"
@@ -103,17 +118,16 @@ function Login() {
 
           {!isLogin && (
             <FormControl>
-              <FormLabel htmlFor="email">Почта</FormLabel>
-              <TextField 
-                id="email"
+            <FormLabel htmlFor="display_name">Отображаемое имя в профиле</FormLabel>
+            <TextField 
+                id="display_name"
                 required
                 fullWidth
-                type="email"
-                placeholder="example@mail.com"
-                value={submitData.email} 
-                onChange={(e) => setSubmitData(prev => ({ ...prev, email: e.target.value }))}
+                placeholder={`Отображаемое имя в профиле` } 
+                value={submitData.display_name} 
+                onChange={(e) => setSubmitData(prev => ({ ...prev, display_name: e.target.value }))}
               />
-            </FormControl>
+          </FormControl>
           )}
 
           <Button sx={{ position: 'relative' }} disabled={isLoading(loginLS)} onClick={submit} fullWidth color="secondary" variant="contained">
