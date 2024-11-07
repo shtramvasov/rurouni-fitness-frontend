@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useSelector } from 'react-redux'
 import { Box, Grid2, InputAdornment, FormControl, OutlinedInput, IconButton, Divider, Tooltip, Menu, MenuItem, Typography, Badge, useTheme } from "@mui/material"
 import { SearchRounded, SortRounded, CloseRounded } from "@mui/icons-material"
 import { MUSCLE_GROUPS_OPTIONS } from "@constants/exercises.constants";
@@ -7,6 +8,8 @@ import { MUSCLE_GROUPS_OPTIONS } from "@constants/exercises.constants";
 
 function SearchSection() {
   const theme = useTheme()
+
+  const { exercisesList } = useSelector(state => state.exercises)
 
   const [searchParams, setSearchParams] = useSearchParams()
   const [orderMenu, setOrderMenu] = useState({ anchor: null, isOpen: false })
@@ -25,7 +28,7 @@ function SearchSection() {
         <OutlinedInput
           size="small"
           fullWidth
-          placeholder="Искать упражнение"
+          placeholder="Искать упражнение, группу мышц..."
           value={searchParams.get("search") ?? ''}
           onChange={(e) => updateSearchParams('search', e.target.value)}
           startAdornment={
@@ -73,7 +76,7 @@ function SearchSection() {
             <MenuItem 
               key={option.value}
               sx={{ py: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-              onClick={() => { updateSearchParams('order', option.value); setOrderMenu({ anchor: null, isOpen: false }) }} 
+              onClick={() => updateSearchParams('order', option.value)} 
               selected={searchParams.get("order") === option.value}
             >
               {option.title}

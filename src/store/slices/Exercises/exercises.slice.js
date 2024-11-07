@@ -27,7 +27,11 @@ const exercisesSlice = createSlice({
     builder.addCase(getExercisesList.pending,    (state) => { state.exercisesList.loadingStatus = LOADING_STATUS.LOADING })
     builder.addCase(getExercisesList.rejected,   (state) => { state.exercisesList.loadingStatus = LOADING_STATUS.FAILED })
     builder.addCase(getExercisesList.fulfilled,  (state, action) => {
-      state.exercisesList = { data: action.payload, loadingStatus: LOADING_STATUS.SUCCESS }
+      const { result, is_infinite } = action.payload
+
+      state.exercisesList.loadingStatus = LOADING_STATUS.SUCCESS
+
+      state.exercisesList.data = is_infinite ? [...state.exercisesList.data, ...result] : result
     });
 
     // getExerciseDetails
