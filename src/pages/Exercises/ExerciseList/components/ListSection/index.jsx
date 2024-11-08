@@ -3,11 +3,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { getExercisesList } from "@store/slices/Exercises/exercises.thunks";
 import { PAGINATION, isLoading, isSuccess, isFailed } from "@constants/redux.constants";
-import { Grid2, Card, Box, Typography, useTheme, LinearProgress, Button } from "@mui/material";
+import { Grid2, Card, Box, Typography, useTheme, LinearProgress, Button, CircularProgress } from "@mui/material";
 import { UIAlert } from "@components";
 import { ROUTES } from "@constants/routes.constants";
 import useDebounce from "@hooks/useDebounce";
-import { ChevronRightRounded, MoreHorizRounded } from "@mui/icons-material";
+import { ChevronRightRounded } from "@mui/icons-material";
 
 
 function ListSection() {
@@ -28,11 +28,14 @@ function ListSection() {
 
   const loadExercises  = async (is_infinite, offsetValue) => {
     if(!is_infinite) setInfiniteScroll(() => ({ offset: 0, hasReachedLimit: false }))
+    const search   = searchParams.get("search");
+    const order    = searchParams.get("order")
+
 
     const responce = await dispatch(getExercisesList({ 
       params: { 
-        search:  searchParams.get("search"),
-        order:   searchParams.get("order"),
+        search:  search,
+        order:   order,
         offset:  offsetValue ? offsetValue : undefined,
         limit:   PAGINATION.DEFAULT_LIMIT
       },
@@ -41,14 +44,14 @@ function ListSection() {
     
     const { result } = responce.payload;
 
-    if(result && result.length < PAGINATION.DEFAULT_LIMIT) {
+    if((result && result.length < PAGINATION.DEFAULT_LIMIT) || search) {
       setInfiniteScroll((prev) => ({ ...prev, hasReachedLimit: true }))
     } 
   }
 
   // Функция для загрузки дополнительных упражнений
   const loadMore = () => {
-    if (infiniteScroll.hasReachedLimit) return;
+    if (infiniteScroll.hasReachedLimit || isLoading(exercisesList.loadingStatus)) return;
 
     const newOffset = infiniteScroll.offset + PAGINATION.DEFAULT_LIMIT;
     setInfiniteScroll((prev) => ({ ...prev, offset: newOffset }))
@@ -63,7 +66,7 @@ function ListSection() {
   // Обработка бесконечной загрузки
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !isLoading(exercisesList.loadingStatus) && !infiniteScroll.hasReachedLimit) {
+        if (entries[0].isIntersecting) {
           loadMore();
         }
       },
@@ -132,7 +135,7 @@ function ListSection() {
             >
               <Typography sx={{ transition: "color 0.5s ease" }} className="exercise-name" variant="h5">{exercise.name}</Typography>
               <Typography sx={{ display: 'flex', alignItems: 'center', alignSelf: 'center'  }} variant="caption" fontWeight={300}>
-                Группа мышц
+                Упражнение на
                 <ChevronRightRounded sx={{ fontSize: 20, fill: theme.palette.brand[700] }} />
                 <Typography variant="caption" color={theme.palette.gray[700]} fontWeight={600}>{exercise.muscle_group}</Typography>
               </Typography>       
@@ -145,7 +148,7 @@ function ListSection() {
       {!infiniteScroll.hasReachedLimit && (
         <Grid2 ref={infiniteRef} container size={{ xs: 12, md: 3 }} sx={{ alignSelf: 'center', justifyContent: 'center' }} spacing={2}>
           <Button sx={{ bgcolor: theme.palette.gray[100] }} fullWidth variant="text">
-            <MoreHorizRounded sx={{ fill: theme.palette.gray[400] }} />          
+            <CircularProgress size={20} sx={{ color: theme.palette.gray[400] }} />      
           </Button>
         </Grid2>
       )}
