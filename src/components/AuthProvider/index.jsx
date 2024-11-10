@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkAuth } from '@store/slices/Auth/auth.thunks';
 import { isLoading } from '@constants/redux.constants';
 import { Box, LinearProgress, Typography } from '@mui/material';
+import { ROUTES } from '@constants/routes.constants';
 
 
 // Проверка авторизации перед рендерингом приложения
 function AuthProvider({ children }) {
   const [progress, setProgress] = useState(0);
-  const isAuthRequired = !['/login', '/registration'].includes(window.location.pathname);
+  const isAuthRequired = ![ROUTES.LOGIN.PATH].includes(window.location.pathname);
 
   const dispatch = useDispatch();
 
@@ -24,7 +25,7 @@ function AuthProvider({ children }) {
         try {
           const result = await dispatch(checkAuth()).unwrap();
 
-          if(!result.isAuth) window.location.replace('/login')
+          if(!result.isAuth) window.location.replace(ROUTES.LOGIN.PATH)
 
         } finally {
           clearInterval(interval)
