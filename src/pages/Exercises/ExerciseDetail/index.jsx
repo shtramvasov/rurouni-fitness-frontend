@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { getExerciseDetails } from "@store/slices/Exercises/exercises.thunks";
 import { isLoading, isSuccess, isFailed } from "@constants/redux.constants";
-import { ContainerWrapper } from "@components";
 import { Grid2, Card, Box, Typography, useTheme } from "@mui/material";
 
 function ExerciseDetail() {
@@ -20,9 +19,7 @@ function ExerciseDetail() {
   } ,[])
   
   return (
-    <ContainerWrapper>
-      <div>{exerciseDetails.data?.name} {exerciseDetails.data?.unit}</div>
-    </ContainerWrapper>
+    <div>{exerciseDetails.data?.name} {exerciseDetails.data?.unit}</div>
   )
 }
 
