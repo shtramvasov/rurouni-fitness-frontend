@@ -1,6 +1,6 @@
 import { createSlice  } from '@reduxjs/toolkit';
 import { LOADING_STATUS } from '@constants/redux.constants';
-import { getExercisesList, getExerciseDetails } from './exercises.thunks';
+import { getExercisesList, getExerciseDetails, getMuscleGroupUsedCount } from './exercises.thunks';
 
 const initialState = {
   exercisesList: {
@@ -11,6 +11,11 @@ const initialState = {
   exerciseDetails: {
     data: [],
     loadingStatus: LOADING_STATUS.IDLE
+  },
+
+  muscleGroupStats: {
+    data: [],
+    loadingStatus: LOADING_STATUS.IDLE
   }
 }
 
@@ -19,8 +24,9 @@ const exercisesSlice = createSlice({
   name: 'exercises',
   initialState: initialState,
   reducers: {
-    clearExercisesList(state)     { state.exercisesList   = initialState.exercisesList },
-    clearExerciseDetails(state)   { state.exerciseDetails = initialState.exerciseDetails },
+    clearExercisesList(state)     { state.exercisesList     = initialState.exercisesList },
+    clearExerciseDetails(state)   { state.exerciseDetails   = initialState.exerciseDetails },
+    clearMuscleGroupStats(state)  { state.muscleGroupStats  = initialState.muscleGroupStats },
   },
   extraReducers: (builder) => {
     // getExercisesList
@@ -41,10 +47,16 @@ const exercisesSlice = createSlice({
       state.exerciseDetails = { data: action.payload, loadingStatus: LOADING_STATUS.SUCCESS }
     });
 
+    // getMuscleGroupUsedCount
+    builder.addCase(getMuscleGroupUsedCount.pending,    (state) => { state.muscleGroupStats.loadingStatus = LOADING_STATUS.LOADING })
+    builder.addCase(getMuscleGroupUsedCount.rejected,   (state) => { state.muscleGroupStats.loadingStatus = LOADING_STATUS.FAILED })
+    builder.addCase(getMuscleGroupUsedCount.fulfilled,  (state, action) => {
+      state.muscleGroupStats = { data: action.payload, loadingStatus: LOADING_STATUS.SUCCESS }
+    });
     
   }
 });
 
 
-export const { clearExercisesList, clearExerciseDetails } = exercisesSlice.actions;
+export const { clearExercisesList, clearExerciseDetails, clearMuscleGroupStats } = exercisesSlice.actions;
 export default exercisesSlice.reducer;

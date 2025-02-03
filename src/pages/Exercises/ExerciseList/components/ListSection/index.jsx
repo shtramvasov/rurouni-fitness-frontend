@@ -3,8 +3,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { getExercisesList } from "@store/slices/Exercises/exercises.thunks";
 import { PAGINATION, isLoading, isSuccess, isFailed } from "@constants/redux.constants";
-import { Grid2, Card, Box, Typography, useTheme, LinearProgress, Button, CircularProgress } from "@mui/material";
-import { UIAlert } from "@components";
+import { Grid2, Box, Typography, useTheme, LinearProgress, Button, CircularProgress } from "@mui/material";
+import { UIAlert, CustomCard } from "@components";
 import { ROUTES } from "@constants/routes.constants";
 import useDebounce from "@hooks/useDebounce";
 import { ChevronRightRounded } from "@mui/icons-material";
@@ -115,21 +115,15 @@ function ListSection() {
         {exercisesList.data.map(exercise => (
           
           <Grid2 key={exercise.exercise_id} size={{ xs: 12, md: 6, lg: 4, xl: 3 }}>
-            <Card 
-              variant="outlined"  
+            <CustomCard 
               onClick={() => navigate(`${ROUTES.EXERCISES.PATH}/${exercise.exercise_id}`)}
-              sx={{ 
-                display: 'flex',
-                flexDirection: 'column',         
+              sx={{       
                 p: 3, 
                 minHeight: '100%',
                 justifyContent: 'center',
                 gap: 0.8,
                 textAlign: 'center', 
                 cursor: 'pointer',
-                transition: "box-shadow 0.5s ease",
-                boxShadow: theme.shadows[1],
-                "&:hover": { boxShadow: theme.shadows[2] },
                 "&:hover .exercise-name": { color: theme.palette.brand[400] },
               }}
             >
@@ -139,7 +133,7 @@ function ListSection() {
                 <ChevronRightRounded sx={{ fontSize: 20, fill: theme.palette.brand[700] }} />
                 <Typography variant="caption" color={theme.palette.gray[700]} fontWeight={600}>{exercise.muscle_group}</Typography>
               </Typography>       
-            </Card>
+            </CustomCard>
           </Grid2>        
         ))}
       </Grid2>

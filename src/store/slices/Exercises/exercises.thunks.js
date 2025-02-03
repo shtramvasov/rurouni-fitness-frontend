@@ -11,3 +11,8 @@ export const getExercisesList = createAsyncThunk(
 )
 
 export const getExerciseDetails = createAsyncThunk('auth/getExerciseDetails', async (id) => await ExercisesController.getExerciseDetails(id))
+
+export const getMuscleGroupUsedCount = createAsyncThunk(
+  'auth/getMuscleGroupUsedCount',
+  async (params) => await ExercisesController.getMuscleGroupUsedCount(params)
+)

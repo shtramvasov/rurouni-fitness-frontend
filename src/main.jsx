@@ -7,6 +7,10 @@ import { AuthProvider } from '@components';
 import { CssBaseline } from '@mui/material';
 import ThemeProvider from '@theme/ThemeProvider';
 import { Toaster } from 'react-hot-toast';
+import dayjs from "dayjs";
+import "dayjs/locale/ru"; 
+
+dayjs.locale("ru")
 
 
 createRoot(document.getElementById('root')).render(

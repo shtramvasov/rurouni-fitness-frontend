@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, Card, TextField, Button, FormControl, FormLabel, Link, CircularProgress, Stack, useTheme } from "@mui/material";
+import { Box, Typography, TextField, Button, FormControl, FormLabel, Link, CircularProgress, Stack, useTheme } from "@mui/material";
 import { isLoading } from "@constants/redux.constants";
 import { isFulfilled } from "@reduxjs/toolkit";
 import { login, register } from "@store/slices/Auth/auth.thunks";
 import { ROUTES } from "@constants/routes.constants";
 import toast from "react-hot-toast";
-
+import { CustomCard } from "@components";
 
 
 function Login() {
@@ -59,17 +59,13 @@ function Login() {
         },     
       }} 
     >
-      <Card  
-        variant="outlined"
+      <CustomCard  
         sx={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
           width: '100%',
           maxWidth: '500px', 
           alignSelf: 'center', 
           p: 4, 
-          gap: 2,
-          boxShadow: theme.shadows[1]
+          gap: 2
         }} 
       >
         <Typography component="h1" variant="h4" color="gray.700" sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}>
@@ -142,7 +138,7 @@ function Login() {
             </Link>
           </Typography>
         </Box>
-      </Card>
+      </CustomCard>
     </Stack>
   )
 }
