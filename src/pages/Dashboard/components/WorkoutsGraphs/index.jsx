@@ -26,7 +26,7 @@ function WorkoutsGraphs() {
 
   function loadingFallback(title) {
     return (    
-        <CustomCard sx={{ p: 3, justifyContent: 'center', textAlign: 'center', gap: 3,  }}>
+        <CustomCard sx={{ p: 3, justifyContent: 'center', textAlign: 'center', gap: 3 }}>
           {title && (<Typography sx={{ fontSize: 16, fontWeight: 500, color: theme.palette.gray[900] }}>{title}</Typography>)}
           <Box><CircularProgress size={55}/></Box>
         </CustomCard>   
@@ -35,7 +35,7 @@ function WorkoutsGraphs() {
 
   function errorFallback(title) {
     return (    
-        <CustomCard sx={{ p: 3, justifyContent: 'center', textAlign: 'center', gap: 3,  }}>
+        <CustomCard sx={{ p: 3, justifyContent: 'center', textAlign: 'center', gap: 3 }}>
           {title && (<Typography sx={{ fontSize: 16, fontWeight: 500, color: theme.palette.gray[900] }}>{title}</Typography>)}
           <UIAlert />
         </CustomCard>   
@@ -54,7 +54,6 @@ function WorkoutsGraphs() {
             data={workoutsList.data}
             title={`Статистика тренировок за ${dayjs(startOfMonth).format('MMMM')}`}
             colors={[theme.palette.gray[300], theme.palette.gray[400], theme.palette.gray[500]]}
-            showLegend
           />
         )}
 
@@ -75,7 +74,6 @@ function WorkoutsGraphs() {
               theme.palette.gray[500], 
             ]}
             titleKey="muscle_group"
-            showLegend
           />
         )}
       </Grid2>

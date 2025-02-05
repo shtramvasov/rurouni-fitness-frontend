@@ -4,7 +4,7 @@ import useTransformPieData from "@hooks/useTransformPieData";
 import { CustomCard } from "@components";
 
 
-function PieChartCard({ data, colors = [], title, showLegend = false, titleKey = 'title' }) {
+function PieChartCard({ data, colors = [], title, showLegend = true, titleKey = 'title' }) {
   const theme = useTheme();
 
   if(!data) return;
