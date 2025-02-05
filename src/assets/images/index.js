@@ -1,0 +1,7 @@
+export { default as CalendarImage }         from './calendar.png'
+export { default as CaloriesImage }         from './calories.png'
+export { default as CardioImage }           from './cardio.png'
+export { default as CupImage }              from './cup.png'
+export { default as NotificationImage }     from './notification.png'
+export { default as RecordImage }           from './record.png'
+export { default as WeightsImage }          from './weights.png'

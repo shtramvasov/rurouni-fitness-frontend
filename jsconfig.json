@@ -10,7 +10,8 @@
       "@constants/*": ["constants/*"],
       "@theme/*": ["theme/*"],
       "@hooks/*": ["hooks/*"],
-      "@helpers/*": ["helpers/*"]
+      "@helpers/*": ["helpers/*"],
+      "@assets/*": ["assets/*"]
     }
   },
   "include": ["src"]

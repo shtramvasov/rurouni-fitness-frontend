@@ -15,6 +15,7 @@ export default defineConfig({
       '@theme': '/src/theme/',
       '@hooks': '/src/hooks/',
       '@helpers': '/src/helpers/',
+      '@assets': '/src/assets/',
     }
   }
 });
