@@ -24,7 +24,7 @@ function WorkoutsGraphs() {
   
 
   return (
-    <Grid2 size={{ lg: 6, xs: 12 }} sx={{ alignItems: 'start' }}>
+    <Grid2 size={{ lg: 6, xs: 12 }} sx={{ alignItems: 'start', order: { xs: 2, lg: 1 } }}>
         <PieChartCard 
           data={workoutsList.data}
           title={`Статистика тренировок за ${dayjs(startOfMonth).format('MMMM')}`}
