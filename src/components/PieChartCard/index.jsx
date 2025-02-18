@@ -18,7 +18,7 @@ function PieChartCard({ data, colors = [], title, titleKey = 'title', valueKey =
   })
 
   return (
-    <Grid2 size={{ lg: 6, xs: 12 }} container sx={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    <Grid2 container sx={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', pb: 2 }}>
     <CustomCard 
       sx={{  
         p: 3, 

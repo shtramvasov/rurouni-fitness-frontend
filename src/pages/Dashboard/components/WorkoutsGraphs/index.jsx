@@ -1,9 +1,8 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Box, Grid2, CircularProgress, useTheme, Typography } from "@mui/material";
+import { Grid2, useTheme } from "@mui/material";
 import { getWorkoutsList } from "@store/slices/Workouts/workouts.thunks";
 import { getMuscleGroupUsedCount } from "@store/slices/Exercises/exercises.thunks";
-import { isLoading, isLoaded, isFailed } from "@constants/redux.constants";
 import dayjs from "dayjs";
 import { PieChartCard } from "@components";
 
@@ -25,7 +24,7 @@ function WorkoutsGraphs() {
   
 
   return (
-    <Grid2 container spacing={3} sx={{ flexDirection: 'column', flexGrow: 1, alignItems: 'start', pb: 2 }}>
+    <Grid2 size={{ lg: 6, xs: 12 }} sx={{ alignItems: 'start' }}>
         <PieChartCard 
           data={workoutsList.data}
           title={`Статистика тренировок за ${dayjs(startOfMonth).format('MMMM')}`}

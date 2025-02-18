@@ -1,22 +1,13 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getTrainingProgramsList } from "@store/slices/TrainingPrograms/training_programs.thunks";
-import { Box } from "@mui/material";
-import { WorkoutsGraphs } from "./components";
-
+import { Grid2 } from "@mui/material";
+import { WorkoutsGraphs, TrainingPrograms } from "./components";
 
 function Dashboard() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTrainingProgramsList())
-  }, [])
-
 
   return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Grid2 container sx={{ flexDirection: 'row' }} spacing={2.5}>
         <WorkoutsGraphs />
-      </Box>
+        <TrainingPrograms />
+      </Grid2>
   )
 }
 
