@@ -1,4 +1,4 @@
-import {  Box, Alert, AlertTitle } from "@mui/material"
+import { Box, Alert, AlertTitle, Typography } from "@mui/material"
 
 
 function UIAlert({ severity = 'error', title = 'Произошла ошибка', description}) {
@@ -6,7 +6,7 @@ function UIAlert({ severity = 'error', title = 'Произошла ошибка'
     <Box sx={{ width: '100%' }}>
         <Alert severity={severity}>
           <AlertTitle>{title}</AlertTitle>
-          { description }
+          <Typography>{ description }</Typography>
         </Alert>
       </Box>
   )

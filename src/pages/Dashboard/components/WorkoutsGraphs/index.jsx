@@ -5,7 +5,7 @@ import { getWorkoutsList } from "@store/slices/Workouts/workouts.thunks";
 import { getMuscleGroupUsedCount } from "@store/slices/Exercises/exercises.thunks";
 import { isLoading, isLoaded, isFailed } from "@constants/redux.constants";
 import dayjs from "dayjs";
-import { PieChartCard, UIAlert, CustomCard } from "@components";
+import { PieChartCard } from "@components";
 
 
 function WorkoutsGraphs() {
@@ -24,61 +24,29 @@ function WorkoutsGraphs() {
   }, [])
   
 
-  function loadingFallback(title) {
-    return (    
-        <CustomCard sx={{ p: 3, justifyContent: 'center', textAlign: 'center', gap: 3 }}>
-          {title && (<Typography sx={{ fontSize: 16, fontWeight: 500, color: theme.palette.gray[900] }}>{title}</Typography>)}
-          <Box><CircularProgress size={55}/></Box>
-        </CustomCard>   
-    )
-  }
-
-  function errorFallback(title) {
-    return (    
-        <CustomCard sx={{ p: 3, justifyContent: 'center', textAlign: 'center', gap: 3 }}>
-          {title && (<Typography sx={{ fontSize: 16, fontWeight: 500, color: theme.palette.gray[900] }}>{title}</Typography>)}
-          <UIAlert />
-        </CustomCard>   
-    )
-  }
-
   return (
-    <Grid2 container sx={{  flexDirection: 'column', pb: 2 }} spacing={3}>
-      <Grid2 container spacing={2.5} sx={{ flexGrow: 1, alignItems: 'start' }}>
-        {isLoading(workoutsList.loadingStatus) && (loadingFallback(`Статистика тренировок за ${dayjs(startOfMonth).format('MMMM')}`))}
-
-        {isFailed(workoutsList.loadingStatus) && (errorFallback(`Статистика по группам мышц за ${dayjs(startOfMonth).format('MMMM')}`))}
-
-        {isLoaded(workoutsList.loadingStatus) && (
-          <PieChartCard 
-            data={workoutsList.data}
-            title={`Статистика тренировок за ${dayjs(startOfMonth).format('MMMM')}`}
-            colors={[theme.palette.gray[300], theme.palette.gray[400], theme.palette.gray[500]]}
-          />
-        )}
-
-        {isLoading(muscleGroupStats.loadingStatus) && (loadingFallback(`Статистика по группам мышц за ${dayjs(startOfMonth).format('MMMM')}`))}
-
-        {isFailed(muscleGroupStats.loadingStatus) && (errorFallback(`Статистика по группам мышц за ${dayjs(startOfMonth).format('MMMM')}`))}
-
-        {isLoaded(muscleGroupStats.loadingStatus) && (
-          <PieChartCard 
-            data={muscleGroupStats.data}
-            title={`Статистика по группам мышц за ${dayjs(startOfMonth).format('MMMM')}`}
-            colors={[
-              theme.palette.brand[200], 
-              theme.palette.brand[300], 
-              theme.palette.brand[600], 
-              theme.palette.gray[200], 
-              theme.palette.gray[300], 
-              theme.palette.gray[500], 
-            ]}
-            titleKey="muscle_group"
-          />
-        )}
-      </Grid2>
-      
-
+    <Grid2 container spacing={3} sx={{ flexDirection: 'column', flexGrow: 1, alignItems: 'start', pb: 2 }}>
+        <PieChartCard 
+          data={workoutsList.data}
+          title={`Статистика тренировок за ${dayjs(startOfMonth).format('MMMM')}`}
+          loadingState={workoutsList.loadingStatus}
+          colors={[theme.palette.gray[300], theme.palette.gray[400], theme.palette.gray[500]]}
+        />
+        <PieChartCard 
+          data={muscleGroupStats.data}
+          loadingState={muscleGroupStats.loadingStatus}
+          title={`Статистика по группам мышц за ${dayjs(startOfMonth).format('MMMM')}`}
+          colors={[
+            theme.palette.brand[200], 
+            theme.palette.brand[300], 
+            theme.palette.brand[600], 
+            theme.palette.gray[200], 
+            theme.palette.gray[300], 
+            theme.palette.gray[500], 
+          ]}
+          titleKey="muscle_group"
+          valueKey='count'
+        />
     </Grid2>
   )
 }

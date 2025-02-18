@@ -18,7 +18,7 @@ function ExerciseStats() {
           <Box component="img" src={WeightsImage} alt="Текущий вес" sx={{ width: 75, height: 75, objectFit: 'contain' }} />
           <Grid2 sx={{ mt: 1 }} >
             <Typography variant="h5">Текущий вес</Typography>
-            <Typography sx={{ fontSize: 20, fontWeight: 600, color: theme.palette.brand[700] }}>{current_weight ?? 0} {unit}</Typography>
+            <Typography sx={{ fontSize: 20, fontWeight: 600, color: theme.palette.brand[500] }}>{current_weight ?? 0} {unit}</Typography>
           </Grid2>
         </CustomCard>
       </Grid2>
@@ -28,7 +28,7 @@ function ExerciseStats() {
           <Box component="img" src={RecordImage} alt="Личный рекорд" sx={{ width: 75, height: 75, objectFit: 'contain' }} />
           <Grid2 sx={{ mt: 1 }} >
             <Typography variant="h5">Личный рекорд</Typography>
-            <Typography sx={{ fontSize: 20, fontWeight: 600, color: theme.palette.brand[700] }}>{personal_record ?? 0} {unit}</Typography>
+            <Typography sx={{ fontSize: 20, fontWeight: 600, color: theme.palette.brand[500] }}>{personal_record ?? 0} {unit}</Typography>
           </Grid2>
         </CustomCard>
       </Grid2>
@@ -38,7 +38,7 @@ function ExerciseStats() {
           <Box component="img" src={CupImage} alt="Всего тренировок" sx={{ width: 75, height: 75, objectFit: 'contain' }} />
           <Grid2 sx={{ mt: 1 }} >
             <Typography variant="h5">Всего тренировок</Typography>
-            <Typography sx={{ fontSize: 20, fontWeight: 600, color: theme.palette.brand[700] }}>{history?.length ?? 0} </Typography>
+            <Typography sx={{ fontSize: 20, fontWeight: 600, color: theme.palette.brand[500] }}>{history?.length ?? 0} </Typography>
           </Grid2>
         </CustomCard>
       </Grid2>
@@ -48,7 +48,7 @@ function ExerciseStats() {
           <Box component="img" src={CaloriesImage} alt="Калорий сгорело" sx={{ width: 75, height: 75, objectFit: 'contain' }} />
           <Grid2 sx={{ mt: 1 }} >
             <Typography variant="h5">Калорий сгорело</Typography>
-            <Typography sx={{ fontSize: 20, fontWeight: 600, color: theme.palette.brand[700] }}>{total_calories ?? 0}</Typography>
+            <Typography sx={{ fontSize: 20, fontWeight: 600, color: theme.palette.brand[500] }}>{total_calories ?? 0}</Typography>
           </Grid2>
         </CustomCard>
       </Grid2>

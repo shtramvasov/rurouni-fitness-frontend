@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { capitalizeFirstLetter } from '@helpers/capitalizeFirstLetter';
 
-const useTransformPieData = ({ data, colors = [], titleKey = 'title' }) => {
+const useTransformPieData = ({ data, colors = [], titleKey = 'title', valueKey = 'count' }) => {
   const [resultData, setResultData] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
 
@@ -15,12 +15,14 @@ const useTransformPieData = ({ data, colors = [], titleKey = 'title' }) => {
 
     const aggregatedData  = data.reduce((acc, item) => {
       const title = capitalizeFirstLetter(item[titleKey]);
-      acc[title] ? acc[title] += 1 : acc[title] = 1
+      const value = item[valueKey] ? Number(item[valueKey]) : 1;
+      acc[title] ? acc[title] += value : acc[title] = value;
       
       return acc;
     }, {});
 
-    const total  = Object.values(aggregatedData).reduce((sum, count) => sum + count, 0);
+
+    const total = Object.values(aggregatedData).reduce((sum, count) => sum + count, 0);
     setTotalResult(total);
 
     const transformedData = Object.entries(aggregatedData).map(([label, value], index) => ({
@@ -28,7 +30,8 @@ const useTransformPieData = ({ data, colors = [], titleKey = 'title' }) => {
       value,
       percentage: ((value / total) * 100).toFixed(1),
       color: colors[index % colors.length] || "#ccc",
-    }));
+    }))
+    .sort((a, b) => b.value - a.value);
   
     setResultData(transformedData);
   }, [data])
