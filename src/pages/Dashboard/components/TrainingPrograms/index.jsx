@@ -36,7 +36,42 @@ function TrainingPrograms() {
 
         {isFailed(trainingProgramsList.loadingStatus) && (<UIAlert />)}
 
-        {/* loading */}
+        {(isLoading(trainingProgramsList.loadingStatus)) && (
+          <Grid2 container spacing={2.5} sx={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', pb: 2 }}>
+            {Array.from({ length: 3 }).map((index) => (
+              <CustomCard 
+                sx={{  
+                  p: 2,
+                  width: "100%",
+                  justifyContent: 'center',
+                  gap: 0,
+                  boxShadow: 0,
+                  "&:hover": { boxShadow: 0 }
+                }}
+              >
+              <Grid2 container spacing={2.25}>
+                <Grid2 size={12} container spacing={0.25} sx={{ flexDirection: 'column' }}>
+                  <Skeleton variant="text" width={200} height={25} />
+                  <Skeleton variant="text" width={200} height={16} sx={{ mb: 2 }} />
+                  <Divider flexItem/>
+                </Grid2>
+
+                <Grid2 container>
+                  {Array.from({ length: 6 }).map((index) => (
+                    <Grid2 key={index} container size={12} sx={{ alignItems: 'center' }} >
+                      <Grid2 size sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 0.2 }}>
+                        <Skeleton variant="text" width={300} height={20} />
+                        <Skeleton variant="text" width={200} height={16} />
+                      </Grid2>
+                      <Grid2 size="auto"><Skeleton variant="text" width={50} height={25} /></Grid2>
+                    </Grid2>
+                  ))}
+                </Grid2>
+              </Grid2>
+            </CustomCard>
+          ))}
+          </Grid2>
+        )}
 
         {(isSuccess(trainingProgramsList.loadingStatus) && trainingProgramsList.data.length == 0) && (
           <UIAlert severity='warning' title='У вас нет активных программ тренировок на текущий момент' />
@@ -116,14 +151,7 @@ function TrainingPrograms() {
             }         
           </Grid2>    
         )}
-
-
-
       </CustomCard>
-
-     
-
-
     </Grid2>
   )
 }
