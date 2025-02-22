@@ -91,7 +91,7 @@ function LineChartCard({ data, colors = [], title, xAxisKey = 'title', yAxisKey 
                 }
               ]}
               grid={{ horizontal: true, vertical: true }}
-              height={360}
+              height={420}
               slotProps={{ legend: { hidden: true }}}
               sx={{ 
                 '.MuiChartsGrid-line': { stroke: theme.palette.gray[200], strokeDasharray: '4 2' },            

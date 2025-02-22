@@ -15,7 +15,7 @@ function ExerciseLineChart() {
         data={history}
         title={name}
         loadingState={exerciseDetails.loadingStatus}
-        colors={[theme.palette.brand[400]]}
+        colors={[theme.palette.brand[700]]}
         xAxisKey='created_on_tz'
         yAxisKey='weight'
         valueIsNumber

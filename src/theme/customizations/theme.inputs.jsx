@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { alpha } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { svgIconClasses } from '@mui/material/SvgIcon';
 import { toggleButtonGroupClasses } from '@mui/material/ToggleButtonGroup';
@@ -8,6 +8,8 @@ import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutline
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { gray, brand } from './theme.privitives';
+import { Box, autocompleteClasses, Paper } from '@mui/material';
+import { } from '@mui/x-date-pickers/themeAugmentation';
 
 /* eslint-disable import/prefer-default-export */
 export const inputsCustomizations = {
@@ -431,6 +433,48 @@ export const inputsCustomizations = {
           color: (theme.vars || theme).palette.grey[400],
         }),
       }),
+    },
+  },
+  MuiAutocomplete: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        // Таргетим только иконки внутри Autocomplete
+        '& .MuiIconButton-root': {
+          border: 'none',
+          width: '1.5rem',
+          height: '1.5rem',
+          color: theme.palette.grey[500]
+        },
+      }),
+    },  
+    defaultProps: {
+      renderOption: (props, option, state, ownerState) => {
+        const { key, ...optionProps } = props;
+        return (
+          <Box
+            key={key}
+            sx={{
+              borderRadius: '8px',
+              margin: '5px',
+              bgcolor: 'white',
+              [`&.${autocompleteClasses.option}`]: {
+                padding: '8px',
+              },
+            }}
+            component="li"
+            {...optionProps}
+          >
+            {ownerState.getOptionLabel(option)}
+          </Box>
+        );
+      },
+      PaperComponent: (props) => {
+        const theme = useTheme()
+
+        return (
+          <Paper {...props} sx={{ backgroundColor: 'white', border: `1px solid ${theme.palette.grey[200]}` }} />  
+        )
+      },     
     },
   },
   MuiFormLabel: {

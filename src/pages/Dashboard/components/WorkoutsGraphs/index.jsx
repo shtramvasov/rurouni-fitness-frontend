@@ -5,6 +5,7 @@ import { getWorkoutsList } from "@store/slices/Workouts/workouts.thunks";
 import { getMuscleGroupUsedCount } from "@store/slices/Exercises/exercises.thunks";
 import dayjs from "dayjs";
 import { PieChartCard } from "@components";
+import { clearWorkoutsList } from "@store/slices/Workouts/workouts.slice";
 
 
 function WorkoutsGraphs() {
@@ -20,6 +21,10 @@ function WorkoutsGraphs() {
   useEffect(() => {
       dispatch(getWorkoutsList({ date_start_tz: startOfMonth, date_end_tz: endOfMonth }))
       dispatch(getMuscleGroupUsedCount({ date_start_tz: startOfMonth, date_end_tz: endOfMonth }))
+
+      return () => {
+        dispatch(clearWorkoutsList())
+      }
   }, [])
   
 
