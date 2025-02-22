@@ -83,7 +83,7 @@ function PieChartCard({ data, colors = [], title, titleKey = 'title', valueKey =
                   </Stack>
                   <LinearProgress 
                     variant="determinate"
-                    value={item.percentage}
+                    value={Number(item.percentage)}
                     sx={{[`& .${linearProgressClasses.bar}`]: { backgroundColor: item.color }}}
                   />
                 </Stack>

@@ -1,26 +1,16 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useSelector } from 'react-redux'
 import { Box, Grid2, InputAdornment, FormControl, OutlinedInput, IconButton, Divider, Tooltip, Menu, MenuItem, Typography, Badge, useTheme } from "@mui/material"
 import { SearchRounded, SortRounded, CloseRounded } from "@mui/icons-material"
 import { MUSCLE_GROUPS_OPTIONS } from "@constants/exercises.constants";
-
+import useUpdateSearchParams from "@hooks/useUpdateSearchParams";
 
 function SearchSection() {
   const theme = useTheme()
-
-  const { exercisesList } = useSelector(state => state.exercises)
-
-  const [searchParams, setSearchParams] = useSearchParams()
+  const updateSearchParams = useUpdateSearchParams();
+  
+  const [searchParams] = useSearchParams()
   const [orderMenu, setOrderMenu] = useState({ anchor: null, isOpen: false })
-
-
-  const updateSearchParams = (key, value) => {
-    const updatedParams = new URLSearchParams(searchParams)
-
-    value.trim() ? updatedParams.set(key, value) : updatedParams.delete(key) 
-    setSearchParams(updatedParams);
-  };
 
   return (
     <Box sx={{ display: 'flex', gap: 1 }}>
@@ -66,7 +56,7 @@ function SearchSection() {
         anchorEl={orderMenu.anchor}
         open={orderMenu.isOpen}
         onClose={() => setOrderMenu({ anchor: null, isOpen: false })}
-        anchorOrigin={{ vertical: 'bottom' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <Grid2 container sx={{ flexDirection: 'column', p: 0.5 , minWidth: '12rem'}} spacing={0.5}>
           <Typography variant="caption" sx={{ p: 1, fontWeight: 500, color: theme.palette.gray[800] }}>Сортировать упражнения</Typography>

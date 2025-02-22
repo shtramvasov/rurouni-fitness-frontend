@@ -1,0 +1,69 @@
+import { Grid2, Skeleton, Divider } from "@mui/material";
+import { CustomCard } from "@components";
+
+// Скелетон загрузки карточек детализации программы или упражнения
+export function CardSkeleton({ quantity = 1 }) {
+  return (
+    <Grid2 container spacing={2.5} sx={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', pb: 2 }}>
+      {Array.from({ length: quantity }).map((_, index) => (
+        <CustomCard 
+          key={index}
+          sx={{  
+            p: 2,
+            width: "100%",
+            justifyContent: 'center',
+            gap: 0,
+            boxShadow: 0,
+            "&:hover": { boxShadow: 0 }
+          }}
+        >
+        <Grid2 container spacing={2.25}>
+          <Grid2 size={12} container spacing={0.25} sx={{ flexDirection: 'column' }}>
+            <Skeleton variant="text" width={200} height={25} />
+            <Skeleton variant="text" width={200} height={16} sx={{ mb: 2 }} />
+            <Divider flexItem/>
+          </Grid2>
+
+          <Grid2 container>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <Grid2 key={index} container size={12} sx={{ alignItems: 'center' }} >
+                <Grid2 size sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 0.2 }}>
+                  <Skeleton variant="text" width={300} height={20} />
+                  <Skeleton variant="text" width={200} height={16} />
+                </Grid2>
+                <Grid2 size="auto"><Skeleton variant="text" width={50} height={25} /></Grid2>
+              </Grid2>
+            ))}
+          </Grid2>
+        </Grid2>
+      </CustomCard>
+    ))}
+    </Grid2>
+  )
+}
+
+
+// Скелетон загрузки карточек списка истории тренировок
+export function WorkoutListSkeleton({ quantity = 1 }) {
+  return (
+    <Grid2 container sx={{ flexDirection: 'column', justifyContent: 'center' }}>
+      {Array.from({ length: quantity }).map((_, index) => (
+        <Grid2 key={index} container direction='column' spacing={1.5} pb={1.5}>
+          <Skeleton variant="text" width={150} height={25} />
+          <Divider flexItem />
+
+          <Grid2 container spacing={2.5}>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <Grid2 key={index} container size={12} sx={{ alignItems: 'center' }}>
+                <Grid2 size sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 0.2 }}>
+                  <Skeleton variant="text" width={150} height={20} />
+                  <Skeleton variant="text" width={100} height={16} />
+                </Grid2>
+              </Grid2>
+            ))}
+          </Grid2>
+        </Grid2>
+      ))}
+    </Grid2>
+  );
+}

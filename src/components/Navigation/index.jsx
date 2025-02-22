@@ -34,22 +34,23 @@ function Navigation() {
           <>
             <Box display='flex' gap={1}>
             {Object.values(ROUTES).map(route =>  {
-              if(!route.IS_LINK) return;
+              if(route.HIDDEN_NAV) return;
               const isActive = isRouteActive(route)
 
               return (
                 <Button 
                   key={route.PATH} 
-                  onClick={() => navigate(route.PATH)} 
+                  onClick={() => !route.IN_DEVELOPEMENT && navigate(route.PATH)} 
                   variant='text' 
                   color='info' 
                   size='small'
                   sx={{
-                    bgcolor:    isActive && theme.palette.brand[100],
+                    color:      route.IN_DEVELOPEMENT ? theme.palette.grey[400] : 'default',
+                    bgcolor:    isActive ? theme.palette.brand[100] : route.IN_DEVELOPEMENT ? theme.palette.grey[100] : null,
                     border:     isActive && `1px solid ${theme.palette.brand[200]}`,
                     fontWeight: isActive && 600,
 
-                    '&:hover': { bgcolor: isActive ? theme.palette.brand[100] : 'white' }
+                    '&:hover': { bgcolor: isActive ? theme.palette.brand[100] : route.IN_DEVELOPEMENT ? theme.palette.gray[100]  : 'white' }
                   }}
                 >
                   {route.NAME}
@@ -60,7 +61,9 @@ function Navigation() {
 
             <Box sx={{ alignItems: 'center', display: 'flex', gap: 1.5, flex: 1, justifyContent: 'flex-end'}}>
               <IconButton size='small'><Person /></IconButton>
-              <Button variant='contained' color='primary' size='small'>Записать тренировку</Button>
+              <Button onClick={() => navigate(ROUTES.ADD_WORKOUT.PATH)} variant='contained' color='primary' size='small'>
+                {ROUTES.ADD_WORKOUT.NAME}
+              </Button>
             </Box>
           </>
         ) : (
@@ -73,6 +76,7 @@ function Navigation() {
       {/* Свипер для мобильной навигации */}
       <SwipeableDrawer
         anchor='right'
+        onOpen={() => {}}
         open={isMobileNavOpen && !isDesktopScreen}
         onClose={() => setIsMobileNavOpen(false)}
       >
@@ -85,13 +89,13 @@ function Navigation() {
 
           <Grid2 container sx={{ flexDirection: 'column', gap: 0.3, minWidth: '20rem'}}>
             {Object.values(ROUTES).map(route =>  {
-              if(!route.IS_LINK) return;
+              if(route.HIDDEN_NAV) return;
               const isActive = isRouteActive(route)
 
               return (
                 <Typography 
                   key={route.PATH} 
-                  onClick={() => {navigate(route.PATH)}} 
+                  onClick={() => !route.IN_DEVELOPEMENT && navigate(route.PATH)} 
                   sx={{
                     cursor: 'pointer',
                     py: 1.5,
@@ -100,9 +104,9 @@ function Navigation() {
                     bgcolor:    isActive && theme.palette.brand[50],
                     border:     isActive && `1px solid ${theme.palette.gray[200]}`,
                     fontWeight: isActive ? 600 : 500,
-                    color:      isActive ? theme.palette.gray[600] : theme.palette.gray[600], 
+                    color:      route.IN_DEVELOPEMENT ? theme.palette.gray[400] : theme.palette.gray[600], 
 
-                    '&:hover': { bgcolor: isActive ? theme.palette.brand[50] : theme.palette.gray[100] }
+                    '&:hover': { bgcolor: isActive ? theme.palette.brand[50] : route.IN_DEVELOPEMENT ? null : theme.palette.gray[100] }
                   }}
                 >
                   {route.NAME}                
@@ -112,7 +116,9 @@ function Navigation() {
           </Grid2>
           <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'end', gap: 3 }}>
               <Divider flexItem />
-              <Button fullWidth variant='contained' color='primary' size='small'>Записать тренировку</Button>
+              <Button onClick={() => navigate(ROUTES.ADD_WORKOUT.PATH)} fullWidth variant='contained' color='primary' size='small'>
+                {ROUTES.ADD_WORKOUT.NAME}
+              </Button>
           </Box>
         </Box>
       </SwipeableDrawer>
