@@ -34,7 +34,7 @@ function Workouts() {
                   <Typography sx={{ pb: 1 }} variant="body2" color={theme.palette.grey[500]}>
                     Возможно вам захочется{' '}
                     <Link sx={{ cursor: 'pointer', color: theme.palette.brand[600] }} onClick={() => navigate(ROUTES.ADD_WORKOUT.PATH)}>
-                      Записать тренировку
+                      записать тренировку
                     </Link>                 
                   </Typography>
                 </Grid2>

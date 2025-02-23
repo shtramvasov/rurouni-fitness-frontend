@@ -2,12 +2,16 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getExercisesList } from "@store/slices/Exercises/exercises.thunks";
 import { getTrainingProgramsList } from "@store/slices/TrainingPrograms/training_programs.thunks";
-import { Grid2, useTheme, Typography, Divider, TextField, Autocomplete, FormLabel, OutlinedInput, styled, Button, IconButton, Tooltip } from "@mui/material";
+import { postWorkout } from "@store/slices/Workouts/workouts.thunks";
+import { clearCreateWorkoutLS } from "@store/slices/Workouts/workouts.slice";
+import { Grid2, useTheme, Typography, Divider, TextField, Autocomplete, OutlinedInput, styled, Button, IconButton, Tooltip } from "@mui/material";
 import { Add, Delete, Done } from "@mui/icons-material";
+import { isFulfilled } from "@reduxjs/toolkit";
 import { isSuccess, isLoading, isFailed } from "@constants/redux.constants";
 import { CustomCard } from "@components";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+
 
 
 function AddWorkout() {
@@ -16,13 +20,14 @@ function AddWorkout() {
 
   const { exercisesList } = useSelector(state => state.exercises)
   const { trainingProgramsList } = useSelector(state => state.trainingPrograms)
+  const { createWorkoutLS } = useSelector(state => state.workouts)
 
   const [hasDatePicker, setHasDatePicker] = useState(false)
   const [submitData, setSubmitData] = useState({
-    program_id: undefined,
-    name: undefined,
-    created_on_tz: undefined,
-    exercises: [{ id: Date.now(), name: undefined, weight: undefined, sets: undefined, reps: undefined }]
+    program_id:     undefined,
+    title:          undefined,
+    created_on_tz:  undefined,
+    exercises: [{ id: Date.now(), exercse_id: undefined, weight: undefined, sets: undefined, reps: undefined }]
   });
 
   
@@ -43,7 +48,7 @@ function AddWorkout() {
 
   const handleProgramChange = (event, newValue) => {
     if (!newValue) {
-      setSubmitData({ ...submitData, name: null, program_id: null, exercises: [{ id: Date.now(), name: null, weight: null, sets: null, reps: null }] });
+      setSubmitData({ ...submitData, title: null, program_id: null, exercises: [{ id: Date.now(), exercse_id: null, weight: null, sets: null, reps: null }] });
       return;
     }
   
@@ -51,20 +56,20 @@ function AddWorkout() {
     
     if (selectedProgram) {
       const updatedExercises = selectedProgram.exercises.map(ex => ({
-        id: Date.now() + Math.random(),
-        name: ex.exercise_id,
-        weight: ex.recent_weight || null, 
-        sets: ex.recent_sets || ex.sets || null,
-        reps: ex.recent_reps || ex.reps || null
+        id:         Date.now() + Math.random(),
+        exercse_id: ex.exercise_id,
+        weight:     ex.recent_weight || null, 
+        sets:       ex.recent_sets || ex.sets || null,
+        reps:       ex.recent_reps || ex.reps || null
       }));
   
-      setSubmitData({ ...submitData, name: newValue.name, exercises: updatedExercises });
+      setSubmitData({ ...submitData, title: newValue.name, exercises: updatedExercises });
     }
   };
 
 
   const addExercise = () => {
-    setSubmitData((prev) => ({...prev, exercises: [...prev.exercises, { id: Date.now(), name: null, weight: null, sets: null, reps: null }]}));
+    setSubmitData((prev) => ({...prev, exercises: [...prev.exercises, { id: Date.now(), exercse_id: null, weight: null, sets: null, reps: null }]}));
   };
 
 
@@ -73,7 +78,19 @@ function AddWorkout() {
   };  
 
   const submit = async () => {
-    console.log(submitData)
+
+    if(!isLoading(createWorkoutLS)) {
+      const response = await dispatch(postWorkout({
+        title:          submitData.title,
+        exercises:      submitData.exercises,
+        created_on_tz:  submitData.created_on_tz ? dayjs(submitData.created_on_tz).toISOString() : undefined,
+      }))
+
+      if(isFulfilled(response)) {
+        console.log(response)
+        dispatch(clearCreateWorkoutLS())
+      }
+    }
   }
 
   return ( 
@@ -120,7 +137,7 @@ function AddWorkout() {
       {/* Поле ввода названия тренировки */}
       <FormGrid size={12} sx={{ pt: hasDatePicker ? 2 : 0 }}>
         <Autocomplete
-          value={trainingProgramsList.data.find((tp) => tp.name == submitData.name) || null }
+          value={trainingProgramsList.data.find((tp) => tp.name == submitData.title) || null }
           getOptionLabel={(option) => option.name}
           onChange={handleProgramChange}
           options={trainingProgramsList.data}
@@ -154,7 +171,7 @@ function AddWorkout() {
           >
             <Grid2 item size={{ xs: 12, md: 5 }}>
               <Autocomplete
-                value={exercisesList.data.find((ex) => ex.exercise_id === exercise.name) || null }
+                value={exercisesList.data.find((ex) => ex.exercise_id == exercise.exercse_id) || null }
                 getOptionLabel={(option) => option.name}
                 onChange={(event, newValue) => handleExerciseChange(index, "name", newValue ? newValue.exercise_id : null)}
                 options={exercisesList.data}

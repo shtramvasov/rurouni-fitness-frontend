@@ -19,7 +19,9 @@ apiClient.interceptors.response.use(
   error    => {
     const { message } = error.response.data
     if (message) toast.error(message)
-    if(error.response.status === 401) window.location.replace('/login')
+    if (error.response.status === 401 && window.location.pathname !== '/login') {
+      window.location.replace('/login');
+    }
       
     return Promise.reject(message ?? error)
   }

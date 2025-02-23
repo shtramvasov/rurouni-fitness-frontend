@@ -35,7 +35,7 @@ function WorkoutsList() {
     loadWorkouts()   
 
     return () => {
-      dispatch(clearWorkoutsList())
+      workoutsList.data.length && dispatch(clearWorkoutsList())
     }
   }, [])
 
