@@ -9,7 +9,6 @@ function ProfieMenu() {
   const theme = useTheme()
 
   const { user } = useSelector(state => state.auth)
-  console.log(user)
 
   const [profileMenu, setProfileMenu] = useState({ anchor: null, isOpen: false })
 
@@ -35,7 +34,7 @@ function ProfieMenu() {
               onClick={() => dispatch(logout())} 
             >
               Выйти
-            </MenuItem>
+          </MenuItem>
         </Grid2>
       </Menu>
 
