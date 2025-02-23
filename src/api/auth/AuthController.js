@@ -12,4 +12,8 @@ export default class AuthController {
   static async register(registerData) {
     return await apiClient.post('/auth/register', registerData);
   }
+
+  static async logout() {
+    return await apiClient.post('/auth/logout');
+  }
 }

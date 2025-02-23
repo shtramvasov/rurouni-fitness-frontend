@@ -33,6 +33,7 @@ function WorkoutDetail() {
       <CustomCard 
         sx={{  
           p: 3, 
+          width: '100%',
           justifyContent: 'center',
           gap: 0,
         }}
@@ -67,7 +68,7 @@ function WorkoutDetail() {
                     <Divider flexItem/>
                   </Grid2>
 
-                  <Grid2 container>
+                  <Grid2 size={12} container>
                     {workoutDetails.data?.exercises?.map((exercise, index) => (
                       <Grid2 
                         key={exercise.exercise_id} 

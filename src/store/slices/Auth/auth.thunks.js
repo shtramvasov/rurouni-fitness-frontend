@@ -5,4 +5,6 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => await Au
 
 export const login = createAsyncThunk('auth/login', async (params) => await AuthController.login(params))
 
+export const logout = createAsyncThunk('auth/logout', async () => await AuthController.logout())
+
 export const register = createAsyncThunk('auth/register', async (params) => await AuthController.register(params))

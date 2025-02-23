@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, matchPath, useLocation } from 'react-router-dom'
 import { Box, Button, Grid2, Typography, useTheme, useMediaQuery, IconButton, SwipeableDrawer, Divider } from '@mui/material';
-import { Menu, CloseRounded, Person } from '@mui/icons-material';
+import { Menu, CloseRounded } from '@mui/icons-material';
 import { ROUTES } from '@constants/routes.constants';
+import { ProfileMenu } from '@components';
 
 
 function Navigation() {
@@ -60,14 +61,15 @@ function Navigation() {
             </Box>
 
             <Box sx={{ alignItems: 'center', display: 'flex', gap: 1.5, flex: 1, justifyContent: 'flex-end'}}>
-              <IconButton size='small'><Person /></IconButton>
+              <ProfileMenu />
               <Button onClick={() => navigate(ROUTES.ADD_WORKOUT.PATH)} variant='contained' color='primary' size='small'>
                 {ROUTES.ADD_WORKOUT.NAME}
               </Button>
             </Box>
           </>
         ) : (
-          <Box sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
+          <Box sx={{ alignItems: 'center', display: 'flex', gap: 1.5, flex: 1, justifyContent: 'flex-end'}}>
+            <ProfileMenu />
             <IconButton onClick={() => setIsMobileNavOpen(true)} size='small'><Menu /></IconButton>
           </Box>
         )}

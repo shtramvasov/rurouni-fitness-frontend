@@ -1,6 +1,6 @@
 import { createSlice  } from '@reduxjs/toolkit';
 import { LOADING_STATUS } from '@constants/redux.constants';
-import { checkAuth, login, register } from './auth.thunks';
+import { checkAuth, login, register, logout } from './auth.thunks';
 
 const initialState = {
   isAuth:     false,
@@ -49,6 +49,17 @@ const authSlice = createSlice({
       state.loginLS = LOADING_STATUS.SUCCESS
       state.isAuth  = isAuth
       state.user    = user
+    });
+
+    // logout
+    builder.addCase(logout.pending,    (state) => { state.authLS = LOADING_STATUS.LOADING })
+    builder.addCase(logout.rejected,   (state) => { state.authLS = LOADING_STATUS.FAILED })
+    builder.addCase(logout.fulfilled,  (state) => {
+      state.authLS = LOADING_STATUS.SUCCESS
+      state.isAuth = false
+      state.user = null
+
+      window.location.replace('/login')
     });
   }
 });
