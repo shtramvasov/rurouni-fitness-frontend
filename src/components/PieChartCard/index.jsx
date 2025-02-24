@@ -1,12 +1,16 @@
-import { Box, Grid2, Typography, Stack, Skeleton, LinearProgress, linearProgressClasses, useTheme } from "@mui/material"
+import { useState } from "react";
+import { Box, Grid2, Typography, Stack, LinearProgress, linearProgressClasses, useTheme, IconButton, Tooltip, Link } from "@mui/material"
+import { MoreVert } from "@mui/icons-material";
 import { PieChart } from "@mui/x-charts";
 import useTransformPieData from "@hooks/useTransformPieData";
-import { CustomCard, UIAlert } from "@components";
+import { CustomCard, UIAlert, PieChartSkeleton } from "@components";
 import { isLoading, isSuccess, isFailed } from "@constants/redux.constants";
+import ChartMenu from "./menu.component";
 
-
-function PieChartCard({ data, colors = [], title, titleKey = 'title', valueKey = 'count', loadingState }) {
+function PieChartCard({ data, colors = [], title, resetFilter, titleKey = 'title', valueKey = 'count', loadingState }) {
   const theme = useTheme();
+
+  const [openMenu, setOpenMenu] = useState({ anchor: null, isOpen: false })
 
   if(!data) return;
 
@@ -35,22 +39,35 @@ function PieChartCard({ data, colors = [], title, titleKey = 'title', valueKey =
 
       {isFailed(loadingState) && (<UIAlert />)}
 
-      {isLoading(loadingState) && (
-        <Grid2 container sx={{ flexDirection: 'column' }} spacing={5}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4 }}><Skeleton variant="circular" width={200} height={200}/></Box>
-          <Stack gap={3.5}>
-            <Skeleton  variant="text" sx={{ fontSize: 10 }}/>
-            <Skeleton  variant="text" sx={{ fontSize: 10 }}/>
-            <Skeleton  variant="text" sx={{ fontSize: 10 }}/>
-          </Stack>
+      {isLoading(loadingState) && ( <PieChartSkeleton />)}
+
+      {(isSuccess(loadingState) && chartData.resultData.length == 0) && (
+        <Grid2>
+          <UIAlert severity='warning' 
+            title='Не найдено данных за текущий период' 
+            description={
+              <Link component="button"
+                disabled={isLoading(loadingState)}
+                onClick={resetFilter}
+                sx={{ color: theme.palette.brand[400] }}
+              >
+                Сбросьте фильтр по периоду
+              </Link>
+            }
+          />
         </Grid2>
       )}
 
-      {(isSuccess(loadingState) && chartData.resultData.length == 0) && (<UIAlert severity='warning' title='Не найдено данных за текущий период' />)}
-
       {(isSuccess(loadingState) && chartData.resultData.length > 0) && (
         <>
-          <Grid2 sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+          <Grid2 sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', position: 'relative' }}>
+            <Box sx={{ position: 'absolute', top: -30, right: 0 }}>
+              <Tooltip title='Выбрать период'>
+                <IconButton onClick={(e) => setOpenMenu({ anchor: e.currentTarget, isOpen: !openMenu.isOpen })}  size='small'><MoreVert /></IconButton>
+              </Tooltip>
+              <ChartMenu anchor={openMenu.anchor} isOpen={openMenu.isOpen} onClose={(e) => setOpenMenu({ anchor: null, isOpen: false })} />
+            </Box>
+
             <PieChart
               colors={[theme.palette.gray[300], theme.palette.gray[400], theme.palette.gray[500]]}
               margin={{
@@ -73,6 +90,7 @@ function PieChartCard({ data, colors = [], title, titleKey = 'title', valueKey =
               slotProps={{ legend: { hidden: true } }}
             />          
           </Grid2>
+          
           {
             chartData.resultData.map((item, index) => 
               <Stack key={index} direction='row' sx={{ alignItems: 'center', pb: 2 }}>

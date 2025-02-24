@@ -1,4 +1,4 @@
-import { Grid2, Skeleton, Divider } from "@mui/material";
+import { Box, Stack, Grid2, Skeleton, Divider } from "@mui/material";
 import { CustomCard } from "@components";
 
 // Скелетон загрузки карточек детализации программы или упражнения
@@ -65,5 +65,20 @@ export function WorkoutListSkeleton({ quantity = 1 }) {
         </Grid2>
       ))}
     </Grid2>
+  );
+}
+
+
+// Скелетон лоадера пай чарта
+export function PieChartSkeleton({ quantity = 3 }) {
+  return (
+    <Grid2 container sx={{ flexDirection: 'column' }} spacing={5}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4 }}><Skeleton variant="circular" width={200} height={200}/></Box>
+      <Stack gap={3.5}>
+      {Array.from({ length: quantity }).map((_, index) => (
+        <Skeleton key={index} variant="text" sx={{ fontSize: 10 }}/>
+      ))}
+      </Stack>
+  </Grid2>
   );
 }

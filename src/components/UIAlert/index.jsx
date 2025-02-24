@@ -6,9 +6,9 @@ function UIAlert({ severity = 'error', title = 'Произошла ошибка'
     <Box sx={{ width: '100%' }}>
         <Alert severity={severity}>
           <AlertTitle>{title}</AlertTitle>
-          <Typography>{ description }</Typography>
+          <Typography sx={{ textAlign: 'left' }}>{ description }</Typography>
         </Alert>
-      </Box>
+    </Box>
   )
 }
 
