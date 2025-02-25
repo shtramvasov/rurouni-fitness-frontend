@@ -43,8 +43,8 @@ export function CardSkeleton({ quantity = 1 }) {
 }
 
 
-// Скелетон загрузки карточек списка истории тренировок
-export function WorkoutListSkeleton({ quantity = 1 }) {
+// Скелетон загрузки списка
+export function ListSkeleton({ quantity = 1 }) {
   return (
     <Grid2 container sx={{ flexDirection: 'column', justifyContent: 'center' }}>
       {Array.from({ length: quantity }).map((_, index) => (

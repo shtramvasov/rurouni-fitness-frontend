@@ -6,7 +6,7 @@ import { getWorkoutsList } from "@store/slices/Workouts/workouts.thunks";
 import useUpdateSearchParams from "@hooks/useUpdateSearchParams";
 import { Grid2, useTheme, Typography, Divider, useMediaQuery, Button, CircularProgress } from "@mui/material";
 import { isSuccess, isLoading, isFailed, PAGINATION } from "@constants/redux.constants";
-import { CustomCard, UIAlert, WorkoutListSkeleton } from "@components";
+import { CustomCard, UIAlert, ListSkeleton } from "@components";
 import dayjs from "dayjs";
 import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter";
 import { clearWorkoutsList } from "@store/slices/Workouts/workouts.slice";
@@ -54,7 +54,7 @@ function WorkoutsList() {
         >
           {isFailed(workoutsList.loadingStatus)     && (<UIAlert />)}
 
-          {(isLoading(workoutsList.loadingStatus))  && (<WorkoutListSkeleton quantity={2} />)}
+          {(isLoading(workoutsList.loadingStatus))  && (<ListSkeleton quantity={2} />)}
 
           {(isSuccess(workoutsList.loadingStatus) && workoutsList.data.length == 0) && (
             <UIAlert severity='warning' title='У вас нет истории тренировок на текущий момент' />

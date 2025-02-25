@@ -37,7 +37,7 @@ const exercisesSlice = createSlice({
 
       state.exercisesList.loadingStatus = LOADING_STATUS.SUCCESS
 
-      state.exercisesList.data = is_infinite ? [...state.exercisesList.data, ...result] : result
+      state.exercisesList.data = [...state.exercisesList.data, ...result]
     });
 
     // getExerciseDetails
