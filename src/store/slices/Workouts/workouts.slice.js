@@ -30,7 +30,7 @@ const workoutsSlice = createSlice({
     builder.addCase(getWorkoutsList.pending,    (state) => { state.workoutsList.loadingStatus = LOADING_STATUS.LOADING })
     builder.addCase(getWorkoutsList.rejected,   (state) => { state.workoutsList.loadingStatus = LOADING_STATUS.FAILED })
     builder.addCase(getWorkoutsList.fulfilled,  (state, action) => {
-      state.workoutsList = { data: [...state.workoutsList.data, ...action.payload], loadingStatus: LOADING_STATUS.SUCCESS }
+      state.workoutsList = { data: action.payload, loadingStatus: LOADING_STATUS.SUCCESS }
     });
 
     // getWorkoutDetails

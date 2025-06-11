@@ -1,15 +1,14 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { getExercisesList } from "@store/slices/Exercises/exercises.thunks";
 import { PAGINATION, isLoading, isSuccess, isFailed } from "@constants/redux.constants";
-import { Grid2, Box, Typography, useTheme, LinearProgress, Button, Divider, useMediaQuery, Chip } from "@mui/material";
+import { Grid2, Typography, useTheme, Button, Divider, useMediaQuery, Chip } from "@mui/material";
 import { UIAlert, CustomCard, ListSkeleton } from "@components";
 import { ROUTES } from "@constants/routes.constants";
 import useDebounce from "@hooks/useDebounce";
 import dayjs from "dayjs";
 import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter";
-
 
 
 function ListSection() {
@@ -26,12 +25,10 @@ function ListSection() {
 
   const loadExercises  = async (offsetValue) => {
     const search   = searchParams.get("search");
-    // const order    = searchParams.get("order")
 
     await dispatch(getExercisesList({ 
       params: { 
         search:  search,
-        // order:   order,
         offset:  offsetValue ? offsetValue : undefined,
         limit:   PAGINATION.DEFAULT_LIMIT
       }

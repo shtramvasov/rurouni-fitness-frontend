@@ -59,7 +59,7 @@ function TrainingPrograms() {
                     <Divider flexItem/>
                   </Grid2>
 
-                  <Grid2 container>
+                  <Grid2 container sx={{ flexGrow: 1 }}>
                     {program.exercises.map((exercise, index) => (
                       <Grid2 
                         key={exercise.exercise_id} 
