@@ -13,6 +13,7 @@ function ThemeProvider({ children }) {
       colorSchemeSelector: 'data-mui-color-scheme',
       cssVarPrefix: 'template',
     },
+    defaultColorScheme: 'light',
     colorSchemes,
     typography,
     shadows,
@@ -27,7 +28,7 @@ function ThemeProvider({ children }) {
   })
 
   return (
-    <Provider theme={theme} disableTransitionOnChange>
+    <Provider defaultMode='light' theme={theme} disableTransitionOnChange>
       {children}
     </Provider>
   );
