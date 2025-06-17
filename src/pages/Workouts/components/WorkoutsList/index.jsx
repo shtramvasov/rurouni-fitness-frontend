@@ -116,7 +116,11 @@ function WorkoutsList() {
                                   {workout.title}
                               </Typography>
                               <Typography sx={{ fontSize: 12, fontWeight: 300, color: theme.palette.gray[500] }}>
-                              {dayjs(workout.created_on_tz).format('DD MMMM YYYY')}
+                              <Grid2 container>
+                                {dayjs(workout.created_on_tz).format('DD MMMM YYYY')}
+                              <Divider orientation="vertical" flexItem sx={{ height: 16, mx: 0.7 }}  />
+                              {dayjs(workout.created_on_tz).format('dddd')}
+                              </Grid2>
                             </Typography>
                           </Grid2>
                         </Grid2>
