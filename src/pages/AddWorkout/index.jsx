@@ -34,7 +34,7 @@ function AddWorkout() {
   const [errors, setErrors] = useState({ title: false, exercises: [] });
 
   useEffect(() => {
-    dispatch(getTrainingProgramsList())
+    dispatch(getTrainingProgramsList({ params: { is_active: true }}))
     dispatch(getExercisesList({}))
   }, [])
 
