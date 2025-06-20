@@ -3,5 +3,5 @@ import TrainingProgramsController from "@api/training_programs/TrainingProgramsC
 
 export const getTrainingProgramsList = createAsyncThunk(
   'auth/getTrainingProgramsList', 
-  async (params) => await TrainingProgramsController.getTrainingProgramsList(params)
+  async ({ params }) => await TrainingProgramsController.getTrainingProgramsList(params)
 )

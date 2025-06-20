@@ -14,7 +14,6 @@ export const ROUTES = {
   PROGRAMS: {
     NAME:   'Программы тренировок',
     PATH:   '/programs',
-    IN_DEVELOPEMENT: true
   },
   ADD_WORKOUT: {
     NAME:   'Записать тренировку',
