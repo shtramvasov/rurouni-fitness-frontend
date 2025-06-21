@@ -69,11 +69,13 @@ function ProgramsList() {
 
         {(isSuccess(trainingProgramsList.loadingStatus) && activePrograms.length > 0) && (
           <Grid2 container spacing={2.5} sx={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', pb: 2 }}>
-            {activePrograms?.map(program => ( <TrainingProgramCard program={program}/> ))} 
+            {activePrograms?.map(program => ( <TrainingProgramCard verbose open={false} program={program}/> ))} 
           </Grid2>
         )}
       </CustomCard>
 
+
+    {activePrograms.length > 0 && !inactivePrograms.length == 0 && (
       <CustomCard 
         sx={{  
           width: '100%',
@@ -93,11 +95,11 @@ function ProgramsList() {
 
         {(isSuccess(trainingProgramsList.loadingStatus) && inactivePrograms.length > 0) && (
           <Grid2 container spacing={2.5} sx={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', pb: 2 }}>
-            {inactivePrograms?.map(program => ( <TrainingProgramCard program={program}/> ))} 
+            {inactivePrograms?.map(program => ( <TrainingProgramCard verbose open={false} program={program}/> ))} 
           </Grid2>
         )}
       </CustomCard>
-
+    )}
     </Grid2>
   )
 }
