@@ -12,6 +12,7 @@ import { CustomCard, UIAlert } from "@components";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import toast from "react-hot-toast";
+import { validateField, validateNumber } from "@helpers/validations";
 
 
 function AddWorkout() {
@@ -101,17 +102,6 @@ function AddWorkout() {
   
       return { ...prev, exercises: updatedExercises };
     });
-  };
-
-  const validateField = (value) => {
-    return !String(value || "").trim() ? "Обязательно" : "";
-  };
-  
-  const validateNumber = (value) => {
-    const strValue = String(value || "").trim();
-    if (!strValue) return "Обязательно";
-    if (!/^[0-9]+$/.test(strValue)) return "Должно быть числом";
-    return "";
   };
 
   const validateForm = () => {

@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { KeyboardArrowDownRounded, KeyboardArrowUpRounded } from '@mui/icons-material';
 
 
-export function TrainingProgramCard({ program, verbose, open = true }) {
+export function TrainingProgramCard({ program, verbose, open = true, handleClick }) {
   const theme = useTheme()
 
   const [isOpen, setIsOpen] = useState(open)
@@ -25,10 +25,17 @@ export function TrainingProgramCard({ program, verbose, open = true }) {
       <Grid2 container spacing={isOpen ? 1.25 : 0 }>
         <Grid2 size={12} container spacing={0.5} sx={{ flexDirection: 'column' }}>
           <Grid2 sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Grid2 container spacing={0.5} sx={{ flexDirection: 'column' }}>
-              <Typography sx={{ fontSize: 16, fontWeight: 600 }} color={theme.palette.grey[900]}>{program.name}</Typography>
-              <Typography sx={{ pb: isOpen ? 1 : 0 }} variant="body2" color={theme.palette.grey[500]}>{program.description}</Typography>
-            </Grid2>
+            <Tooltip placement="top" title={handleClick ? 'Нажмите, чтобы редактировать' : ''}>
+              <Grid2 
+                container 
+                spacing={0.5} 
+                sx={{ flexDirection: 'column', cursor: handleClick ? 'pointer' : 'default' }} 
+                onClick={handleClick && handleClick}
+              >
+                <Typography sx={{ fontSize: 16, fontWeight: 600, '&:hover': { color: handleClick ? theme.palette.brand[500] : theme.palette.grey[900] } }} color={theme.palette.grey[900]}>{program.name}</Typography>
+                <Typography sx={{ pb: isOpen ? 1 : 0 }} variant="body2" color={theme.palette.grey[500]}>{program.description}</Typography>
+              </Grid2>
+            </Tooltip>
             {verbose && (
               <Tooltip title={isOpen ? 'Скрыть список упражнений' : 'Показать список упражнений'}>
                 <IconButton sx={{ my: 0.5 }} size="small" onClick={() => setIsOpen(prev => !prev)}>

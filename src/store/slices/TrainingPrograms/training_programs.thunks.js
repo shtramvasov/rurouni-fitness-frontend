@@ -5,3 +5,8 @@ export const getTrainingProgramsList = createAsyncThunk(
   'auth/getTrainingProgramsList', 
   async ({ params }) => await TrainingProgramsController.getTrainingProgramsList(params)
 )
+
+export const updateTrainingProgram = createAsyncThunk(
+  'auth/updateTrainingProgram', 
+  async ({ program_id, params }) => await TrainingProgramsController.updateTrainingProgram(program_id, params)
+)

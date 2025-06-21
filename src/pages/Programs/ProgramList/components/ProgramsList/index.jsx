@@ -3,11 +3,12 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrainingProgramsList } from "@store/slices/TrainingPrograms/training_programs.thunks";
 import { isLoading, isSuccess, isFailed, PAGINATION } from "@constants/redux.constants";
-import { Grid2, Typography, IconButton, Tooltip } from "@mui/material";
+import { Grid2, Typography, IconButton, Tooltip, SwipeableDrawer } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { CustomCard, UIAlert, CardSkeleton, TrainingProgramCard } from "@components";
 import useDebounce from "@hooks/useDebounce";
 import { ROUTES } from "@constants/routes.constants";
+import { ProgramDetail } from "..";
 
 
 function ProgramsList() {
@@ -15,8 +16,13 @@ function ProgramsList() {
   const navigate = useNavigate()
 
   const [searchParams] = useSearchParams();
+
   const [activePrograms, setActivePrograms] = useState([]);
   const [inactivePrograms, setInactivePrograms] = useState([]);
+  const [swipeable, setSwipeable] = useState({
+    isOpen:   false,
+    program:  null
+  })
 
   const { trainingProgramsList } = useSelector(state => state.trainingPrograms)
 
@@ -74,7 +80,14 @@ function ProgramsList() {
 
         {(isSuccess(trainingProgramsList.loadingStatus) && activePrograms.length > 0) && (
           <Grid2 container spacing={2.5} sx={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', pb: 2 }}>
-            {activePrograms?.map(program => ( <TrainingProgramCard verbose open={false} program={program}/> ))} 
+            {activePrograms?.map(program => ( 
+              <TrainingProgramCard 
+                handleClick={() => setSwipeable({ isOpen: true, program })} 
+                verbose 
+                open={false} 
+                program={program}
+              /> 
+            ))} 
           </Grid2>
         )}
       </CustomCard>
@@ -100,11 +113,29 @@ function ProgramsList() {
 
         {(isSuccess(trainingProgramsList.loadingStatus) && inactivePrograms.length > 0) && (
           <Grid2 container spacing={2.5} sx={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', pb: 2 }}>
-            {inactivePrograms?.map(program => ( <TrainingProgramCard verbose open={false} program={program}/> ))} 
+            {inactivePrograms?.map(program => ( 
+              <TrainingProgramCard 
+                handleClick={() => setSwipeable({ isOpen: true, program })} 
+                verbose 
+                open={false} 
+                program={program}
+              /> 
+             ))} 
           </Grid2>
         )}
       </CustomCard>
     )}
+
+    {/* Редактирование программы тренировок */}
+      <SwipeableDrawer
+        anchor='right'
+        onOpen={() => {}}
+        PaperProps={{ sx: { width: { sm: '100vw', md: '65vw' } } }}
+        open={swipeable.isOpen}
+        onClose={() => setSwipeable({ isOpen: false, program: null })}
+      >
+        {swipeable.program && <ProgramDetail program={swipeable.program} onClose={() => setSwipeable({ isOpen: false, program: null })} />}
+      </SwipeableDrawer>
     </Grid2>
   )
 }
