@@ -3,15 +3,16 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrainingProgramsList } from "@store/slices/TrainingPrograms/training_programs.thunks";
 import { isLoading, isSuccess, isFailed, PAGINATION } from "@constants/redux.constants";
-import { Grid2, Typography, useTheme } from "@mui/material";
+import { Grid2, Typography, IconButton, Tooltip } from "@mui/material";
+import { Add } from "@mui/icons-material";
 import { CustomCard, UIAlert, CardSkeleton, TrainingProgramCard } from "@components";
 import useDebounce from "@hooks/useDebounce";
+import { ROUTES } from "@constants/routes.constants";
 
 
 function ProgramsList() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const theme = useTheme()
 
   const [searchParams] = useSearchParams();
   const [activePrograms, setActivePrograms] = useState([]);
@@ -20,7 +21,6 @@ function ProgramsList() {
   const { trainingProgramsList } = useSelector(state => state.trainingPrograms)
 
   const debouncedSearch = useDebounce(searchParams.get('search'), 500);
-
 
   const loadTrainingPrograms  = async (offsetValue) => {
       const search   = searchParams.get("search");
@@ -58,7 +58,12 @@ function ProgramsList() {
           gap: 0,
         }}
       >
-        <Typography variant="h5" sx={{ pb: 2 }}>Активные программы тренировок</Typography>
+        <Grid2 container gap={1.5} sx={{ alignItems: 'center', pb: 2 }}>
+          <Tooltip title='Добавить программу тренировок'>
+            <IconButton disabled onClick={() => navigate(ROUTES.ADD_PROGRAM.PATH)} size="small" color="error"><Add /></IconButton>
+          </Tooltip>
+          <Typography variant="h5" >Активные программы тренировок</Typography>
+        </Grid2>
         {isFailed(trainingProgramsList.loadingStatus)     && (<UIAlert />)}
 
         {(isLoading(trainingProgramsList.loadingStatus))  && (<CardSkeleton quantity={1} />)}

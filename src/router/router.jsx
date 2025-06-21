@@ -1,5 +1,5 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
-import { Dashboard, Login, ExerciseList, ExerciseDetail, Workouts, Programs, AddWorkout } from "@pages"
+import { Dashboard, Login, ExerciseList, ExerciseDetail, Workouts, Programs, AddProgram, AddWorkout } from "@pages"
 import { ROUTES } from '@constants/routes.constants';
 import { ContainerWrapper } from '@components';
 
@@ -36,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: ROUTES.PROGRAMS.PATH,
         element: <Programs />,
+      },
+      {
+        path: ROUTES.ADD_PROGRAM.PATH,
+        element: <AddProgram />,
       },
       {
         path: ROUTES.ADD_WORKOUT.PATH,

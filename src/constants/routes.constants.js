@@ -15,6 +15,11 @@ export const ROUTES = {
     NAME:   'Программы тренировок',
     PATH:   '/programs',
   },
+  ADD_PROGRAM: {
+    NAME:   'Добавить программу',
+    PATH:   '/programs/add-program',
+    HIDDEN_NAV: true,
+  },
   ADD_WORKOUT: {
     NAME:   'Записать тренировку',
     PATH:   '/add-workout',
