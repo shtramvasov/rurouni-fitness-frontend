@@ -99,7 +99,8 @@ function WorkoutsList() {
                             border:   searchParams.get('workout_id') == workout.workout_id 
                               ? `1px solid ${theme.palette.gray[300]}` 
                               : `1px solid white`,
-                            '&:hover': { bgcolor: theme.palette.gray[50] } 
+                            '&:hover': { bgcolor: theme.palette.gray[50] },
+                            '&:hover .workout-title': { color: theme.palette.brand[500] } 
                           }}
                         >
                           <Grid2 size="auto" sx={{ pr: 0.5 }}>
@@ -107,7 +108,8 @@ function WorkoutsList() {
                           </Grid2>
 
                           <Grid2 size sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                              <Typography 
+                              <Typography
+                                className="workout-title" 
                                 sx={{ 
                                 fontWeight: 500, 
                                 color:  searchParams.get('workout_id') == workout.workout_id ? theme.palette.brand[500]  : theme.palette.gray[900] 

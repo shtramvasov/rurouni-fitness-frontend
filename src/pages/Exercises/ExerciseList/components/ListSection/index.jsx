@@ -49,7 +49,8 @@ function ListSection() {
         onClick={() => navigate(`${ROUTES.EXERCISES.PATH}/${exercise.exercise_id}`)}
         sx={{ 
           alignItems: 'center', 
-          p: 1.5,
+          p:  { xs: 0.5, sm: 1.5 },
+          px: { xs: 0, sm: 1.5 },
           borderRadius: 1,
           transition: '450ms ease',
           cursor: 'pointer',

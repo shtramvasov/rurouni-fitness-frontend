@@ -68,14 +68,13 @@ function WorkoutsGraphs() {
 
     setSearchParams(searchParams);
   }
-  
 
   return (
     <Grid2 size={{ lg: 6, xs: 12 }} sx={{ alignItems: 'start', order: { xs: 2, lg: 1 } }}>
         <PieChartCard 
           data={workoutsList.data}
           getData={getWorkoutsList()}
-          title={getTitle('Статистика тренировок')}
+          title={getTitle('Тренировки')}
           loadingState={workoutsList.loadingStatus}
           resetFilter={resetFilter}
           colors={[theme.palette.gray[300], theme.palette.gray[400], theme.palette.gray[500]]}
@@ -84,7 +83,7 @@ function WorkoutsGraphs() {
           data={muscleGroupStats.data}
           loadingState={muscleGroupStats.loadingStatus}
           resetFilter={resetFilter}
-          title={getTitle('Стастистика по группам мышц')}
+          title={getTitle('Работа по группам мышц')}
           colors={[
             theme.palette.brand[200], 
             theme.palette.brand[300], 

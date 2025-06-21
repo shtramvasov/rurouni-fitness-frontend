@@ -30,7 +30,7 @@ function ProfieMenu() {
           <Grid2 container sx={{ justifyContent: 'center', textAlign: 'center' }}>
             <Grid2 sx={{ display: 'flex', alignItems: 'center',  flexDirection: 'column', gap: 1 }}>
               <Typography variant="body1" fontWeight={500} sx={{ color: theme.palette.grey[800] }} >{capitalizeFirstLetter(username)}</Typography>
-              <Avatar sx={{ bgcolor: theme.palette.primary.main }} alt={username}>{capitalizeFirstLetter(username.charAt(0))}</Avatar>
+              <Avatar src={user.avatar_url} sx={{ bgcolor: theme.palette.primary.main }} alt={username}>{capitalizeFirstLetter(username.charAt(0))}</Avatar>
               <Typography variant="caption" fontWeight={300} sx={{ color: theme.palette.grey[400] }} >{user.email}</Typography>
             </Grid2>
           </Grid2>
