@@ -21,12 +21,12 @@ function TrainingPrograms() {
     <Grid2 size={{ lg: 6, xs: 12 }} container spacing={3} sx={{ flexDirection: 'column', alignItems: 'start', pb: 2, order: { xs: 1, lg: 2 } }}>
       <CustomCard 
         sx={{  
-          p: 3, 
+          p: { xs: 1, sm: 3 }, 
           justifyContent: 'center',
           gap: 0,
         }}
       >
-        <Typography variant="h5" sx={{ pb: 2 }}>Активные программы тренировок</Typography>
+        <Typography variant="h5" sx={{ pb: 2, pt: { xs: 1, sm: 0 }, pl: { xs: 1, sm: 0 } }}>Активные программы тренировок</Typography>
 
         {isFailed(trainingProgramsList.loadingStatus)     && (<UIAlert />)}
 

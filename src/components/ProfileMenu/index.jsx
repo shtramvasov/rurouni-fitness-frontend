@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Grid2, Divider, IconButton, Menu, MenuItem, Typography, useTheme } from "@mui/material"
+import { Box, Grid2, Divider, IconButton, Menu, MenuItem, Typography, Avatar, useTheme } from "@mui/material"
 import { Person } from '@mui/icons-material';
 import { logout } from "@store/slices/Auth/auth.thunks";
+import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter";
 
 function ProfieMenu() {
   const dispatch = useDispatch()
@@ -11,6 +12,8 @@ function ProfieMenu() {
   const { user } = useSelector(state => state.auth)
 
   const [profileMenu, setProfileMenu] = useState({ anchor: null, isOpen: false })
+
+  const username = user.display_name ?? user.username;
 
 
   return (
@@ -24,9 +27,13 @@ function ProfieMenu() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <Grid2 container sx={{ flexDirection: 'column', p: 0.5 , minWidth: '12rem'}} spacing={0.5}>
-          <Typography variant="caption" sx={{ p: 1, fontWeight: 500, color: theme.palette.gray[800] }}>
-            Ваш профиль, <b>{user.display_name || user.username}</b>
-          </Typography>
+          <Grid2 container sx={{ justifyContent: 'center', textAlign: 'center' }}>
+            <Grid2 sx={{ display: 'flex', alignItems: 'center',  flexDirection: 'column', gap: 1 }}>
+              <Typography variant="body1" fontWeight={500} sx={{ color: theme.palette.grey[800] }} >{capitalizeFirstLetter(username)}</Typography>
+              <Avatar sx={{ bgcolor: theme.palette.primary.main }} alt={username}>{capitalizeFirstLetter(username.charAt(0))}</Avatar>
+              <Typography variant="caption" fontWeight={300} sx={{ color: theme.palette.grey[400] }} >{user.email}</Typography>
+            </Grid2>
+          </Grid2>
           <Divider flexItem/>
 
           <MenuItem 

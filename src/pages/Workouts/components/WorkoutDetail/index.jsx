@@ -32,7 +32,7 @@ function WorkoutDetail() {
     <Grid2 size={{ lg: 6, xs: 12 }} container spacing={3} sx={{ flexDirection: 'column', alignItems: 'start', pb: 2 }}>
       <CustomCard 
         sx={{  
-          p: 3, 
+          p: { xs: 0, sm: 3 }, 
           width: '100%',
           justifyContent: 'center',
           gap: 0,
@@ -51,7 +51,7 @@ function WorkoutDetail() {
             {
               <CustomCard 
                 sx={{  
-                  p: 2,
+                  p: { xs: 0, sm: 2 },
                   width: "100%",
                   justifyContent: 'center',
                   gap: 0,
@@ -60,7 +60,7 @@ function WorkoutDetail() {
                 }}
               >
                 <Grid2 container spacing={1.25}>
-                  <Grid2 size={12} container spacing={0.5} sx={{ flexDirection: 'column' }}>
+                  <Grid2 size={12} container spacing={0.5} sx={{ flexDirection: 'column', p: { xs: 1.5, sm: 0 } }}>
                     <Typography sx={{ fontSize: 16, fontWeight: 600 }} color={theme.palette.grey[900]}>{workoutDetails.data.title}</Typography>
                     <Typography sx={{ pb: 1 }} variant="body2" color={theme.palette.grey[500]}>
                       {dayjs(workoutDetails.data.created_on_tz).format('DD MMMM YYYY')}
@@ -82,7 +82,7 @@ function WorkoutDetail() {
                           '&:hover': { bgcolor: theme.palette.gray[50] } 
                         }}
                       >
-                        <Grid2 size="auto" sx={{ pr: 0.5 }}>
+                        <Grid2 size="auto" sx={{ pr: { xs: 0, sm: 0.5 } }}>
                           <Typography variant="caption" color={theme.palette.gray[500]}>{++index}</Typography>
                         </Grid2>
 

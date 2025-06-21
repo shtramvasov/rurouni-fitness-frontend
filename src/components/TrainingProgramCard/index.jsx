@@ -50,12 +50,13 @@ export function TrainingProgramCard({ program, verbose, open = true }) {
               sx={{ 
                 alignItems: 'center', 
                 p: 2,
+                px: { xs: 0, sm: 2 },
                 borderRadius: 1,
                 transition: '450ms ease',
                 '&:hover': { bgcolor: theme.palette.gray[50] } 
               }}
             >
-              <Grid2 size="auto" sx={{ pr: 2 }}>
+              <Grid2 size="auto" sx={{ pr: { xs: 1, sm: 2 } }}>
                 <Typography variant="caption" color={theme.palette.gray[500]}>{++index}</Typography>
               </Grid2>
 
