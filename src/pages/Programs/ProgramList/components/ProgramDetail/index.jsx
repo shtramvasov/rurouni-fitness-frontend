@@ -140,7 +140,7 @@ export function ProgramDetail({program, onClose}) {
   return (
     <Box>
       <Grid2 container sx={{ py: 2, px: 3, alignItems: 'center', justifyContent: 'space-between' }}>
-        <Typography variant="h4">Редактировать программу</Typography>
+        <Typography variant="h4">Редактирование</Typography>
         <Tooltip title='Закрыть'>
           <IconButton onClick={onClose}><CloseRounded /></IconButton>
         </Tooltip>
