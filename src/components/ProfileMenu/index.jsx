@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Grid2, Divider, IconButton, Menu, MenuItem, Typography, Avatar, useTheme } from "@mui/material"
-import { Person } from '@mui/icons-material';
+import { Logout as LogoutIcon, Person, Settings } from '@mui/icons-material';
 import { logout } from "@store/slices/Auth/auth.thunks";
 import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter";
 
@@ -35,11 +35,19 @@ function ProfieMenu() {
             </Grid2>
           </Grid2>
           <Divider flexItem/>
+          <MenuItem 
+              sx={{ py: 1.25, display: 'flex', alignItems: 'center', gap: 1, color: theme.palette.grey[600] }}
+              // onClick={() => dispatch(logout())} 
+            >
+              <Settings sx={{ fontSize: 18 }} />
+              Настройки
+          </MenuItem>
 
           <MenuItem 
-              sx={{ py: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: theme.palette.red[300] }}
+              sx={{ py: 1.25, display: 'flex', alignItems: 'center', gap: 1, color: theme.palette.red[300] }}
               onClick={() => dispatch(logout())} 
             >
+              <LogoutIcon sx={{ fontSize: 18 }} />
               Выйти
           </MenuItem>
         </Grid2>

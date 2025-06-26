@@ -25,17 +25,12 @@ export function TrainingProgramCard({ program, verbose, open = true, handleClick
       <Grid2 container spacing={isOpen ? 1.25 : 0 }>
         <Grid2 size={12} container spacing={0.5} sx={{ flexDirection: 'column' }}>
           <Grid2 sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Tooltip placement="top" title={handleClick ? 'Нажмите, чтобы редактировать' : ''}>
-              <Grid2 
-                container 
-                spacing={0.5} 
-                sx={{ flexDirection: 'column', cursor: handleClick ? 'pointer' : 'default' }} 
-                onClick={handleClick && handleClick}
-              >
-                <Typography sx={{ fontSize: 16, fontWeight: 600, '&:hover': { color: handleClick ? theme.palette.brand[500] : theme.palette.grey[900] } }} color={theme.palette.grey[900]}>{program.name}</Typography>
+              <Grid2 container spacing={0.5} sx={{ flexDirection: 'column' }} >
+                <Tooltip placement="top" title={handleClick ? 'Нажмите, чтобы редактировать' : ''}>
+                  <Typography onClick={handleClick && handleClick} sx={{ fontSize: 16, fontWeight: 600, '&:hover': { color: handleClick ? theme.palette.brand[500] : theme.palette.grey[900], cursor: handleClick ? 'pointer' : 'default' } }} color={theme.palette.grey[900]}>{program.name}</Typography>
+                </Tooltip>
                 <Typography sx={{ pb: isOpen ? 1 : 0 }} variant="body2" color={theme.palette.grey[500]}>{program.description}</Typography>
               </Grid2>
-            </Tooltip>
             {verbose && (
               <Tooltip title={isOpen ? 'Скрыть список упражнений' : 'Показать список упражнений'}>
                 <IconButton sx={{ my: 0.5 }} size="small" onClick={() => setIsOpen(prev => !prev)}>

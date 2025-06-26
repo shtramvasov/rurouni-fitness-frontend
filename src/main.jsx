@@ -30,7 +30,7 @@ createRoot(document.getElementById('root')).render(
         <AuthProvider>
           <RouterProvider router={router} />
         </AuthProvider>
-        <Toaster position="top-right" />
+        <Toaster position="top-center" />
       </ThemeProvider>   
     </LocalizationProvider>
   </Provider>
