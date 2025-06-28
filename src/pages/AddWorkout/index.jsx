@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { getExercisesList } from "@store/slices/Exercises/exercises.thunks";
 import { getTrainingProgramsList } from "@store/slices/TrainingPrograms/training_programs.thunks";
@@ -13,11 +14,14 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import toast from "react-hot-toast";
 import { validateField, validateNumber } from "@helpers/validations";
+import { ROUTES } from "@constants/routes.constants";
+
 
 
 function AddWorkout() {
   const dispatch = useDispatch();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const { exercisesList } = useSelector(state => state.exercises)
   const { trainingProgramsList } = useSelector(state => state.trainingPrograms)
@@ -84,6 +88,13 @@ function AddWorkout() {
   
       setSubmitData({ ...submitData, title: newValue.name, exercises: updatedExercises });
     }
+  };
+
+  const handleInputChange = (event, newInputValue) => {
+    setSubmitData({
+      ...submitData,
+      title: newInputValue,
+    });
   };
 
   const addExercise = () => {
@@ -155,6 +166,7 @@ function AddWorkout() {
         setSubmitData(initialData)
         toast.success('Тренировка успешно записана')
         dispatch(clearCreateWorkoutLS())
+        navigate(ROUTES.WORKOUTS.PATH)
       }
     }
   }
@@ -211,8 +223,10 @@ function AddWorkout() {
         <FormGrid size={12} sx={{ pt: hasDatePicker ? 2 : 0 }}>
           <Autocomplete
             value={trainingProgramsList.data.find((tp) => tp.name == submitData.title) || null }
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => typeof option === 'string' ? option : option.name}
+            onInputChange={handleInputChange}
             onChange={handleProgramChange}
+            freeSolo
             disabled={isLoading(createWorkoutLS)}
             options={trainingProgramsList.data}
             renderInput={(params) => (
