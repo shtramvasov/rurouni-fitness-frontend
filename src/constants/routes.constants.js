@@ -30,4 +30,9 @@ export const ROUTES = {
     PATH:   '/login',
     HIDDEN_NAV: true,
   },
+  PROFILE: {
+    NAME:   'Профиль пользователя',
+    PATH:   '/profile',
+    HIDDEN_NAV: true,
+  },
 };

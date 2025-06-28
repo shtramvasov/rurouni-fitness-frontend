@@ -1,12 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Grid2, Divider, IconButton, Menu, MenuItem, Typography, Avatar, useTheme } from "@mui/material"
-import { Logout as LogoutIcon, Person, Settings } from '@mui/icons-material';
+import { Logout as LogoutIcon, Person } from '@mui/icons-material';
 import { logout } from "@store/slices/Auth/auth.thunks";
 import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter";
+import { ROUTES } from "@constants/routes.constants";
+
 
 function ProfieMenu() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const theme = useTheme()
 
   const { user } = useSelector(state => state.auth)
@@ -14,6 +18,11 @@ function ProfieMenu() {
   const [profileMenu, setProfileMenu] = useState({ anchor: null, isOpen: false })
 
   const username = user.display_name ?? user.username;
+
+  const navigateToProfile = async () => {
+    navigate(ROUTES.PROFILE.PATH)
+    setProfileMenu({ anchor: null, isOpen: false })
+  }
 
 
   return (
@@ -37,10 +46,10 @@ function ProfieMenu() {
           <Divider flexItem/>
           <MenuItem 
               sx={{ py: 1.25, display: 'flex', alignItems: 'center', gap: 1, color: theme.palette.grey[600] }}
-              // onClick={() => dispatch(logout())} 
+              onClick={navigateToProfile} 
             >
-              <Settings sx={{ fontSize: 18 }} />
-              Настройки
+              <Person sx={{ fontSize: 18 }} />
+              Перейти в профиль
           </MenuItem>
 
           <MenuItem 

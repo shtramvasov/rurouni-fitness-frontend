@@ -1,6 +1,7 @@
 import { createSlice  } from '@reduxjs/toolkit';
 import { LOADING_STATUS } from '@constants/redux.constants';
 import { checkAuth, login, register, logout } from './auth.thunks';
+import { updateUser } from '../Users/users.thunks';
 
 const initialState = {
   isAuth:     false,
@@ -61,6 +62,9 @@ const authSlice = createSlice({
 
       window.location.replace('/login')
     });
+
+    // updateUser
+    builder.addCase(updateUser.fulfilled,    (state, action) => { state.user = action.payload })
   }
 });
 
