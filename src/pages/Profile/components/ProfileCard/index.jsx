@@ -1,17 +1,15 @@
 import { useState } from "react"
 import { CustomCard } from "@components/index"
 import { useDispatch, useSelector } from "react-redux"
-import { useTheme } from "@emotion/react"
 import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter"
-import { Avatar, Button, CircularProgress, Divider, Grid2, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material"
-import dayjs from "dayjs"
+import { Avatar, Button, CircularProgress, Divider, Grid2, TextField, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material"
 import { Female, Male } from "@mui/icons-material"
 import { updateUser } from "@store/slices/Users/users.thunks"
 import { clearupdateUserLS } from "@store/slices/Users/users.slice"
 import { isLoading } from "@constants/redux.constants"
 import { isFulfilled } from "@reduxjs/toolkit"
 import toast from "react-hot-toast"
-
+import dayjs from "dayjs"
 
 function ProfileCard() {
   const dispatch = useDispatch()
@@ -94,7 +92,7 @@ function ProfileCard() {
           </Grid2>
         </Grid2>
 
-        <Grid2 sx={{ pt: 6 }}>
+        <Grid2 sx={{ pt: 3 }}>
           <Button 
             startIcon={isLoading(updateUser) && <CircularProgress color='inherit' size={16} />} 
             disabled={isLoading(updateUserLS)} 

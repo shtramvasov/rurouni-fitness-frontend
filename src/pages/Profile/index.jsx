@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Grid2, MenuItem, Typography, useTheme } from "@mui/material";
 import { AccountCircleOutlined, NotificationsOutlined, LockOutlined  } from "@mui/icons-material";
-import { ProfileCard } from "./components";
+import { ProfileCard, SecurityCard } from "./components";
 
 
 function Profile() {
@@ -50,9 +50,8 @@ function Profile() {
         </Grid2>
 
         <Grid2 size={{ xs: 12, lg: 10 }} item>
-          {
-            selectedTab === 'profile' && <ProfileCard />
-          }
+          { selectedTab === 'profile'   && <ProfileCard /> }
+          { selectedTab === 'security'  && <SecurityCard /> }
         </Grid2>
       </Grid2>
     </Box>
