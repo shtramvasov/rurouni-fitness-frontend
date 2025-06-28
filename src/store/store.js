@@ -4,6 +4,8 @@ import exercisesReducer from './slices/Exercises/exercises.slice'
 import trainingProgramsReducer from './slices/TrainingPrograms/training_programs.slice'
 import workoutsReducer from './slices/Workouts/workouts.slice'
 import usersReducer from './slices/Users/users.slice'
+import filesReducer from './slices/Files/files.slice'
+
 
 const store = configureStore({
   reducer: {
@@ -11,7 +13,8 @@ const store = configureStore({
     exercises:            exercisesReducer,
     trainingPrograms:     trainingProgramsReducer,
     workouts:             workoutsReducer,
-    users:                usersReducer
+    users:                usersReducer,
+    files:                filesReducer,
   },
 });
 
