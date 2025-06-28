@@ -39,7 +39,7 @@ function ProfileCard() {
         dispatch(clearupdateUserLS())
       }
 
-      if(isRejected(response)) toast.error('Произошла ошибка')
+      if(response.error) toast.error(response.error)
     }
   }
 

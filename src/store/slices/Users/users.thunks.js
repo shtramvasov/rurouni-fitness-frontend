@@ -6,3 +6,8 @@ export const updateUser = createAsyncThunk(
   'auth/updateUser', 
   async ({ params }) => await UsersController.updateUser(params)
 )
+
+export const resetPassword = createAsyncThunk(
+  'auth/resetPassword', 
+  async () => await UsersController.resetPassword()
+)

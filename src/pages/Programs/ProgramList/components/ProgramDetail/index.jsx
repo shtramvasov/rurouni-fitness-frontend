@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isFulfilled, isRejected } from "@reduxjs/toolkit";
+import { isFulfilled } from "@reduxjs/toolkit";
 import { Box, Grid2, IconButton, Divider, Typography, CircularProgress, useTheme, Button, Tooltip, TextField, FormHelperText, styled, Switch, FormControlLabel, OutlinedInput, FormControl, Autocomplete } from "@mui/material";
 import { CloseRounded, Delete, Add, Done } from "@mui/icons-material";
 import { validateField, validateNumber } from "@helpers/validations";
@@ -128,10 +128,10 @@ export function ProgramDetail({program, onClose}) {
         
         const updatedList = await dispatch(getTrainingProgramsList({ params: { limit: PAGINATION.DEFAULT_LIMIT }}))
         if(isFulfilled(updatedList)) onClose()   
-        if(isRejected(updatedList)) toast.error('Произошла ошибка')  
+        if(updatedList.error) toast.error('Произошла ошибка')  
       }
 
-      if(isRejected(response)) toast.error('Произошла ошибка')
+      if(response.error) toast.error('Произошла ошибка')
       
     }
   }
