@@ -21,7 +21,8 @@ function TrainingPrograms() {
     <Grid2 size={{ lg: 6, xs: 12 }} container spacing={3} sx={{ flexDirection: 'column', alignItems: 'start', pb: 2, order: { xs: 1, lg: 2 } }}>
       <CustomCard 
         sx={{  
-          p: { xs: 1, sm: 3 }, 
+          p: { xs: 0.5, sm: 3 }, 
+          py: { xs: 1, sm: 3 },
           justifyContent: 'center',
           gap: 0,
         }}

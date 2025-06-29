@@ -125,7 +125,7 @@ function ListSection() {
     <Grid2 container size={{ lg: 6, xs: 12 }} spacing={3} sx={{ flexDirection: 'column', pb: 3 }}>
       <CustomCard 
         sx={{  
-          p: 3, 
+          p:  { xs: 1, sm: 3 }, 
           gap: 0,
           maxHeight: isDesktopScreen ? null : '82vh' ,
           overflowY: 'auto',

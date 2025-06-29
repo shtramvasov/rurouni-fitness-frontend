@@ -52,9 +52,9 @@ export function TrainingProgramCard({ program, verbose, open = true, handleClick
               sx={{ 
                 alignItems: 'center', 
                 p:  { xs: 1.5, sm: 2 },
-                px: { xs: 1, sm: 1.5 },
+                px: { xs: 0, sm: 1.5 },
                 borderRadius: 1,
-                gap: { xs: 1, sm: 1.5 },
+                gap: { xs: 0.5, sm: 1.5 },
                 transition: '450ms ease',
                 '&:hover': { bgcolor: theme.palette.gray[50] } 
               }}
