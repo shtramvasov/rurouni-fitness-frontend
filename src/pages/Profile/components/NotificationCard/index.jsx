@@ -50,7 +50,7 @@ function NotificationCard() {
           <Grid2 container sx={{ justifyContent: 'space-between', flexDirection: 'row', gap: 3 }} size={12}>
             <Grid2 sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }} >
               <Typography sx={{ color: theme.palette.brand[800], fontSize: 16, fontWeight: 600 }}>Персональная аналитика</Typography>  
-              <Typography sx={{ color: theme.palette.gray[500], fontSize: 14 }}>Получайте ежемесечные отчеты о ваших результатах с полезными советами для прогресса.</Typography>  
+              <Typography sx={{ color: theme.palette.gray[500], fontSize: 14 }}>Получайте ежемесячные отчеты о ваших результатах с полезными советами для прогресса.</Typography>  
             </Grid2>
              <Switch checked={emailSettings.personal_statistics} onChange={(e) => setEmailSettings(prev => ({ ...prev, personal_statistics: e.target.checked }))} />
           </Grid2>
