@@ -5,7 +5,7 @@ import { getExercisesList } from "@store/slices/Exercises/exercises.thunks";
 import { getTrainingProgramsList } from "@store/slices/TrainingPrograms/training_programs.thunks";
 import { postWorkout } from "@store/slices/Workouts/workouts.thunks";
 import { clearCreateWorkoutLS } from "@store/slices/Workouts/workouts.slice";
-import { Grid2, useTheme, Typography, Divider, TextField, Autocomplete, OutlinedInput, styled, Button, IconButton, Tooltip, CircularProgress, FormControl, FormHelperText } from "@mui/material";
+import { Grid2, useTheme, Typography, Divider, TextField, Autocomplete, OutlinedInput, styled, Button, IconButton, Tooltip, CircularProgress, FormControl, FormHelperText, Grid } from "@mui/material";
 import { Add, Delete, Done } from "@mui/icons-material";
 import { isFulfilled } from "@reduxjs/toolkit";
 import { isSuccess, isLoading, isFailed } from "@constants/redux.constants";
@@ -172,7 +172,7 @@ function AddWorkout() {
   }
 
   return ( 
-    <CustomCard sx={{ p: 3 }}>
+    <CustomCard sx={{ p:  { xs: 1, sm: 3 },  }}>
 
       {(isFailed(exercisesList.loadingStatus) || isFailed(trainingProgramsList.loadingStatus)) && (
         <UIAlert title='Что-то пошло не так, попробуйте перезагрузить страницу' />
@@ -262,14 +262,15 @@ function AddWorkout() {
               key={exercise.id} 
               container 
               size={12} 
-              spacing={2} 
+              spacing={{ xs: 1.25, sm: 2 }} 
               sx={{ 
-                mb: { xs: 6, md: 2 }, 
-                p: 2, 
+                mb: { xs: 1.5, md: 2 }, 
+                p:  { xs: 0.5, sm: 2 },  
                 borderRadius: 1, 
-                border: `1px solid ${theme.palette.grey[100]}` 
+                border: { xs: 'none', sm: `1px solid ${theme.palette.grey[100]}`  },
               }}
             >
+              <Grid2 sx={{ mb: 1.5, display: { xs: 'block', sm: 'none' } }} size={12}><Divider flexItem /></Grid2>
               <Grid2 item size={{ xs: 12, md: 5 }}>
                 <Autocomplete
                   value={exercisesList.data.find((ex) => ex.exercise_id == exercise.exercse_id) || null }
@@ -303,7 +304,7 @@ function AddWorkout() {
 
               {["weight", "sets", "reps"].map((field) => (
                 <Tooltip title={!exercise.exercse_id ? 'Выберите упражнение' : ''} placement="top">
-                  <Grid2 size={{ xs: 6, md: 2 }} key={field}>
+                  <Grid2 size={{ xs: 3, md: 2 }} key={field}>
                     <FormControl fullWidth size="small" error={!!errors.exercises[exercise.id]?.[field]}>
                       <OutlinedInput
                         placeholder={field === "weight" ? "Вес" : field === "sets" ? "Подходы" : "Повторения"}
@@ -318,7 +319,7 @@ function AddWorkout() {
               ))}
 
               <Tooltip title={submitData.exercises.length == 1 ? 'Нельзя удалить единственное упражнение' : 'Удалить упражнение'} placement="top" >
-                <Grid2 size={{ xs: 6, md: 1 }} container sx={{ alignSelf: 'baseline' }}>
+                <Grid2 size={{ xs: 3, md: 1 }} container sx={{ alignSelf: 'baseline' }}>
                   <IconButton
                     sx={{ width: '100%',  }} 
                     disabled={submitData.exercises.length == 1 || isLoading(createWorkoutLS)} 
@@ -331,6 +332,7 @@ function AddWorkout() {
               </Tooltip>
             </Grid2>
             ))}
+            
           </Grid2>
           <Grid2 container sx={{ pt: 1.5 }}>
             <Grid2 size={{ xs: 12, md: 6 }}>
