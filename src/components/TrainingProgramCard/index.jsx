@@ -79,9 +79,9 @@ export function TrainingProgramCard({ program, verbose, open = true, handleClick
 
               <Grid2 size sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                 <Grid2 sx={{ display: 'flex' }} >
-                  <Grid2 container gap={0.75} >
+                  <Grid2 container gap={0.75} position='relative'>
                     <Typography sx={{ fontWeight: 500, color: theme.palette.gray[900] }}>{exercise.name}</Typography>
-                    <Typography sx={{ fontSize: 12, fontWeight: 300, color: theme.palette.gray[500] }}>
+                    <Typography sx={{ fontSize: 12, fontWeight: 300, color: theme.palette.gray[500], position: 'absolute', right: -28 }}>
                       {exercise.reps}х{exercise.sets}
                     </Typography>
                   </Grid2>
