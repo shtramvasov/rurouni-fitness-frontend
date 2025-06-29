@@ -51,44 +51,59 @@ export function TrainingProgramCard({ program, verbose, open = true, handleClick
               size={12} 
               sx={{ 
                 alignItems: 'center', 
-                p: 2,
-                px: { xs: 0, sm: 2 },
+                p:  { xs: 1.5, sm: 2 },
+                px: { xs: 1, sm: 1.5 },
                 borderRadius: 1,
+                gap: { xs: 1, sm: 1.5 },
                 transition: '450ms ease',
                 '&:hover': { bgcolor: theme.palette.gray[50] } 
               }}
             >
-              <Grid2 size="auto" sx={{ pr: { xs: 1, sm: 2 } }}>
+              <Grid2 size="auto">
                 <Typography variant="caption" color={theme.palette.gray[500]}>{++index}</Typography>
+              </Grid2>
+
+              <Grid2 size='auto'>
+                <img 
+                  src={exercise.image_url} 
+                  style={{
+                    width: '50px',
+                    height: '50px',
+                    objectFit: 'fill',
+                    padding: 4,
+                    borderRadius: 12,
+                    backgroundColor: theme.palette.gray[100]
+                  }}
+                />
               </Grid2>
 
               <Grid2 size sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                 <Grid2 sx={{ display: 'flex' }} >
-                  <Grid2 container gap={0.75} position='relative'>
+                  <Grid2 container gap={0.75} >
                     <Typography sx={{ fontWeight: 500, color: theme.palette.gray[900] }}>{exercise.name}</Typography>
-                    <Typography sx={{ fontSize: 12, fontWeight: 300, color: theme.palette.gray[500], position: 'absolute', right: -28 }}>
+                    <Typography sx={{ fontSize: 12, fontWeight: 300, color: theme.palette.gray[500] }}>
                       {exercise.reps}х{exercise.sets}
                     </Typography>
                   </Grid2>
                 </Grid2>
-                <Grid2 sx={{ display: 'flex' }} gap={0.4}>
-                  <Typography sx={{ fontWeight: 300, fontSize: 12, color: theme.palette.gray[500] }}>
-                    {exercise.recent_weight}{exercise.unit}
-                  </Typography>
-                  <Typography sx={{ fontWeight: 300, fontSize: 12, color: theme.palette.gray[500] }}>
-                    {exercise.recent_reps}х{exercise.recent_sets}
-                  </Typography>
-                  <Typography sx={{ fontWeight: 300, fontSize: 12, color: theme.palette.gray[500] }}>
-                    {exercise.recent_created_on_tz 
-                      ?  `от ${dayjs(exercise.recent_created_on_tz).format('D MMM YYYY')}`
-                      : null
-                    }                           
-                  </Typography>
+                <Grid2 sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Grid2 sx={{ display: 'flex' }} gap={0.4}>
+                    <Typography sx={{ fontWeight: 300, fontSize: 12, color: theme.palette.gray[500] }}>
+                      {exercise.recent_weight}{exercise.unit}
+                    </Typography>
+                    <Typography sx={{ fontWeight: 300, fontSize: 12, color: theme.palette.gray[500] }}>
+                      {exercise.recent_reps}х{exercise.recent_sets}
+                    </Typography>
+                    <Typography sx={{ fontWeight: 300, fontSize: 12, color: theme.palette.gray[500] }}>
+                      {exercise.recent_created_on_tz 
+                        ?  `от ${dayjs(exercise.recent_created_on_tz).format('D MMM YYYY')}`
+                        : null
+                      }                           
+                    </Typography>
+                  </Grid2>
+                  <Divider orientation="vertical" flexItem />
+                  <Chip label={exercise.muscle_group}/>
                 </Grid2>
-              </Grid2>
-
-              <Grid2 size="auto">
-                <Chip label={exercise.muscle_group}/>
               </Grid2>
             </Grid2>
           ))}

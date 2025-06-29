@@ -59,7 +59,7 @@ function ProgramsList() {
       <CustomCard 
         sx={{  
           width: '100%',
-          p: 3, 
+          p:  { xs: 0.5, sm: 3 },
           justifyContent: 'center',
           gap: 0,
         }}
