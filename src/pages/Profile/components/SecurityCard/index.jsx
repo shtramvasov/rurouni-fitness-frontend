@@ -1,15 +1,13 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { CustomCard, UIAlert } from "@components/index"
-import { Button, CircularProgress, Divider, Grid2, TextField, IconButton, Typography, useTheme, Alert, AlertTitle } from "@mui/material"
+import { Button, CircularProgress, Grid2, TextField, IconButton, Typography, useTheme } from "@mui/material"
 import { Password, Key } from "@mui/icons-material"
 import { isLoading } from "@constants/redux.constants"
 import { isFulfilled } from "@reduxjs/toolkit"
 import toast from "react-hot-toast"
 import { updateUser, resetPassword } from "@store/slices/Users/users.thunks"
 import { clearupdateUserLS, clearResetPasswordLS } from "@store/slices/Users/users.slice"
-
-
 
 
 function SecurityCard() {

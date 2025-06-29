@@ -167,7 +167,7 @@ function ProfileCard() {
                   </Tooltip>
                 )}
               </Box>
-            <Typography sx={{ color: theme.palette.gray[600] }}>Зарегистрирован {dayjs(user.created_on_tz).format('D MMMM YYYY')}</Typography>
+            <Typography sx={{ color: theme.palette.gray[600] }}>Зарегистрирован{user.gender == 'F' && 'а'} {dayjs(user.created_on_tz).format('D MMMM YYYY')}</Typography>
           </Grid2>    
         </Grid2>
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Grid2, MenuItem, Typography, useTheme } from "@mui/material";
 import { AccountCircleOutlined, NotificationsOutlined, LockOutlined  } from "@mui/icons-material";
-import { ProfileCard, SecurityCard } from "./components";
+import { ProfileCard, SecurityCard, NotificationCard } from "./components";
 
 
 function Profile() {
@@ -11,7 +11,7 @@ function Profile() {
 
   const MENU_OPTIONS = [
     { title: 'Профиль',       icon: <AccountCircleOutlined  sx={{ fontSize: 20 }} />,  value: 'profile'},
-    { title: 'Оповещения',    icon: <NotificationsOutlined  sx={{ fontSize: 20 }} />,  value: 'notifications', in_developement: true},
+    { title: 'Оповещения',    icon: <NotificationsOutlined  sx={{ fontSize: 20 }} />,  value: 'notifications' },
     { title: 'Безопасность',  icon: <LockOutlined           sx={{ fontSize: 20 }} />,  value: 'security'},
   ]
 
@@ -50,8 +50,9 @@ function Profile() {
         </Grid2>
 
         <Grid2 size={{ xs: 12, lg: 10 }} item>
-          { selectedTab === 'profile'   && <ProfileCard /> }
-          { selectedTab === 'security'  && <SecurityCard /> }
+          { selectedTab === 'profile'         && <ProfileCard /> }
+          { selectedTab === 'notifications'   && <NotificationCard /> }
+          { selectedTab === 'security'        && <SecurityCard /> }
         </Grid2>
       </Grid2>
     </Box>
