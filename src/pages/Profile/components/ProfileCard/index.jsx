@@ -3,7 +3,7 @@ import { CustomCard } from "@components/index"
 import { useDispatch, useSelector } from "react-redux"
 import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter"
 import { Avatar, Box, Button, CircularProgress, Divider, Grid2, TextField, ToggleButton, ToggleButtonGroup, Tooltip, Typography, useTheme } from "@mui/material"
-import { Female, Male, Add } from "@mui/icons-material"
+import { Female, Male, Add, Close } from "@mui/icons-material"
 import { updateUser } from "@store/slices/Users/users.thunks"
 import { clearupdateUserLS } from "@store/slices/Users/users.slice"
 import { isLoading } from "@constants/redux.constants"
@@ -42,6 +42,11 @@ function ProfileCard() {
     }
   }
 
+  const clearImage = () => {
+    setSubmitData(prev => ({ ...prev, file: null }));
+    fileInputRef.current.value = '';
+  }
+
   const submit = async () => {
     if(!isLoading(updateUserLS)) {
       const display_name = submitData.display_name ? submitData.display_name.trim() : null
@@ -55,6 +60,8 @@ function ProfileCard() {
         }));
 
         if(isFulfilled(uploadResponse)) {
+          dispatch(clearuploadFileLS())
+          clearImage()
           avatar_url = uploadResponse.payload.url
         }
 
@@ -97,8 +104,6 @@ function ProfileCard() {
               <Divider flexItem orientation="vertical" />
               <Typography sx={{ color: theme.palette.gray[600] }}>{user.username}</Typography>
             </Grid2>
-
-            <Tooltip placement="right" title='Загрузить аватар'>
               <Box sx={{ position: 'relative', '&:hover .avatar-overlay': { opacity: 1 }}}>
                 <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" style={{ display: 'none' }}/>
                 <Avatar 
@@ -108,6 +113,7 @@ function ProfileCard() {
                   {capitalizeFirstLetter(user.username.charAt(0))}
                 </Avatar>
     
+                <Tooltip placement="right" title='Загрузить аватар'>
                 <Box 
                   className="avatar-overlay" 
                   sx={{
@@ -129,8 +135,38 @@ function ProfileCard() {
                 >
                   <Add sx={{ color: 'white', fontSize: 32, strokeWidth: 2, stroke: 'currentColor'}} />
                 </Box>
+                </Tooltip>
+
+                {/* Крестик для отмены выбранной аватарки */}
+                {submitData.file && (
+                  <Tooltip placement="right" title='Очистить картинку'>                   
+                    <Box 
+                      sx={{
+                        position: 'absolute',
+                        bottom: 0,
+                        right: 0,
+                        width: 26,
+                        height: 26,
+                        borderRadius: '50%',
+                        backgroundColor: theme.palette.red[400],
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        zIndex: 10,
+                        transition: '0.3s ease',
+                        '&:hover': { backgroundColor: theme.palette.red[600] }
+                      }} 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        clearImage()
+                      }}
+                    >
+                      <Close sx={{ color: 'white', fontSize: 16 }} />
+                    </Box>
+                  </Tooltip>
+                )}
               </Box>
-            </Tooltip>
             <Typography sx={{ color: theme.palette.gray[600] }}>Зарегистрирован {dayjs(user.created_on_tz).format('D MMMM YYYY')}</Typography>
           </Grid2>    
         </Grid2>
