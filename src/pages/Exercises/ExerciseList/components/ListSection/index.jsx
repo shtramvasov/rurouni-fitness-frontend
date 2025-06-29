@@ -49,8 +49,8 @@ function ListSection() {
         onClick={() => navigate(`${ROUTES.EXERCISES.PATH}/${exercise.exercise_id}`)}
         sx={{ 
           alignItems: 'center', 
-          p:  { xs: 0.5, sm: 1.5 },
-          px: { xs: 0, sm: 1.5 },
+          p:  { xs: 1, sm: 1.5 },
+          px: { xs: 1, sm: 1.5 },
           borderRadius: 1,
           transition: '450ms ease',
           cursor: 'pointer',
@@ -58,14 +58,27 @@ function ListSection() {
           '&:hover .exercise-name': { color: theme.palette.brand[500] } 
         }}
       >
+        <Grid2 size='auto'>
+          <img 
+            src={exercise.image_url} 
+            style={{
+              width: '50px',
+              height: '50px',
+              objectFit: 'fill',
+              padding: 4,
+              borderRadius: 12,
+              backgroundColor: theme.palette.gray[100]
+            }}
+          />
+        </Grid2>
         <Grid2 size sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
           <Typography className="exercise-name" sx={{ fontWeight: 500, color: theme.palette.gray[900]}}>{exercise.name}</Typography>
-          <Typography sx={{ fontSize: 12, fontWeight: 300, color: theme.palette.gray[500] }}>
+          <Typography sx={{ fontSize: 12, fontWeight: 300, color: theme.palette.gray[500], gap: 1, display: 'inline-flex' }}>
+            <Chip label={exercise.muscle_group}/>
+            <Divider orientation="vertical" flexItem />
             {exercise.last_trained_on_tz ? dayjs(exercise.last_trained_on_tz).format('DD MMMM YYYY') : 'Не использовалось'}
           </Typography>
         </Grid2>
-
-        <Grid2 size="auto"><Chip label={exercise.muscle_group}/></Grid2>
       </Grid2>
     )
   }
