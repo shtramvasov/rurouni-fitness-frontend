@@ -87,6 +87,8 @@ export function TrainingProgramCard({ program, verbose, open = true, handleClick
                   </Grid2>
                 </Grid2>
                 <Grid2 sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Chip label={exercise.muscle_group}/>
+                  <Divider orientation="vertical" flexItem />
                   <Grid2 sx={{ display: 'flex' }} gap={0.4}>
                     <Typography sx={{ fontWeight: 300, fontSize: 12, color: theme.palette.gray[500] }}>
                       {exercise.recent_weight}{exercise.unit}
@@ -101,8 +103,6 @@ export function TrainingProgramCard({ program, verbose, open = true, handleClick
                       }                           
                     </Typography>
                   </Grid2>
-                  <Divider orientation="vertical" flexItem />
-                  <Chip label={exercise.muscle_group}/>
                 </Grid2>
               </Grid2>
             </Grid2>

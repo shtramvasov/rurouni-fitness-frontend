@@ -103,6 +103,8 @@ function WorkoutDetail() {
                         <Grid2 size sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                           <Typography sx={{ fontWeight: 500, color: theme.palette.gray[900] }}>{exercise.exercise_name}</Typography>
                           <Grid2 sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <Chip label={exercise.muscle_group}/>
+                            <Divider orientation="vertical" flexItem />
                             <Grid2 sx={{ display: 'flex' }} gap={0.4}>
                               <Typography sx={{ fontWeight: 300, fontSize: 12, color: theme.palette.gray[500] }}>
                                 {exercise.weight}{exercise.unit}
@@ -111,8 +113,6 @@ function WorkoutDetail() {
                                 {exercise.reps}х{exercise.sets}
                               </Typography>
                             </Grid2>
-                            <Divider orientation="vertical" flexItem />
-                            <Chip label={exercise.muscle_group}/>
                           </Grid2>
                         </Grid2>
                       </Grid2>
