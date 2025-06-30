@@ -30,7 +30,7 @@ function ListSection() {
       params: { 
         search:  search,
         offset:  offsetValue ? offsetValue : undefined,
-        limit:   PAGINATION.DEFAULT_LIMIT
+        limit:   200
       }
     }));
   }
@@ -181,9 +181,12 @@ function ListSection() {
             {Object.entries(remainingGroups).map(([muscleGroup, exercises]) => (
               <Grid2 container direction='column' spacing={1.5} key={muscleGroup}>
                 <Grid2 container direction='column' spacing={1}>
-                  <Typography sx={{ fontSize: 16, fontWeight: 600, color: theme.palette.gray[700] }}>
-                    {capitalizeFirstLetter(muscleGroup)}
-                  </Typography>
+                  <Grid2 sx={{ display: 'flex', gap: 1, alignItems: 'center' }} >
+                    <Chip label={Object.entries(remainingGroups[muscleGroup]).length}/>
+                    <Typography sx={{ fontSize: 16, fontWeight: 600, color: theme.palette.gray[700] }}>
+                      {capitalizeFirstLetter(muscleGroup)}
+                    </Typography>
+                  </Grid2>
                   <Divider flexItem />
                 </Grid2>
 
