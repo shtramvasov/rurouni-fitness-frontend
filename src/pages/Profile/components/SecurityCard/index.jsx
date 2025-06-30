@@ -187,9 +187,9 @@ function SecurityCard() {
               <Table>
                 <TableHead sx={{ bgcolor: theme.palette.gray[100] }}>
                   <TableRow>
-                    <TableCell sx={{ color: theme.palette.gray[600] }}>Дата входа</TableCell>
-                    <TableCell sx={{ color: theme.palette.gray[600] }}>IP адрес</TableCell>
-                    <TableCell sx={{ color: theme.palette.gray[600] }}>Устройство</TableCell>
+                    <TableCell sx={{ color: theme.palette.gray[600] }}><Typography noWrap fontWeight={500}>Дата входа</Typography></TableCell>
+                    <TableCell sx={{ color: theme.palette.gray[600] }}><Typography noWrap fontWeight={500}>IP адрес</Typography></TableCell>
+                    <TableCell sx={{ color: theme.palette.gray[600] }}><Typography noWrap fontWeight={500}>Устройство</Typography></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -203,12 +203,12 @@ function SecurityCard() {
                     >
                       <TableCell>
                         <Grid2 container spacing={0.5} sx={{ flexDirection: 'column' }}>
-                          <Typography sx={{ color: theme.palette.gray[800], fontWeight: 500 }}>Совершен вход</Typography>
-                          <Typography sx={{ color: theme.palette.gray[500] }}>{dayjs(item.login_on_tz).format('HH:mm, D MMMM YYYY')}</Typography>
+                          <Typography noWrap sx={{ color: theme.palette.gray[800], fontWeight: 500 }}>Совершен вход</Typography>
+                          <Typography noWrap sx={{ color: theme.palette.gray[500] }}>{dayjs(item.login_on_tz).format('HH:mm, D MMMM YYYY')}</Typography>
                         </Grid2>
                       </TableCell>
                       <TableCell>
-                        <Typography 
+                        <Typography noWrap
                           sx={{ 
                             display: 'inline', 
                             py: 0.5,
@@ -221,7 +221,7 @@ function SecurityCard() {
                           {item.ip_address}
                         </Typography>
                       </TableCell>
-                      <TableCell><Typography sx={{ color: theme.palette.gray[800] }}>{item.user_agent}</Typography></TableCell>
+                      <TableCell><Typography noWrap sx={{ color: theme.palette.gray[800] }}>{item.user_agent}</Typography></TableCell>
                     </TableRow>
                   )}
                 </TableBody>
