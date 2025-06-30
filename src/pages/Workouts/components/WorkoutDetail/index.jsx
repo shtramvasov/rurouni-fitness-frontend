@@ -89,10 +89,12 @@ function WorkoutDetail() {
                         <Grid2 size='auto'>
                           <img 
                             src={exercise.image_url} 
+                            loading="lazy"
+                            decoding="async"
                             style={{
                               width: '50px',
                               height: '50px',
-                              objectFit: 'fill',
+                              objectFit: 'cover',
                               padding: 4,
                               borderRadius: 12,
                               backgroundColor: theme.palette.gray[100]
