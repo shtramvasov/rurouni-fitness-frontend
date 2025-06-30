@@ -8,4 +8,8 @@ export default class UsersController {
   static async resetPassword() {
     return await apiClient.post(`/users/reset-password`);
   }
+
+  static async getRecentLogins() {
+    return await apiClient.get(`/users/logins`);
+  }
 }

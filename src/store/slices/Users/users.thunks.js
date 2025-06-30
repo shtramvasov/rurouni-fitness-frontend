@@ -11,3 +11,8 @@ export const resetPassword = createAsyncThunk(
   'auth/resetPassword', 
   async () => await UsersController.resetPassword()
 )
+
+export const getRecentLogins = createAsyncThunk(
+  'auth/getRecentLogins', 
+  async () => await UsersController.getRecentLogins()
+)
