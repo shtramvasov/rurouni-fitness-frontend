@@ -267,7 +267,7 @@ function AddWorkout() {
                 mb: { xs: 1.5, md: 2 }, 
                 p:  { xs: 0.5, sm: 2 },  
                 borderRadius: 1, 
-                border: { xs: 'none', sm: `1px solid ${theme.palette.grey[100]}`  },
+                border: { xs: 'none', sm: `1px solid ${theme.palette.grey[100]}` },
               }}
             >
               <Grid2 sx={{ mb: 1.5, display: { xs: 'block', sm: 'none' } }} size={12}><Divider flexItem /></Grid2>

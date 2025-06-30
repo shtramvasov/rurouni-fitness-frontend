@@ -182,19 +182,20 @@ export function ProgramDetail({program, onClose}) {
         </Grid2>
 
         {/* Упражнения */}
-        <Grid2 container size={12} spacing={{ xs: 6, md: 2 }}>
+        <Grid2 container size={12} spacing={{ xs: 1.25, sm: 2 }} >
           {submitData.exercises.map((exercise, index) => (
             <Grid2 
               key={exercise.id} 
               container 
               size={12} 
-              spacing={2} 
+              spacing={{ xs: 1.25, sm: 2 }}
               sx={{ 
-                p: 2, 
+                p:  { xs: 0.5, sm: 2 },
                 borderRadius: 1, 
-                border: `1px solid ${theme.palette.grey[100]}` 
+                border: { xs: 'none', sm: `1px solid ${theme.palette.grey[100]}`  },
               }}
             >
+              <Grid2 sx={{ mb: 1.5, display: { xs: 'block', sm: 'none' } }} size={12}><Divider flexItem /></Grid2>
               <Grid2 item size={{ xs: 12, md: 9 }}>
                 <Autocomplete
                   value={exercisesList.data.find((ex) => ex.exercise_id === exercise.exercise_id) || null}
@@ -228,7 +229,7 @@ export function ProgramDetail({program, onClose}) {
 
               {["sets", "reps"].map((field) => (
                 <Tooltip title={!exercise.exercise_id ? 'Выберите упражнение' : ''} placement="top">
-                  <Grid2 size={{ xs: 6, md: 1 }} key={field}>
+                  <Grid2 size={{ xs: 4, md: 1 }} key={field}>
                     <FormControl fullWidth size="small" error={!!errors.exercises[exercise.exercise_id]?.[field]}>
                       <OutlinedInput
                         placeholder={field === "sets" ? "Подходы" : "Повторения"}
@@ -243,7 +244,7 @@ export function ProgramDetail({program, onClose}) {
               ))}
 
               <Tooltip title={submitData.exercises.length == 1 ? 'Нельзя удалить единственное упражнение' : 'Удалить упражнение'} placement="top" >
-                <Grid2 size={{ xs: 12, md: 1 }} container sx={{ alignSelf: 'baseline' }}>
+                <Grid2 size={{ xs: 4, md: 1 }} container sx={{ alignSelf: 'baseline' }}>
                   <IconButton
                     sx={{ width: '100%',  }} 
                     disabled={submitData.exercises.length == 1 || isLoading(updateTrainingProgramLS)} 
