@@ -65,7 +65,7 @@ function PieChartCard({ data, colors = [], title, resetFilter, titleKey = 'title
               <Tooltip title='Выбрать период'>
                 <IconButton onClick={(e) => setOpenMenu({ anchor: e.currentTarget, isOpen: !openMenu.isOpen })}  size='small'><MoreVert /></IconButton>
               </Tooltip>
-              <ChartMenu anchor={openMenu.anchor} isOpen={openMenu.isOpen} onClose={(e) => setOpenMenu({ anchor: null, isOpen: false })} />
+              <ChartMenu resetFilter={resetFilter} anchor={openMenu.anchor} isOpen={openMenu.isOpen} onClose={(e) => setOpenMenu({ anchor: null, isOpen: false })} />
             </Box>
 
             <PieChart

@@ -4,9 +4,9 @@ import { useSearchParams } from "react-router-dom";
 import { Grid2, useTheme } from "@mui/material";
 import { getWorkoutsList } from "@store/slices/Workouts/workouts.thunks";
 import { getMuscleGroupUsedCount } from "@store/slices/Exercises/exercises.thunks";
-import dayjs from "dayjs";
 import { PieChartCard } from "@components";
 import { clearWorkoutsList } from "@store/slices/Workouts/workouts.slice";
+import { getChartTitle } from "@helpers/getChartTitle";
 
 
 function WorkoutsGraphs() {
@@ -18,44 +18,10 @@ function WorkoutsGraphs() {
   const { workoutsList } = useSelector(state => state.workouts)
   const { muscleGroupStats } = useSelector(state => state.exercises)
 
-  const dateStart = searchParams.get("date_start_tz") || dayjs().startOf('month').startOf('day').format('YYYY-MM-DDTHH:mm:ss[Z]');
-  const dateEnd = searchParams.get("date_end_tz") || dayjs().endOf('month').add(1, 'day').startOf('day').format('YYYY-MM-DDTHH:mm:ss[Z]');
- 
-  const getTitle = (text) => {
-    const startDate = dayjs(dateStart);
-    const endDate = dayjs(dateEnd);
-  
-    // Проверка, если даты лежат в одном месяце
-    const isSameMonth = startDate.isSame(endDate, "month");
-  
-    // Проверка, если период полный (с 1 числа месяца до последнего)
-    const isFullMonth = startDate.date() === 1 && endDate.date() === endDate.daysInMonth();
-  
-    // Проверка, если начало периода с 1 числа месяца и конец периода с 1 числа следующего месяца
-    const isStartOfMonthToStartOfNextMonth = startDate.date() === 1 && endDate.date() === 1 && startDate.month() !== endDate.month();
-  
-    // Если начало и конец в одном месяце и полный месяц
-    if (isFullMonth) {
-      return `${text} за ${startDate.format("MMMM")}`;
-    }
-  
-    // Если начало с 1 числа месяца, а конец с 1 числа следующего месяца
-    if (isStartOfMonthToStartOfNextMonth) {
-      return `${text} за ${startDate.format("MMMM")}`;  // Показать только месяц начала
-    }
-  
-    // Если частичный месяц (например с 1 по 10 число)
-    if (isSameMonth && startDate.date() !== 1 && endDate.date() !== endDate.daysInMonth()) {
-      return `${text} за период с ${startDate.format("D MMMM YYYY")} по ${endDate.format("D MMMM YYYY")}`;
-    }
-  
-    // Для всех других случаев, когда даты не в одном месяце
-    return `${text} за период с ${startDate.format("D MMMM YYYY")} по ${endDate.format("D MMMM YYYY")}`;
-  };
 
   useEffect(() => {
-    dispatch(getWorkoutsList({  date_start_tz: dateStart, date_end_tz: dateEnd }))
-    dispatch(getMuscleGroupUsedCount({ date_start_tz: dateStart, date_end_tz: dateEnd }))
+    dispatch(getWorkoutsList({  date_start_tz: searchParams.get('date_start_tz'), date_end_tz: searchParams.get('date_end_tz') }))
+    dispatch(getMuscleGroupUsedCount({ date_start_tz: searchParams.get('date_start_tz'), date_end_tz: searchParams.get('date_end_tz') }))
 
     return () => {
       dispatch(clearWorkoutsList())
@@ -74,7 +40,7 @@ function WorkoutsGraphs() {
         <PieChartCard 
           data={workoutsList.data}
           getData={getWorkoutsList()}
-          title={getTitle('Тренировки')}
+          title={getChartTitle('Тренировки')}
           loadingState={workoutsList.loadingStatus}
           resetFilter={resetFilter}
           colors={[theme.palette.gray[300], theme.palette.gray[400], theme.palette.gray[500]]}
@@ -83,7 +49,7 @@ function WorkoutsGraphs() {
           data={muscleGroupStats.data}
           loadingState={muscleGroupStats.loadingStatus}
           resetFilter={resetFilter}
-          title={getTitle('Работа по группам мышц')}
+          title={getChartTitle('Работа по группам мышц')}
           colors={[
             theme.palette.brand[200], 
             theme.palette.brand[300], 

@@ -6,7 +6,7 @@ import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter";
 import dayjs from "dayjs"
 
 
-function ChartMenu({ anchor, isOpen, onClose }) {
+function ChartMenu({ anchor, isOpen, onClose, resetFilter }) {
   const theme = useTheme()
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -23,7 +23,7 @@ function ChartMenu({ anchor, isOpen, onClose }) {
     }));
   };
 
-  const activeMonth = searchParams.get("date_start_tz") ? dayjs(searchParams.get("date_start_tz")).month() : dayjs().month(); 
+  const activeMonth = searchParams.get("date_start_tz") ? dayjs(searchParams.get("date_start_tz")).month() : null; 
 
   const monthsOptions = getMonthsOptions()
 
@@ -41,17 +41,27 @@ function ChartMenu({ anchor, isOpen, onClose }) {
   };
 
   const submit = () => {
-    const { date_start_tz, date_end_tz } = submitData;
+  const { date_start_tz, date_end_tz } = submitData;
+  const updatedParams = new URLSearchParams(searchParams);
 
-    if (date_start_tz && date_end_tz) {
-      const updatedParams = new URLSearchParams(searchParams);
-      updatedParams.set("date_start_tz", dayjs(date_start_tz).startOf('day').toISOString());
-      updatedParams.set("date_end_tz", dayjs(date_end_tz).endOf('day').toISOString());
+  // Обработка даты начала
+  if (date_start_tz) {
+    updatedParams.set("date_start_tz", dayjs(date_start_tz).startOf('day').toISOString());
+  } else {
+    updatedParams.delete("date_start_tz"); // Удаляем, если параметр есть, но дата не передана
+  }
 
-      setSearchParams(updatedParams);
-      onClose();
-    }
-  };
+  // Обработка даты окончания
+  if (date_end_tz) {
+    updatedParams.set("date_end_tz", dayjs(date_end_tz).endOf('day').toISOString());
+  } else {
+    updatedParams.delete("date_end_tz"); // Удаляем, если параметр есть, но дата не передана
+  }
+
+  // Обновляем параметры и закрываем модальное окно
+  setSearchParams(updatedParams);
+  onClose();
+};
 
 
   return (
@@ -111,8 +121,11 @@ function ChartMenu({ anchor, isOpen, onClose }) {
             />
           </Grid2>
         </Grid2>
-        <Grid2>
+        <Grid2 container spacing={2}>
           <Button onClick={submit} variant="contained" color="secondary">Применить</Button>
+          {(searchParams.get("date_start_tz") || searchParams.get("date_end_tz")) && (
+            <Button onClick={() => { resetFilter(); onClose() }} variant="contained" color="primary">Сбросить фильтр</Button>
+          )}
         </Grid2>
       </Grid2>
   </Menu>
