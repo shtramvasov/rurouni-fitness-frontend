@@ -78,7 +78,7 @@ function ListSection() {
           <Typography sx={{ fontSize: 12, fontWeight: 300, color: theme.palette.gray[500], gap: 1, display: 'inline-flex' }}>
             <Chip label={exercise.muscle_group}/>
             <Divider orientation="vertical" flexItem />
-            {exercise.last_trained_on_tz ? dayjs(exercise.last_trained_on_tz).format('DD MMMM YYYY') : 'Не использовалось'}
+            {exercise.last_trained_on_tz ? dayjs(exercise.last_trained_on_tz).format('D MMMM YYYY') : 'Не использовалось'}
           </Typography>
         </Grid2>
       </Grid2>
