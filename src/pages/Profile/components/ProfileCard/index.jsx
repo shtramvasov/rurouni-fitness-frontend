@@ -59,7 +59,12 @@ function ProfileCard() {
       const display_name = submitData.display_name ? submitData.display_name.trim() : null
       let avatar_url 
 
-      toast.success(submitData.file ? submitData.file : 'ничего')
+      console.log(submitData.file)
+
+      if(submitData.file) {
+        const { name, size, type } = submitData.file
+        toast.success(`name, size, type: ${name}, ${size}, ${type}`)
+      }
 
       // Загружаем аватарку на FS
       if(submitData.file) {
