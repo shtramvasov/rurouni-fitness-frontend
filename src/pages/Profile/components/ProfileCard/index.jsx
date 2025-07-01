@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { CustomCard } from "@components/index"
 import { useDispatch, useSelector } from "react-redux"
 import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter"
@@ -29,6 +29,13 @@ function ProfileCard() {
     gender:         user.gender         ?? null,
     file:           null
   })
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearupdateUserLS())
+      dispatch(clearuploadFileLS())
+    }
+  }, [])
 
   const handleAvatarClick = () => {
     if(!isLoading(uploadFileLS) || !isLoading(updateUserLS)) {
