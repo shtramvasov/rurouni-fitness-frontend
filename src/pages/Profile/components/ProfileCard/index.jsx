@@ -48,13 +48,11 @@ function ProfileCard() {
   }
 
   const submit = async () => {
-    toast.success('submit')
-    if(!isLoading(updateUserLS)) {
-      toast.success('внутри условия')
+    if(!isLoading(updateUserLS)) {d
       const display_name = submitData.display_name ? submitData.display_name.trim() : null
       let avatar_url 
 
-      toast.success(submitData)
+      toast.success(submitData?.file ? submitData?.file : 'нихуя')
 
       // Загружаем аватарку на FS
       if(submitData.file) {
