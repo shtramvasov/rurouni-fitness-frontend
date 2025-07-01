@@ -7,7 +7,7 @@ import { Female, Male, Add, Close } from "@mui/icons-material"
 import { updateUser } from "@store/slices/Users/users.thunks"
 import { clearupdateUserLS } from "@store/slices/Users/users.slice"
 import { isLoading } from "@constants/redux.constants"
-import { isFulfilled } from "@reduxjs/toolkit"
+import { isFulfilled, isRejected } from "@reduxjs/toolkit"
 import toast from "react-hot-toast"
 import dayjs from "dayjs"
 import { uploadFile } from "@store/slices/Files/files.thinks"
@@ -77,6 +77,10 @@ function ProfileCard() {
           dispatch(clearuploadFileLS())
           clearImage()
           avatar_url = uploadResponse.payload.url
+        }
+
+        if(isRejected(uploadResponse)) {
+          toast.error('Произошла ошибка загрузки файла')
         }
 
         if(uploadResponse.error) {
