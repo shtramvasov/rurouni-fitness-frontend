@@ -24,7 +24,7 @@ import '@fontsource/roboto/700.css';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <LocalizationProvider dateAdapter={AdapterDayjs} localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={ruRU} localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}>
       <ThemeProvider>
         <CssBaseline enableColorScheme />
         <AuthProvider>
