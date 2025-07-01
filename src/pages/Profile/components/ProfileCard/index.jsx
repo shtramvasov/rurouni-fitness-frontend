@@ -59,13 +59,6 @@ function ProfileCard() {
       const display_name = submitData.display_name ? submitData.display_name.trim() : null
       let avatar_url 
 
-      console.log(submitData.file)
-
-      if(submitData.file) {
-        const { name, size, type } = submitData.file
-        toast.success(`name, size, type: ${name}, ${size}, ${type}`)
-      }
-
       // Загружаем аватарку на FS
       if(submitData.file) {
         const uploadResponse = await dispatch(uploadFile({
@@ -80,7 +73,8 @@ function ProfileCard() {
         }
 
         if(isRejected(uploadResponse)) {
-          toast.error('Произошла ошибка загрузки файла')
+          toast.error('Аватар превышает лимит в 5мб')
+          return;
         }
 
         if(uploadResponse.error) {
