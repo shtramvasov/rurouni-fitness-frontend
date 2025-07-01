@@ -68,7 +68,6 @@ function ProfileCard() {
 
         if(isFulfilled(uploadResponse)) {
           dispatch(clearuploadFileLS())
-          clearImage()
           avatar_url = uploadResponse.payload.url
         }
 
@@ -98,6 +97,7 @@ function ProfileCard() {
       }
 
       if(response.error) toast.error(response.error)
+      clearImage()
     }
   }
 
