@@ -17,7 +17,6 @@ import { validateField, validateNumber } from "@helpers/validations";
 import { ROUTES } from "@constants/routes.constants";
 
 
-
 function AddWorkout() {
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -45,19 +44,47 @@ function AddWorkout() {
 
   const handleExerciseChange = (index, field, value) => {
     let sanitizedValue = value;
-
-    if (["weight", "sets", "reps"].includes(field)) {
-      // Удаляем все нецифровые символы
-      sanitizedValue = value.replace(/\D/g, ""); 
   
-      // Ограничения по длине
-      if (field == "weight") sanitizedValue = sanitizedValue.slice(0, 3);
-      if (field == "sets" || field == "reps") sanitizedValue = sanitizedValue.slice(0, 2);
+    if (field === "weight") {
+      // 1. Заменяем запятую на точку
+      sanitizedValue = value.replace(/,/g, '.');
+      
+      // 2. Удаляем всё, кроме цифр и точек
+      sanitizedValue = sanitizedValue.replace(/[^\d.]/g, '');
+      
+      // 3. Разделяем на части до и после точки
+      const parts = sanitizedValue.split('.');
+      
+      // 4. Обрабатываем часть до точки (макс 3 цифры)
+      if (parts[0]) {
+        parts[0] = parts[0].slice(0, 3); // Ограничиваем 3 цифрами
+      }
+      
+      // 5. Обрабатываем часть после точки (макс 2 цифры)
+      if (parts[1]) {
+        parts[1] = parts[1].slice(0, 2); // Ограничиваем 2 цифрами
+      }
+      
+      // 6. Собираем обратно
+      sanitizedValue = parts[0];
+      if (parts.length > 1) {
+        sanitizedValue += '.' + parts[1];
+      }
+      
+      // 7. Удаляем лишние точки (оставляем только первую)
+      const pointIndex = sanitizedValue.indexOf('.');
+      if (pointIndex !== -1) {
+        sanitizedValue = sanitizedValue.substring(0, pointIndex + 1) + 
+                         sanitizedValue.substring(pointIndex + 1).replace(/\./g, '');
+      }
+    } 
+    else if (field === "sets" || field === "reps") {
+      // Для sets/reps - только целые числа
+      sanitizedValue = value.replace(/\D/g, '').slice(0, 2);
     }
-
+  
     setSubmitData((prev) => {
       const updatedExercises = [...prev.exercises];
-
       updatedExercises[index][field] = sanitizedValue;
       return { ...prev, exercises: updatedExercises };
     });
