@@ -39,7 +39,7 @@ function AddWorkout() {
 
   useEffect(() => {
     dispatch(getTrainingProgramsList({ params: { is_active: true }}))
-    dispatch(getExercisesList({}))
+    dispatch(getExercisesList({ params: { limit: 200 } }))
   }, [])
 
   const handleExerciseChange = (index, field, value) => {

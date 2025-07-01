@@ -54,8 +54,8 @@ function WorkoutsGraphs() {
             theme.palette.brand[200], 
             theme.palette.brand[300], 
             theme.palette.brand[600], 
-            theme.palette.gray[200], 
             theme.palette.gray[300], 
+            theme.palette.gray[400], 
             theme.palette.gray[500], 
           ]}
           titleKey="muscle_group"
