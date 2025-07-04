@@ -1,11 +1,12 @@
 import { createSlice  } from '@reduxjs/toolkit';
 import { LOADING_STATUS } from '@constants/redux.constants';
-import { updateUser, resetPassword, getRecentLogins } from './users.thunks';
+import { updateUser, resetPassword, getRecentLogins, updateUserSettings } from './users.thunks';
 
 
 const initialState = {
   updateUserLS:     LOADING_STATUS.IDLE,
   resetPasswordLS:  LOADING_STATUS.IDLE,
+  updateUserSettingsLS: LOADING_STATUS.IDLE,
 
   recentLoginsList: {
     data: [],
@@ -20,7 +21,8 @@ const usersSlice = createSlice({
   reducers: {
     clearupdateUserLS(state) { state.updateUserLS = initialState.updateUserLS },
     clearResetPasswordLS(state) { state.resetPasswordLS = initialState.resetPasswordLS },
-    clearRecentLoginsList(state) { state.recentLoginsList = initialState.recentLoginsList }
+    clearRecentLoginsList(state) { state.recentLoginsList = initialState.recentLoginsList },
+    clearUpdateUserSettingsLS(state) { state.updateUserSettingsLS = initialState.updateUserSettingsLS }
   },
   extraReducers: (builder) => {
     // updateUser
@@ -39,9 +41,14 @@ const usersSlice = createSlice({
     builder.addCase(getRecentLogins.fulfilled,  (state, action) => {
       state.recentLoginsList = { data: action.payload, loadingStatus: LOADING_STATUS.SUCCESS }
     });
+
+    // updateUserSettings
+    builder.addCase(updateUserSettings.pending,    (state) => { state.updateUserSettingsLS = LOADING_STATUS.LOADING })
+    builder.addCase(updateUserSettings.rejected,   (state) => { state.updateUserSettingsLS = LOADING_STATUS.FAILED })
+    builder.addCase(updateUserSettings.fulfilled,  (state, action) => { state.updateUserSettingsLS = LOADING_STATUS.SUCCESS});
   }
 });
 
 
-export const { clearupdateUserLS, clearResetPasswordLS, clearRecentLoginsList } = usersSlice.actions;
+export const { clearupdateUserLS, clearResetPasswordLS, clearRecentLoginsList, clearUpdateUserSettingsLS } = usersSlice.actions;
 export default usersSlice.reducer;

@@ -16,3 +16,8 @@ export const getRecentLogins = createAsyncThunk(
   'auth/getRecentLogins', 
   async () => await UsersController.getRecentLogins()
 )
+
+export const updateUserSettings = createAsyncThunk(
+  'auth/updateUserSettings', 
+  async ({ params }) => await UsersController.updateUserSettings(params)
+)
