@@ -305,6 +305,12 @@ function AddWorkout() {
                   onChange={(event, newValue) => handleExerciseChange(index, "exercse_id", newValue ? newValue.exercise_id : null)}
                   options={exercisesList.data}
                   disabled={isLoading(createWorkoutLS)}
+                  filterOptions={(options, { inputValue }) => {
+                    return options.filter(option =>
+                      option.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+                      (option.muscle_group && option.muscle_group.toLowerCase().includes(inputValue.toLowerCase()))
+                    );
+                  }}
                   renderInput={(params) => (
                     <TextField
                       {...params}
