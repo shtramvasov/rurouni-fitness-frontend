@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { isFulfilled } from "@reduxjs/toolkit";
 import { getWorkoutsList } from "@store/slices/Workouts/workouts.thunks";
 import useUpdateSearchParams from "@hooks/useUpdateSearchParams";
-import { Grid2, useTheme, Typography, Divider, useMediaQuery, Button, CircularProgress } from "@mui/material";
+import { Grid2, useTheme, Typography, Divider, useMediaQuery, Button, CircularProgress, Chip } from "@mui/material";
 import { isSuccess, isLoading, isFailed, PAGINATION } from "@constants/redux.constants";
 import { CustomCard, UIAlert, ListSkeleton } from "@components";
 import dayjs from "dayjs";
@@ -76,9 +76,12 @@ function WorkoutsList() {
                   <Grid2 container direction='column' spacing={1.5} key={month}>
                     
                     <Grid2 container direction='column' spacing={1}>
-                      <Typography sx={{ fontSize: 16, fontWeight: 600, color: theme.palette.gray[700] }}>
-                        {capitalizeFirstLetter(month)}
-                      </Typography>
+                      <Grid2 sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                        <Chip label={workouts.length}/>
+                        <Typography sx={{ fontSize: 16, fontWeight: 600, color: theme.palette.gray[700] }}>
+                          {capitalizeFirstLetter(month)}
+                        </Typography>
+                      </Grid2>
                       <Divider flexItem />
                     </Grid2>
 
