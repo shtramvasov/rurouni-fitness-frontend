@@ -203,6 +203,27 @@ export function ProgramDetail({program, onClose}) {
                   onChange={(event, newValue) => handleExerciseChange(index, "exercise_id", newValue ? newValue.exercise_id : null)}
                   options={exercisesList.data}
                   disabled={isLoading(updateTrainingProgramLS)}
+                  filterOptions={(options, { inputValue }) => {
+                    return options.filter(option =>
+                      option.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+                      (option.muscle_group && option.muscle_group.toLowerCase().includes(inputValue.toLowerCase()))
+                    );
+                  }}
+                  renderOption={(props, option) => (
+                    <li {...props} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      {option.image_url && (
+                        <img 
+                          src={option.image_url} 
+                          alt={option.name} 
+                          style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }}
+                        />
+                      )}
+                      <div>
+                        <div style={{ fontWeight: 500, fontSize: 12 }}>{option.name}</div>
+                        <div style={{ fontSize: 12, color: theme.palette.gray[400] }}>{option.muscle_group}</div>
+                      </div>
+                    </li>
+                  )}
                   renderInput={(params) => (
                     <TextField
                       {...params}
