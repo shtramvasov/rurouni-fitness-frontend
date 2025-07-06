@@ -62,11 +62,12 @@ function ListSection() {
           <img 
             src={exercise.image_url} 
             loading="lazy"
-            decoding="async"
             style={{
               width: '50px',
               height: '50px',
               objectFit: 'cover',
+              pointerEvents: 'none',
+              userSelect: 'none',
               padding: 4,
               borderRadius: 12,
               backgroundColor: theme.palette.gray[100]

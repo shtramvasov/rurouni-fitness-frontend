@@ -90,10 +90,11 @@ function WorkoutDetail() {
                           <img 
                             src={exercise.image_url} 
                             loading="lazy"
-                            decoding="async"
                             style={{
                               width: '50px',
                               height: '50px',
+                              userSelect: 'none',
+                              pointerEvents: 'none',
                               objectFit: 'cover',
                               padding: 4,
                               borderRadius: 12,

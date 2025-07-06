@@ -67,11 +67,12 @@ export function TrainingProgramCard({ program, verbose, open = true, handleClick
                 <img 
                   src={exercise.image_url} 
                   loading="lazy"
-                  decoding="async"
                   style={{
                     width: '50px',
                     height: '50px',
                     objectFit: 'cover',
+                    userSelect: 'none',
+                    pointerEvents: 'none',
                     padding: 4,
                     borderRadius: 12,
                     backgroundColor: theme.palette.gray[100]
