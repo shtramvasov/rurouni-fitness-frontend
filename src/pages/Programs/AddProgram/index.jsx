@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getExercisesList } from "@store/slices/Exercises/exercises.thunks";
-import { Autocomplete, TextField, CircularProgress, Box, Grid2, useTheme, Divider } from "@mui/material";
+import { Autocomplete, TextField, CircularProgress, Box, Grid2, useTheme, Popover, Paper, Typography, List, ListItem, ListItemText, Divider } from "@mui/material";
 import MuscleDiagram from "@assets/muscles/muscleDiagram";
 import { isLoading } from "@constants/redux.constants";
 
@@ -15,9 +15,35 @@ function AddProgram() {
 
   const [activeMuscles, setActiveMuscles] = useState({})
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [currentMuscle, setCurrentMuscle] = useState(null);
+  const svgRef = useRef(null);
+
   useEffect(() => {
     dispatch(getExercisesList({ params: { limit: 200 } }))
   }, [])
+
+
+  const onMouseEnter = (event, muscleGroup) => {
+    setAnchorEl(event.currentTarget);
+    setCurrentMuscle(muscleGroup);
+  };
+
+  const handleMuscleLeave = () => {
+    setAnchorEl(null);
+    setCurrentMuscle(null);
+  };
+
+  const getSelectedExercises = () => { // Убрали параметр muscle, используем currentMuscle из состояния
+    if (!currentMuscle || !activeMuscles?.muscle_group) return [];
+    
+    if (activeMuscles?.muscle_group === currentMuscle) {
+      return [activeMuscles];
+    }
+    return [];
+  };
+
+  const open = (Boolean(anchorEl) && Boolean(Object.keys(activeMuscles).length));
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -33,7 +59,36 @@ function AddProgram() {
             width: '100%'
           }} 
         >
-          <MuscleDiagram activeMuscles={[activeMuscles?.muscle_group]} />
+          <MuscleDiagram activeMuscles={[activeMuscles?.muscle_group]} onMouseEnter={onMouseEnter} onMuscleLeave={handleMuscleLeave} />
+           {getSelectedExercises().length > 0 && (
+            <Popover
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleMuscleLeave}
+              anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+              transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              sx={{
+                pointerEvents: 'none',
+                '& .MuiPopover-paper': { pointerEvents: 'auto', overflow: 'auto'}
+              }}
+              disableRestoreFocus
+            >
+              <Paper>
+                <Grid2 p={2} container sx={{ flexDirection: 'column', gap: 2 }}>
+                  <Grid2 sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>                
+                    <Typography sx={{ fontWeight: 500, lineHeight: 1 }}>Упражнения</Typography>  
+                    {getSelectedExercises().map((ex, index) => (
+                      <Typography sx={{ fontSize: 14, display: 'flex', gap: 0.5, pl: 1 }} key={ex.exercise_id}>
+                        <Typography sx={{ color: theme.palette.gray[500] }}>{++index}</Typography>
+                        <Typography sx={{ color: theme.palette.gray[800] }}>{ex.name}</Typography>
+                      </Typography>
+                    ))}
+                  </Grid2>
+                </Grid2>
+              </Paper>
+            </Popover>
+           )}
+               
         </Grid2>
         <Grid2 size={{ xs: 12, lg: 3 }} item>
           <Grid2 item >
