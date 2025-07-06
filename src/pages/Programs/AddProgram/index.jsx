@@ -22,7 +22,17 @@ function AddProgram() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <Grid2 sx={{ justifyContent: 'center', mt: 6 }} container>
-        <Grid2 size={{ xs: 12, lg: 3 }} height={400} width={300} item>
+        <Grid2 item
+          size={{ xs: 12, lg: 3 }}
+          sx={{ 
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden',
+            height: 400,
+            width: '100%'
+          }} 
+        >
           <MuscleDiagram activeMuscles={[activeMuscles?.muscle_group]} />
         </Grid2>
         <Grid2 size={{ xs: 12, lg: 3 }} item>
