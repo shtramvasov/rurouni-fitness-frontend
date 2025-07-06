@@ -49,7 +49,7 @@ function AddProgram() {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <Grid2 sx={{ justifyContent: 'center', mt: 6 }} container>
         <Grid2 item
-          size={{ xs: 12, lg: 3 }}
+          size={{ xs: 12 }}
           sx={{ 
             display: 'flex',
             justifyContent: 'center',
@@ -90,7 +90,7 @@ function AddProgram() {
            )}
                
         </Grid2>
-        <Grid2 size={{ xs: 12, lg: 3 }} item>
+        <Grid2 size={{ xs: 12, md: 4, lg: 3 }} item>
           <Grid2 item >
             <Autocomplete
               value={ activeMuscles?.exercise_id ? exercisesList.data.find(ex => ex.exercise_id === activeMuscles?.exercise_id) : null }
