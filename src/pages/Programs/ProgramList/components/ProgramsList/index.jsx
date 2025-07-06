@@ -66,7 +66,7 @@ function ProgramsList() {
       >
         <Grid2 container gap={1.5} sx={{ alignItems: 'center', pb: 2 }}>
           <Tooltip title='Добавить программу тренировок'>
-            <IconButton disabled onClick={() => navigate(ROUTES.ADD_PROGRAM.PATH)} size="small" color="error"><Add /></IconButton>
+            <IconButton onClick={() => navigate(ROUTES.ADD_PROGRAM.PATH)} size="small" color="error"><Add /></IconButton>
           </Tooltip>
           <Typography variant="h5" >Активные программы тренировок</Typography>
         </Grid2>
