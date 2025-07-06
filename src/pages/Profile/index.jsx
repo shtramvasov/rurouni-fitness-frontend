@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Box, Grid2, MenuItem, Typography, useTheme } from "@mui/material";
 import { AccountCircleOutlined, NotificationsOutlined, LockOutlined  } from "@mui/icons-material";
 import { ProfileCard, SecurityCard, NotificationCard } from "./components";
 
 
+const MENU_OPTIONS = [
+  { title: 'Профиль',       icon: <AccountCircleOutlined  sx={{ fontSize: 20 }} />,  value: 'profile'},
+  { title: 'Оповещения',    icon: <NotificationsOutlined  sx={{ fontSize: 20 }} />,  value: 'notifications' },
+  { title: 'Безопасность',  icon: <LockOutlined           sx={{ fontSize: 20 }} />,  value: 'security'},
+]
+
 function Profile() {
   const theme = useTheme()
+  
+  const [searchParams, setSearchParams] = useSearchParams()
 
-  const [selectedTab, setSelectedTab] = useState('profile')
+  const selectedTab = searchParams.get('tab') || 'profile'; 
 
-  const MENU_OPTIONS = [
-    { title: 'Профиль',       icon: <AccountCircleOutlined  sx={{ fontSize: 20 }} />,  value: 'profile'},
-    { title: 'Оповещения',    icon: <NotificationsOutlined  sx={{ fontSize: 20 }} />,  value: 'notifications' },
-    { title: 'Безопасность',  icon: <LockOutlined           sx={{ fontSize: 20 }} />,  value: 'security'},
-  ]
+  const handleTabChange = (newTab) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('tab', newTab);
+    setSearchParams(newSearchParams);
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, p: { xs: 0.5, lg: '2rem 3.5rem' } }}>
@@ -29,7 +37,7 @@ function Profile() {
                 <MenuItem
                   selected={isSelected}
                   disabled={option.in_developement}
-                  onClick={() => setSelectedTab(option.value)}
+                  onClick={() => handleTabChange (option.value)}
                   sx={{ 
                     py: 1.25, 
                     display: 'flex', 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { CustomCard, UIAlert } from "@components/index"
-import { Button, CircularProgress, Box, Grid2, TextField, IconButton, Typography, useTheme, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material"
+import { Button, CircularProgress, Grid2, TextField, IconButton, Typography, useTheme, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material"
 import { Password, Key, AccessTime } from "@mui/icons-material"
 import { isLoading, isSuccess, isFailed } from "@constants/redux.constants"
 import { isFulfilled } from "@reduxjs/toolkit"
@@ -9,6 +9,7 @@ import toast from "react-hot-toast"
 import { updateUser, resetPassword, getRecentLogins } from "@store/slices/Users/users.thunks"
 import { clearupdateUserLS, clearResetPasswordLS, clearRecentLoginsList } from "@store/slices/Users/users.slice"
 import dayjs from "dayjs"
+import { TableSkeleton } from "@components/Skeletons"
 
 
 function SecurityCard() {
@@ -178,7 +179,7 @@ function SecurityCard() {
 
           {isFailed(recentLoginsList.loadingStatus) && (<UIAlert />)}
 
-          {isLoading(recentLoginsList.loadingStatus) && (<CircularProgress />)}
+          {isLoading(recentLoginsList.loadingStatus) && (<TableSkeleton />)}
 
           {isSuccess(recentLoginsList.loadingStatus) && recentLoginsList.data.length == 0 && (<UIAlert severity='warning' title='Входов в аккаунт еще не было' />)}
 

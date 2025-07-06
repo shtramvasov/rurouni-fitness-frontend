@@ -1,4 +1,4 @@
-import { Box, Stack, Grid2, Skeleton, Divider } from "@mui/material";
+import { Box, Stack, Grid2, Skeleton, Divider, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
 import { CustomCard } from "@components";
 
 // Скелетон загрузки карточек детализации программы или упражнения
@@ -80,5 +80,57 @@ export function PieChartSkeleton({ quantity = 3 }) {
       ))}
       </Stack>
   </Grid2>
+  );
+}
+
+// Скелетон таблицы
+export function TableSkeleton({ rows = 5, columns = 3, sx }) {
+  return (
+    <TableContainer 
+      sx={{ 
+        borderRadius: 1, 
+        border: 1, 
+        borderColor: 'divider',
+        ...sx 
+      }}
+    >
+      <Table>
+        <TableHead sx={{ bgcolor: 'grey.100' }}>
+          <TableRow>
+            {Array.from({ length: columns }).map((_, index) => (
+              <TableCell key={index}>
+                <Skeleton variant="text" width={150} height={24} />
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {Array.from({ length: rows }).map((_, rowIndex) => (
+            <TableRow 
+              key={rowIndex}
+              sx={{ 
+                '&:not(:last-child) td': { borderBottom: 1, borderColor: 'divider' },
+                '& td': { borderBottom: 'none' }
+              }}
+            >
+              {Array.from({ length: columns }).map((_, colIndex) => (
+                <TableCell key={colIndex}>
+                  {colIndex === 0 ? (
+                    <Grid2 container spacing={0.5} sx={{ flexDirection: 'column' }}>
+                      <Skeleton variant="text" width={180} height={20} />
+                      <Skeleton variant="text" width={120} height={16} />
+                    </Grid2>
+                  ) : colIndex === 1 ? (
+                    <Skeleton variant="text" width={180} height={20} />
+                  ) : (
+                    <Skeleton variant="text" width={200} height={20} />
+                  )}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
