@@ -35,7 +35,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Ягодицы */}
         <g 
           id="glutes" 
-          style={{ opacity: activeIds.includes('glutes') ? 1 : 0, cursor: activeIds.includes('glutes') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('glutes') ? 1 : 0, 
+            cursor: activeIds.includes('glutes') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'ноги')} 
           onMouseLeave={onMuscleLeave}
           >
@@ -45,7 +49,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Икры */}
         <g 
           id="calves" 
-          style={{ opacity: activeIds.includes('calves') ? 1 : 0, cursor: activeIds.includes('calves') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('legs') ? 1 : 0, 
+            cursor: activeIds.includes('legs') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'икры')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -55,7 +63,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Квадрицепс */}
         <g 
           id="quads" 
-          style={{ opacity: activeIds.includes('legs') ? 1 : 0, cursor: activeIds.includes('legs') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('legs') ? 1 : 0, 
+            cursor: activeIds.includes('legs') ? 'pointer' : 'default', 
+            transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'ноги')} 
           onMouseLeave={onMuscleLeave}
           >
@@ -65,7 +77,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Предплечья */}
         <g 
           id="forearm" 
-          style={{ opacity: activeIds.includes('forearm') ? 1 : 0, cursor: activeIds.includes('forearm') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('biceps') ? 1 : 0, 
+            cursor: activeIds.includes('biceps') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'предплечья')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -75,7 +91,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Пресс */}
         <g 
           id="abs" 
-          style={{ opacity: activeIds.includes('abs') ? 1 : 0, cursor: activeIds.includes('abs') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('abs') ? 1 : 0, 
+            cursor: activeIds.includes('abs') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'пресс')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -85,7 +105,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Косые мышцы пресса */}
         <g 
           id="obliques" 
-          style={{ opacity: activeIds.includes('abs') ? 1 : 0, cursor: activeIds.includes('abs') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('abs') ? 1 : 0, 
+            cursor: activeIds.includes('abs') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'пресс')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -95,7 +119,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Трапеции */}
         <g 
           id="traps" 
-          style={{ opacity: activeIds.includes('back') ? 1 : 0, cursor: activeIds.includes('back') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('back') ? 1 : 0, 
+            cursor: activeIds.includes('back') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'спина')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -105,7 +133,10 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Бицепс */}
         <g 
           id="biceps" 
-          style={{ opacity: activeIds.includes('biceps') ? 1 : 0, cursor: activeIds.includes('biceps') ? 'pointer' : 'default', 
+          style={{ 
+            opacity: activeIds.includes('biceps') ? 1 : 0, 
+            cursor: activeIds.includes('biceps') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
           }} 
           onMouseEnter={(e) => onMouseEnter(e, 'бицепс')} 
           onMouseLeave={onMuscleLeave} 
@@ -116,7 +147,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Плечи */}
         <g 
           id="shoulders" 
-          style={{ opacity: activeIds.includes('shoulders') ? 1 : 0, cursor: activeIds.includes('shoulders') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('shoulders') ? 1 : 0, 
+            cursor: activeIds.includes('shoulders') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'плечи')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -126,7 +161,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Грудь */}
         <g 
           id="chest" 
-          style={{ opacity: activeIds.includes('chest') ? 1 : 0, cursor: activeIds.includes('chest') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('chest') ? 1 : 0, 
+            cursor: activeIds.includes('chest') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'грудь')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -136,7 +175,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Трицепс */}
         <g 
           id="triceps" 
-          style={{ opacity: activeIds.includes('triceps') ? 1 : 0, cursor: activeIds.includes('triceps') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('triceps') ? 1 : 0, 
+            cursor: activeIds.includes('triceps') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'трицепс')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -158,7 +201,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Квадрицепс */}
         <g 
           id="quads" 
-          style={{ opacity: activeIds.includes('legs') ? 1 : 0, cursor: activeIds.includes('legs') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('legs') ? 1 : 0, 
+            cursor: activeIds.includes('legs') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'ноги')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -168,7 +215,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Трапеции */}
         <g 
           id="traps" 
-          style={{ opacity: activeIds.includes('back') ? 1 : 0, cursor: activeIds.includes('back') ? 'pointer' : 'default' }} 
+          style={{
+             opacity: activeIds.includes('back') ? 1 : 0, 
+             cursor: activeIds.includes('back') ? 'pointer' : 'default',
+             transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'спина')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -178,7 +229,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Икры */}
         <g 
           id="calves" 
-          style={{ opacity: activeIds.includes('legs') ? 1 : 0, cursor: activeIds.includes('legs') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('legs') ? 1 : 0, 
+            cursor: activeIds.includes('legs') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'ноги')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -188,7 +243,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Плечи */}
         <g 
           id="shoulders" 
-          style={{ opacity: activeIds.includes('shoulders') ? 1 : 0, cursor: activeIds.includes('shoulders') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('shoulders') ? 1 : 0, 
+            cursor: activeIds.includes('shoulders') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'плечи')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -198,7 +257,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Верх спины */}
         <g 
           id="back" 
-          style={{ opacity: activeIds.includes('back') ? 1 : 0, cursor: activeIds.includes('back') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('back') ? 1 : 0, 
+            cursor: activeIds.includes('back') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'спина')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -208,7 +271,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Широчайшие */}
         <g 
           id="lats" 
-          style={{ opacity: activeIds.includes('back') ? 1 : 0, cursor: activeIds.includes('back') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('back') ? 1 : 0, 
+            cursor: activeIds.includes('back') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'спина')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -218,7 +285,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Трицепс */}
         <g 
           id="triceps" 
-          style={{ opacity: activeIds.includes('triceps') ? 1 : 0, cursor: activeIds.includes('triceps') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('triceps') ? 1 : 0, 
+            cursor: activeIds.includes('triceps') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'трицепс')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -227,8 +298,12 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
 
         {/* Косые мышцы пресса */}
         <g 
-          id="obliqueb" 
-          style={{ opacity: activeIds.includes('abs') ? 1 : 0, cursor: activeIds.includes('abs') ? 'pointer' : 'default' }} 
+          id="obliques" 
+          style={{ 
+            opacity: activeIds.includes('abs') ? 1 : 0, 
+            cursor: activeIds.includes('abs') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'пресс')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -238,7 +313,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Предплечья */}
         <g 
           id="forearm" 
-          style={{ opacity: activeIds.includes('forearm') ? 1 : 0, cursor: activeIds.includes('forearm') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('biceps') ? 1 : 0, 
+            cursor: activeIds.includes('biceps') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'предплечья')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -248,7 +327,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Ягодицы */}
         <g 
           id="glutes" 
-          style={{ opacity: activeIds.includes('legs') ? 1 : 0, cursor: activeIds.includes('legs') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('legs') ? 1 : 0, 
+            cursor: activeIds.includes('legs') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'ноги')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -258,7 +341,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Бицепс бедра */}
         <g 
           id="hamstrings"
-          style={{ opacity: activeIds.includes('legs') ? 1 : 0, cursor: activeIds.includes('legs') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('legs') ? 1 : 0, 
+            cursor: activeIds.includes('legs') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s'
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'ноги')} 
           onMouseLeave={onMuscleLeave}
         >
@@ -268,7 +355,11 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         {/* Разгибатели спины */}
         <g 
           id="lower-back" 
-          style={{ opacity: activeIds.includes('back') ? 1 : 0, cursor: activeIds.includes('back') ? 'pointer' : 'default' }} 
+          style={{ 
+            opacity: activeIds.includes('back') ? 1 : 0, 
+            cursor: activeIds.includes('back') ? 'pointer' : 'default',
+            transition: 'opacity ease-in-out 0.25s' 
+          }} 
           onMouseEnter={(e) => onMouseEnter(e, 'спина')} 
           onMouseLeave={onMuscleLeave}
         >
