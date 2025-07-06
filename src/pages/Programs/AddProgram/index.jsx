@@ -22,10 +22,10 @@ function AddProgram() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <Grid2 sx={{ justifyContent: 'center', mt: 6 }} container>
-        <Grid2 size={3} height={400} width={300} item>
+        <Grid2 size={{ xs: 12, lg: 3 }} height={400} width={300} item>
           <MuscleDiagram activeMuscles={[activeMuscles?.muscle_group]} />
         </Grid2>
-        <Grid2 size={3} item>
+        <Grid2 size={{ xs: 12, lg: 3 }} item>
           <Grid2 item >
             <Autocomplete
               value={ activeMuscles?.exercise_id ? exercisesList.data.find(ex => ex.exercise_id === activeMuscles?.exercise_id) : null }
