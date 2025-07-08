@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react"
 import { CustomCard } from "@components/index"
 import { useDispatch, useSelector } from "react-redux"
 import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter"
-import { Avatar, Box, Button, CircularProgress, Divider, Grid2, TextField, ToggleButton, ToggleButtonGroup, Tooltip, Typography, useTheme } from "@mui/material"
+import { Avatar, Box, Button, CircularProgress, Divider, Grid2, TextField, ToggleButton, ToggleButtonGroup, Tooltip, Typography, useTheme, Modal, IconButton, Stack, styled } from "@mui/material"
 import { Female, Male, Add, Close, Telegram } from "@mui/icons-material"
 import { updateUser, verifyTelegram } from "@store/slices/Users/users.thunks"
 import { clearupdateUserLS, clearVerifyTelegramLS } from "@store/slices/Users/users.slice"
@@ -29,6 +29,8 @@ function ProfileCard() {
     gender:         user.gender         ?? null,
     file:           null
   })
+
+  const [openModal, setOpenModal] = useState(false)
 
   useEffect(() => {
     return () => {
@@ -114,6 +116,8 @@ function ProfileCard() {
     if(isRejected(response) || response.error) {
        toast.error('Призошла ошибка')
     }
+
+    if(openModal) setOpenModal(false)
 
     dispatch(clearVerifyTelegramLS())
   }
@@ -247,7 +251,7 @@ function ProfileCard() {
               <Button
                   startIcon={isLoading(verifyTelegramLS) ? <CircularProgress color='inherit' size={16} /> : <Telegram />} 
                   disabled={isLoading(updateUserLS) || isLoading(uploadFileLS) || isLoading(verifyTelegramLS)}
-                  onClick={submitVerifyTelegram} 
+                  onClick={() => setOpenModal(true)} 
                   color="primary"
                   variant="contained"
                 >
@@ -266,8 +270,100 @@ function ProfileCard() {
           </Button>         
         </Grid2>
       </CustomCard>
+
+      {openModal && (
+        <Modal 
+          open={openModal} 
+          onClose={() => setOpenModal(false)}
+          sx={{'& .MuiBackdrop-root': { backgroundColor: 'rgba(0, 0, 0, 0.25)'}}}
+        >
+          <CustomCard 
+            sx={{ 
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              p: 3, 
+              gap: 3,
+              width: { xs: '90%', md: '70%', lg: '50%' }
+            }}          
+          >
+            <Grid2 container>
+              <Grid2 pb={4} sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Typography variant="h5">Подтверждение Telegram</Typography>
+                <Tooltip placement="top" title='Закрыть'>
+                  <IconButton onClick={() => setOpenModal(false)}><Close /></IconButton>
+                </Tooltip>
+              </Grid2>
+
+              <Grid2 sx={{ display: 'flex', width: '100%', flexDirection: 'column', gap: 3, pb: 4 }}>
+              <Stack spacing={1.5}>
+                <Typography variant="body1">Для привязки Telegram аккаунта:</Typography>
+                
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Step>1</Step>
+                  <Typography>
+                    На почту <span style={{ color: theme.palette.brand[500], fontWeight: 500 }}>{user.email}</span>{' '} 
+                    будет отправлен код
+                  </Typography>
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Step>2</Step>
+                  <Typography>Откройте нашего Telegram бота</Typography>
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Step>3</Step>
+                  <Typography>Отправьте команду:</Typography>
+                </Box>
+
+                <Grid2 
+                  sx={{ 
+                    fontWeight: 600,
+                    margin: '0 auto',
+                    my: 1,
+                    p: 2, 
+                    textAlign: 'center', 
+                    border: 1,
+                    borderColor: theme.palette.gray[200],
+                    borderRadius: 1,
+                    bgcolor: theme.palette.gray[50],
+                    width: 'fit-content',
+                    fontFamily: 'monospace'
+                  }}
+                >
+                  /verify CODE
+                </Grid2>
+              </Stack>
+
+            </Grid2>
+
+            <Button 
+              variant="contained" 
+              color="secondary"
+              onClick={submitVerifyTelegram}
+              disabled={isLoading(updateUserLS) || isLoading(uploadFileLS) || isLoading(verifyTelegramLS)}
+            >
+              Получить код и открыть бота
+            </Button>               
+            </Grid2>
+          </CustomCard>
+        </Modal>
+      )}
     </Grid2>
   )
 }
+
+const Step = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.brand[500],
+  width: 24,
+  height: 24,
+  color: 'white',
+  borderRadius: '50%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+})) 
 
 export default ProfileCard
