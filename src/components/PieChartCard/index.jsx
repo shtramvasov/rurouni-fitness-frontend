@@ -38,7 +38,7 @@ function PieChartCard({ data, colors = [], title, resetFilter, titleKey = 'title
       {title && (
         <Grid2 sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
           <Grid2 size='grow'>
-            <Typography sx={{ fontSize: 16, fontWeight: 500, color: theme.palette.gray[900] }}>{title}</Typography>
+            <Typography sx={{ fontSize: 16, fontWeight: 500, ml: '30px', color: theme.palette.gray[900] }}>{title}</Typography>
           </Grid2>
           <Grid2>
             <Tooltip title='Выбрать период'>
@@ -76,7 +76,7 @@ function PieChartCard({ data, colors = [], title, resetFilter, titleKey = 'title
             <PieChart
               colors={[theme.palette.gray[300], theme.palette.gray[400], theme.palette.gray[500]]}
               margin={{
-                left: 50,
+                left: 80,
                 right: 80,
                 top: 80,
                 bottom: 80,
