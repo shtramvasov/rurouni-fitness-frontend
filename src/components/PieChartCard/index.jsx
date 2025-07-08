@@ -25,7 +25,7 @@ function PieChartCard({ data, colors = [], title, resetFilter, titleKey = 'title
     <Grid2 container sx={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', pb: 2 }}>
     <CustomCard 
       sx={{  
-        p: 3, 
+        p: { xs: 1, md: 3 }, 
         width: "100%",
         minHeight: '100%',
         justifyContent: 'center',
@@ -35,7 +35,19 @@ function PieChartCard({ data, colors = [], title, resetFilter, titleKey = 'title
         "&:hover": { boxShadow: theme.shadows[2] }
       }}
     >
-      {title && (<Typography sx={{ fontSize: 16, fontWeight: 500, color: theme.palette.gray[900] }}>{title}</Typography>)}
+      {title && (
+        <Grid2 sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+          <Grid2 size='grow' >
+            <Typography sx={{ fontSize: 16, fontWeight: 500, color: theme.palette.gray[900] }}>{title}</Typography>
+          </Grid2>
+          <Grid2>
+            <Tooltip title='Выбрать период'>
+              <IconButton onClick={(e) => setOpenMenu({ anchor: e.currentTarget, isOpen: !openMenu.isOpen })}  size='small'><MoreVert /></IconButton>
+            </Tooltip>
+            <ChartMenu resetFilter={resetFilter} anchor={openMenu.anchor} isOpen={openMenu.isOpen} onClose={(e) => setOpenMenu({ anchor: null, isOpen: false })} />
+          </Grid2>
+        </Grid2>
+      )}
 
       {isFailed(loadingState) && (<UIAlert />)}
 
@@ -60,14 +72,7 @@ function PieChartCard({ data, colors = [], title, resetFilter, titleKey = 'title
 
       {(isSuccess(loadingState) && chartData.resultData.length > 0) && (
         <>
-          <Grid2 sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', position: 'relative' }}>
-            <Box sx={{ position: 'absolute', top: -30, right: 0 }}>
-              <Tooltip title='Выбрать период'>
-                <IconButton onClick={(e) => setOpenMenu({ anchor: e.currentTarget, isOpen: !openMenu.isOpen })}  size='small'><MoreVert /></IconButton>
-              </Tooltip>
-              <ChartMenu resetFilter={resetFilter} anchor={openMenu.anchor} isOpen={openMenu.isOpen} onClose={(e) => setOpenMenu({ anchor: null, isOpen: false })} />
-            </Box>
-
+          <Grid2 sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
             <PieChart
               colors={[theme.palette.gray[300], theme.palette.gray[400], theme.palette.gray[500]]}
               margin={{
