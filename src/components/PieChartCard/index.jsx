@@ -37,7 +37,7 @@ function PieChartCard({ data, colors = [], title, resetFilter, titleKey = 'title
     >
       {title && (
         <Grid2 sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-          <Grid2 size='grow' >
+          <Grid2 size='grow'>
             <Typography sx={{ fontSize: 16, fontWeight: 500, color: theme.palette.gray[900] }}>{title}</Typography>
           </Grid2>
           <Grid2>
@@ -76,7 +76,7 @@ function PieChartCard({ data, colors = [], title, resetFilter, titleKey = 'title
             <PieChart
               colors={[theme.palette.gray[300], theme.palette.gray[400], theme.palette.gray[500]]}
               margin={{
-                left: 80,
+                left: 50,
                 right: 80,
                 top: 80,
                 bottom: 80,
