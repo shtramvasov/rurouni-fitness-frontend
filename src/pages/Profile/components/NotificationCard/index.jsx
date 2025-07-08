@@ -24,8 +24,8 @@ function NotificationCard() {
   })
 
   const [telegramSettings, setTelegramSettings] = useState({
-    workout_reminders:      user.settings.telegram_security_alerts    ?? false,
-    security_alerts:        user.settings.telegram_workout_reminders  ?? false
+    workout_reminders:      user.settings.telegram_workout_reminders    ?? false,
+    security_alerts:        user.settings.telegram_security_alerts      ?? false
   })
 
   const submitEmail = async () => {
