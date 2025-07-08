@@ -1,12 +1,13 @@
 import { createSlice  } from '@reduxjs/toolkit';
 import { LOADING_STATUS } from '@constants/redux.constants';
-import { updateUser, resetPassword, getRecentLogins, updateUserSettings } from './users.thunks';
+import { updateUser, resetPassword, getRecentLogins, updateUserSettings, verifyTelegram } from './users.thunks';
 
 
 const initialState = {
   updateUserLS:     LOADING_STATUS.IDLE,
   resetPasswordLS:  LOADING_STATUS.IDLE,
   updateUserSettingsLS: LOADING_STATUS.IDLE,
+  verifyTelegramLS: LOADING_STATUS.IDLE,
 
   recentLoginsList: {
     data: [],
@@ -22,7 +23,8 @@ const usersSlice = createSlice({
     clearupdateUserLS(state) { state.updateUserLS = initialState.updateUserLS },
     clearResetPasswordLS(state) { state.resetPasswordLS = initialState.resetPasswordLS },
     clearRecentLoginsList(state) { state.recentLoginsList = initialState.recentLoginsList },
-    clearUpdateUserSettingsLS(state) { state.updateUserSettingsLS = initialState.updateUserSettingsLS }
+    clearUpdateUserSettingsLS(state) { state.updateUserSettingsLS = initialState.updateUserSettingsLS },
+    clearVerifyTelegramLS(state) { state.verifyTelegramLS = initialState.verifyTelegramLS },
   },
   extraReducers: (builder) => {
     // updateUser
@@ -46,9 +48,14 @@ const usersSlice = createSlice({
     builder.addCase(updateUserSettings.pending,    (state) => { state.updateUserSettingsLS = LOADING_STATUS.LOADING })
     builder.addCase(updateUserSettings.rejected,   (state) => { state.updateUserSettingsLS = LOADING_STATUS.FAILED })
     builder.addCase(updateUserSettings.fulfilled,  (state, action) => { state.updateUserSettingsLS = LOADING_STATUS.SUCCESS});
+
+    // verifyTelegram
+    builder.addCase(verifyTelegram.pending,    (state) => { state.verifyTelegramLS = LOADING_STATUS.LOADING })
+    builder.addCase(verifyTelegram.rejected,   (state) => { state.verifyTelegramLS = LOADING_STATUS.FAILED })
+    builder.addCase(verifyTelegram.fulfilled,  (state, action) => { state.verifyTelegramLS = LOADING_STATUS.SUCCESS});
   }
 });
 
 
-export const { clearupdateUserLS, clearResetPasswordLS, clearRecentLoginsList, clearUpdateUserSettingsLS } = usersSlice.actions;
+export const { clearupdateUserLS, clearResetPasswordLS, clearRecentLoginsList, clearUpdateUserSettingsLS, clearVerifyTelegramLS } = usersSlice.actions;
 export default usersSlice.reducer;

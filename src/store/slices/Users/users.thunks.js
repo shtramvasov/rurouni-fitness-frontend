@@ -21,3 +21,8 @@ export const updateUserSettings = createAsyncThunk(
   'auth/updateUserSettings', 
   async ({ params }) => await UsersController.updateUserSettings(params)
 )
+
+export const verifyTelegram = createAsyncThunk(
+  'auth/verifyTelegram', 
+  async ({ params }) => await UsersController.verifyTelegram(params)
+)

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { CustomCard, UIAlert } from "@components/index"
-import { Button, CircularProgress, Grid2, TextField, IconButton, Typography, useTheme, Switch, Divider } from "@mui/material"
+import { CustomCard } from "@components/index"
+import { Button, CircularProgress, Grid2, IconButton, Typography, useTheme, Switch, Divider } from "@mui/material"
 import { EmailOutlined, Telegram } from "@mui/icons-material"
 import { isLoading } from "@constants/redux.constants"
 import { isFulfilled } from "@reduxjs/toolkit"
@@ -39,7 +39,7 @@ function NotificationCard() {
 
       if(isFulfilled(response)) {
         toast.success('Изменения сохранены')
-        dispatch(clearupdateUserLS())
+        dispatch(clearUpdateUserSettingsLS())
       }
     }
   }
@@ -55,7 +55,7 @@ function NotificationCard() {
 
       if(isFulfilled(response)) {
         toast.success('Изменения сохранены')
-        dispatch(clearupdateUserLS())
+        dispatch(clearUpdateUserSettingsLS())
       }
     }
   }

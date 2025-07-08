@@ -16,4 +16,8 @@ export default class UsersController {
   static async updateUserSettings(params) {
     return await apiClient.put(`/users/settings`, { ...params });
   }
+
+  static async verifyTelegram(params) {
+    return await apiClient.get(`/users/verify`, { ...params });
+  }
 }

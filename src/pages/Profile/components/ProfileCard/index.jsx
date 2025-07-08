@@ -3,9 +3,9 @@ import { CustomCard } from "@components/index"
 import { useDispatch, useSelector } from "react-redux"
 import { capitalizeFirstLetter } from "@helpers/capitalizeFirstLetter"
 import { Avatar, Box, Button, CircularProgress, Divider, Grid2, TextField, ToggleButton, ToggleButtonGroup, Tooltip, Typography, useTheme } from "@mui/material"
-import { Female, Male, Add, Close } from "@mui/icons-material"
-import { updateUser } from "@store/slices/Users/users.thunks"
-import { clearupdateUserLS } from "@store/slices/Users/users.slice"
+import { Female, Male, Add, Close, Telegram } from "@mui/icons-material"
+import { updateUser, verifyTelegram } from "@store/slices/Users/users.thunks"
+import { clearupdateUserLS, clearVerifyTelegramLS } from "@store/slices/Users/users.slice"
 import { isLoading } from "@constants/redux.constants"
 import { isFulfilled, isRejected } from "@reduxjs/toolkit"
 import toast from "react-hot-toast"
@@ -21,7 +21,7 @@ function ProfileCard() {
   const fileInputRef = useRef(null)
 
   const { user } = useSelector(state => state.auth)
-  const { updateUserLS } = useSelector(state => state.users)
+  const { updateUserLS, verifyTelegramLS } = useSelector(state => state.users)
   const { uploadFileLS } = useSelector(state => state.files)
 
   const [submitData, setSubmitData] = useState({
@@ -99,6 +99,23 @@ function ProfileCard() {
       if(response.error) toast.error(response.error)
       clearImage()
     }
+  }
+
+  const submitVerifyTelegram = async () => {
+    if(isLoading(verifyTelegramLS)) return;
+
+    const response = await dispatch(verifyTelegram({}))
+
+    if(isFulfilled(response)) {
+      toast.success('На вашу почту отправлено письмо с кодом подтверждения')
+      window.open(import.meta.env.VITE_TG_BOT_URL, '_blank');
+    }
+
+    if(isRejected(response) || response.error) {
+       toast.error('Призошла ошибка')
+    }
+
+    dispatch(clearVerifyTelegramLS())
   }
 
   // Показываем превью новой аватарки если она выбрана
@@ -186,6 +203,18 @@ function ProfileCard() {
         <Divider />
 
         <Grid2 container sx={{ flexDirection: 'column', gap: 3 }}>
+          {user.telegram_id && (          
+            <Grid2 sx={{ display: 'flex', flexDirection: 'column' }} size={12}>
+              <Typography variant="caption" fontWeight={500}>Телеграм аккаунт</Typography>
+              <TextField 
+                fullWidth
+                value={`@${user.telegram}`}
+                size="small"
+                disabled
+              />
+            </Grid2>
+          )}
+
           <Grid2 sx={{ display: 'flex', flexDirection: 'column' }} size={12}>
             <Typography variant="caption" fontWeight={500}>Отображаемое имя в профиле</Typography>
             <TextField 
@@ -194,7 +223,7 @@ function ProfileCard() {
               value={submitData.display_name}
               placeholder="Отображаемое имя в профиле"
               size="small"
-              disabled={isLoading(updateUserLS) || isLoading(uploadFileLS)}
+              disabled={isLoading(updateUserLS) || isLoading(uploadFileLS) || isLoading(verifyTelegramLS)}
             />
           </Grid2>
 
@@ -203,7 +232,7 @@ function ProfileCard() {
             <ToggleButtonGroup
               value={submitData.gender}
               exclusive
-              disabled={isLoading(updateUserLS) || isLoading(uploadFileLS)}
+              disabled={isLoading(updateUserLS) || isLoading(uploadFileLS) || isLoading(verifyTelegramLS)}
               onChange={(e, newValue) => setSubmitData(prev => ({...prev, gender: newValue }))}
             >
               <ToggleButton value='M'><Male sx={{ fontSize: 20 }} /></ToggleButton>
@@ -212,16 +241,29 @@ function ProfileCard() {
           </Grid2>
         </Grid2>
 
-        <Grid2 sx={{ pt: 3 }}>
+        <Grid2 container spacing={2} sx={{ pt: 3 }}>
+          {!user.telegram_id && (
+            <Grid2>
+              <Button
+                  startIcon={isLoading(verifyTelegramLS) ? <CircularProgress color='inherit' size={16} /> : <Telegram />} 
+                  disabled={isLoading(updateUserLS) || isLoading(uploadFileLS) || isLoading(verifyTelegramLS)}
+                  onClick={submitVerifyTelegram} 
+                  color="primary"
+                  variant="contained"
+                >
+                  Привязать телеграм
+              </Button>
+            </Grid2>
+          )}
           <Button 
             startIcon={isLoading(updateUser) && <CircularProgress color='inherit' size={16} />} 
-            disabled={isLoading(updateUserLS) || isLoading(uploadFileLS)}
+            disabled={isLoading(updateUserLS) || isLoading(uploadFileLS) || isLoading(verifyTelegramLS)}
             onClick={submit} 
             color="secondary"
             variant="contained"
           >
             Сохранить изменения
-          </Button>
+          </Button>         
         </Grid2>
       </CustomCard>
     </Grid2>
