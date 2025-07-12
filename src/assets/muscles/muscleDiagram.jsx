@@ -78,8 +78,8 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         <g 
           id="forearm" 
           style={{ 
-            opacity: activeIds.includes('biceps') ? 1 : 0, 
-            cursor: activeIds.includes('biceps') ? 'pointer' : 'default',
+            opacity: activeIds.includes('forearm') ? 1 : 0, 
+            cursor: activeIds.includes('forearm') ? 'pointer' : 'default',
             transition: 'opacity ease-in-out 0.25s'
           }} 
           onMouseEnter={(e) => onMouseEnter(e, 'предплечья')} 
@@ -314,8 +314,8 @@ function MuscleDiagram({ activeMuscles, onMouseEnter, onMuscleLeave }) {
         <g 
           id="forearm" 
           style={{ 
-            opacity: activeIds.includes('biceps') ? 1 : 0, 
-            cursor: activeIds.includes('biceps') ? 'pointer' : 'default',
+            opacity: activeIds.includes('forearm') ? 1 : 0, 
+            cursor: activeIds.includes('forearm') ? 'pointer' : 'default',
             transition: 'opacity ease-in-out 0.25s' 
           }} 
           onMouseEnter={(e) => onMouseEnter(e, 'предплечья')} 
