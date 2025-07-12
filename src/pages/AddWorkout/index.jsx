@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { getExercisesList } from "@store/slices/Exercises/exercises.thunks";
 import { getTrainingProgramsList } from "@store/slices/TrainingPrograms/training_programs.thunks";
 import { postWorkout } from "@store/slices/Workouts/workouts.thunks";
 import { clearCreateWorkoutLS } from "@store/slices/Workouts/workouts.slice";
-import { Grid2, useTheme, Typography, Divider, TextField, Autocomplete, OutlinedInput, styled, Button, IconButton, Tooltip, CircularProgress, FormControl, FormHelperText, Grid } from "@mui/material";
+import { Grid2, useTheme, Typography, Divider, TextField, Autocomplete, OutlinedInput, styled, Button, IconButton, Tooltip, CircularProgress, FormControl, FormHelperText } from "@mui/material";
 import { Add, Delete, Done } from "@mui/icons-material";
 import { isFulfilled } from "@reduxjs/toolkit";
 import { isSuccess, isLoading, isFailed } from "@constants/redux.constants";
@@ -26,6 +26,8 @@ function AddWorkout() {
   const { trainingProgramsList } = useSelector(state => state.trainingPrograms)
   const { createWorkoutLS } = useSelector(state => state.workouts)
 
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const initialData = {
     program_id:     undefined,
     title:          undefined,
@@ -41,6 +43,18 @@ function AddWorkout() {
     dispatch(getTrainingProgramsList({ params: { is_active: true }}))
     dispatch(getExercisesList({ params: { limit: 200 } }))
   }, [])
+
+  // Если есть ид тренировочной программы в юрл
+  useEffect(() => {
+    const program_id = searchParams.get('program_id')
+
+    // Если нашлось, то педустанавливаем программу тренировок
+    if(program_id && trainingProgramsList.data) {
+      handleProgramChange(null, { program_id })
+    }
+
+  }, [searchParams, trainingProgramsList.data])
+
 
   const handleExerciseChange = (index, field, value) => {
     let sanitizedValue = value;
@@ -113,7 +127,7 @@ function AddWorkout() {
         reps:       ex.recent_reps    || ex.reps || null
       }));
   
-      setSubmitData({ ...submitData, title: newValue.name, exercises: updatedExercises });
+      setSubmitData({ ...submitData, title: selectedProgram.name, exercises: updatedExercises });
     }
   };
 
