@@ -30,6 +30,8 @@ function ProfileCard() {
     file:           null
   })
 
+  const username = user.display_name ?? user.username;
+
   const [openModal, setOpenModal] = useState(false)
 
   useEffect(() => {
@@ -143,7 +145,7 @@ function ProfileCard() {
                   src={avatarSrc} 
                   sx={{ bgcolor: theme.palette.primary.main, width: 100, height: 100, fontSize: 48, transition: 'opacity 0.3s ease', '&:hover': { opacity: 0.7 }}}
                 >
-                  {capitalizeFirstLetter(user.username.charAt(0))}
+                  {capitalizeFirstLetter(username.charAt(0))}
                 </Avatar>
     
                 <Tooltip placement="right" title='Загрузить аватар'>
