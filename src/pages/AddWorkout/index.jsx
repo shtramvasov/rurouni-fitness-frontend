@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
-import { getExercisesList } from "@store/slices/Exercises/exercises.thunks";
+import { getExerciseDetails, getExercisesList } from "@store/slices/Exercises/exercises.thunks";
 import { getTrainingProgramsList } from "@store/slices/TrainingPrograms/training_programs.thunks";
 import { postWorkout } from "@store/slices/Workouts/workouts.thunks";
 import { clearCreateWorkoutLS } from "@store/slices/Workouts/workouts.slice";
@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import toast from "react-hot-toast";
 import { validateField, validateNumber } from "@helpers/validations";
 import { ROUTES } from "@constants/routes.constants";
+import { sanitizeWeight } from "@helpers/sanitizeWeight";
 
 
 function AddWorkout() {
@@ -22,7 +23,7 @@ function AddWorkout() {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const { exercisesList } = useSelector(state => state.exercises)
+  const { exercisesList, exerciseDetails } = useSelector(state => state.exercises)
   const { trainingProgramsList } = useSelector(state => state.trainingPrograms)
   const { createWorkoutLS } = useSelector(state => state.workouts)
 
@@ -44,6 +45,7 @@ function AddWorkout() {
     dispatch(getExercisesList({ params: { limit: 200 } }))
   }, [])
 
+
   // Если есть ид тренировочной программы в юрл
   useEffect(() => {
     const program_id = searchParams.get('program_id')
@@ -56,41 +58,42 @@ function AddWorkout() {
   }, [searchParams, trainingProgramsList.data])
 
 
-  const handleExerciseChange = (index, field, value) => {
+  const handleExerciseChange = async (index, field, value) => {
     let sanitizedValue = value;
+
+    if(field === 'exercse_id') {
+      const exercise = await dispatch(getExerciseDetails(value));
+
+      if(isFulfilled(exercise)) {
+        const { history } = exercise.payload;
+
+        setSubmitData((prev) => {
+          const updatedExercises = [...prev.exercises];
+          updatedExercises[index][field] = sanitizedValue;
+          
+          // Если есть история, берем последнюю запись
+          if (history && history.length > 0) {
+            const lastHistory = history[0]; // берем первую (последнюю) запись из истории
+            updatedExercises[index].weight = sanitizeWeight(lastHistory.weight) || undefined;
+            updatedExercises[index].sets = lastHistory.sets.replace(/\D/g, '').slice(0, 2) || undefined;
+            updatedExercises[index].reps = lastHistory.reps.replace(/\D/g, '').slice(0, 2) || undefined;
+          } else {
+            // Если истории нет, сбрасываем значения
+            updatedExercises[index].weight = '';
+            updatedExercises[index].sets = '';
+            updatedExercises[index].reps = '';
+          }
+          
+          return { ...prev, exercises: updatedExercises };
+        });
+
+        return;
+      }
+    }
   
     if (field === "weight") {
       // 1. Заменяем запятую на точку
-      sanitizedValue = value.replace(/,/g, '.');
-      
-      // 2. Удаляем всё, кроме цифр и точек
-      sanitizedValue = sanitizedValue.replace(/[^\d.]/g, '');
-      
-      // 3. Разделяем на части до и после точки
-      const parts = sanitizedValue.split('.');
-      
-      // 4. Обрабатываем часть до точки (макс 3 цифры)
-      if (parts[0]) {
-        parts[0] = parts[0].slice(0, 3); // Ограничиваем 3 цифрами
-      }
-      
-      // 5. Обрабатываем часть после точки (макс 2 цифры)
-      if (parts[1]) {
-        parts[1] = parts[1].slice(0, 2); // Ограничиваем 2 цифрами
-      }
-      
-      // 6. Собираем обратно
-      sanitizedValue = parts[0];
-      if (parts.length > 1) {
-        sanitizedValue += '.' + parts[1];
-      }
-      
-      // 7. Удаляем лишние точки (оставляем только первую)
-      const pointIndex = sanitizedValue.indexOf('.');
-      if (pointIndex !== -1) {
-        sanitizedValue = sanitizedValue.substring(0, pointIndex + 1) + 
-                         sanitizedValue.substring(pointIndex + 1).replace(/\./g, '');
-      }
+      sanitizedValue = sanitizeWeight(value);
     } 
     else if (field === "sets" || field === "reps") {
       // Для sets/reps - только целые числа
