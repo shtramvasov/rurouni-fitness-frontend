@@ -22,7 +22,7 @@ export function ProgramDetail({program, onClose}) {
   const [errors, setErrors] = useState({ title: false, exercises: [] });
 
   useEffect(() => {
-    dispatch(getExercisesList({}))
+    dispatch(getExercisesList({ params: { limit: 200 } }))
   }, [])
 
   const handleExerciseChange = (index, field, value) => {
