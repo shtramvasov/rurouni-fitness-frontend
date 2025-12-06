@@ -343,27 +343,47 @@ function AddWorkout() {
                       </div>
                     </li>
                   )}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      placeholder="Упражнение"
-                      size="small"
-                      error={!!errors.exercises[exercise.id]?.exercse_id}
-                      helperText={errors.exercises[exercise.id]?.exercse_id}
-                      fullWidth                   
-                      slotProps={{
-                        input: {
-                          ...params.InputProps,
-                          endAdornment: (
-                            <>
-                              {isLoading(exercisesList.loadingStatus) && <CircularProgress color="inherit" size={16} />}
-                              {params.InputProps?.endAdornment}
-                            </>
-                          ),
-                        },
-                      }}
-                    />
-                  )}
+                  renderInput={(params) => {
+                    const selectedExercise = exercisesList.data.find(ex => ex.exercise_id == exercise.exercse_id);
+                    
+                    return (
+                      <TextField
+                        {...params}
+                        placeholder="Упражнение"
+                        size="small"
+                        error={!!errors.exercises[exercise.id]?.exercse_id}
+                        helperText={errors.exercises[exercise.id]?.exercse_id}
+                        fullWidth                   
+                        slotProps={{
+                          input: {
+                            ...params.InputProps,
+                            startAdornment: selectedExercise?.image_url ? (
+                              <>
+                                <img 
+                                  src={selectedExercise.image_url} 
+                                  alt={selectedExercise.name}
+                                  style={{ 
+                                    width: 30, 
+                                    height: 30, 
+                                    objectFit: 'cover', 
+                                    borderRadius: 0,
+                                    marginRight: 0 
+                                  }}
+                                />
+                                {params.InputProps.startAdornment}
+                              </>
+                            ) : params.InputProps.startAdornment,
+                            endAdornment: (
+                              <>
+                                {isLoading(exercisesList.loadingStatus) && <CircularProgress color="inherit" size={16} />}
+                                {params.InputProps?.endAdornment}
+                              </>
+                            ),
+                          },
+                        }}
+                      />
+                    );
+                  }}
                 />
               </Grid2>
 
