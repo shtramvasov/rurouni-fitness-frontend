@@ -49,7 +49,7 @@ export function ProgramDetail({program, onClose}) {
   };
 
   const addExercise = () => {
-    setSubmitData((prev) => ({...prev, exercises: [...prev.exercises, { id: Date.now(), exercise_id: null, weight: null, sets: null, reps: null }]}));
+    setSubmitData((prev) => ({...prev, exercises: [...prev.exercises, { id: Date.now(), exercise_id: null, weight: null, sets: null, reps: null, exercise_order: null, room: null }]}));
   };
 
   const removeExercise = (id) => {
