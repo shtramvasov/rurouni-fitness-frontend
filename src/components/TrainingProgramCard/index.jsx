@@ -97,7 +97,7 @@ export function TrainingProgramCard({ program, verbose, open = true, handleClick
                   }}
                 >
                   <Grid2 size="auto">
-                    <Typography variant="caption" color={theme.palette.gray[500]}>{++index}</Typography>
+                    <Typography variant="caption" color={theme.palette.gray[500]}>{exercise.exercise_order ?? ++index}</Typography>
                   </Grid2>
 
                   <Grid2 size='auto'>
